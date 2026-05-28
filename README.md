@@ -1,6 +1,6 @@
-# LumaUI (Ver. 1.0.0)
+# LumaUI (Ver. 1.1.0)
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/oSsmXun256/lumaui/releases)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/oSsmXun256/lumaui/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
