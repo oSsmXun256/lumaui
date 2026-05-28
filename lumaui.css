@@ -29,20 +29,20 @@
   --luma-border-strong: rgba(0, 0, 0, 0.32);  /* 最強境界 */
 
   /* ── Neumorphism シャドウ（ライト） ── */
-  /* 凸（押し出し）: 明 + 暗 */
+  /* 凸（押し出し）: 明 + 暗 （★ほんの少し薄く調整） */
   --luma-neu-convex:
-    4px 4px 10px rgba(0, 0, 0, 0.18),
-    -4px -4px 10px rgba(255, 255, 255, 0.80);
+    4px 4px 10px rgba(0, 0, 0, 0.12),
+    -4px -4px 10px rgba(255, 255, 255, 0.85);
 
-  /* 凹（押し込み）: 内側シャドウ */
+  /* 凹（押し込み）: 内側シャドウ （★ほんの少し薄く調整） */
   --luma-neu-inset:
-    inset 3px 3px 7px rgba(0, 0, 0, 0.16),
-    inset -3px -3px 7px rgba(255, 255, 255, 0.75);
+    inset 3px 3px 7px rgba(0, 0, 0, 0.10),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.80);
 
-  /* カード用: 弱い凸（ほぼフラット） */
+  /* カード用: 弱い凸（ほぼフラット）（★ほんの少し薄く調整） */
   --luma-card-shadow:
-    2px 2px 6px rgba(0, 0, 0, 0.10),
-    -2px -2px 6px rgba(255, 255, 255, 0.70);
+    2px 2px 6px rgba(0, 0, 0, 0.06),
+    -2px -2px 6px rgba(255, 255, 255, 0.75);
 
   /* ── タイポグラフィ ── */
   --luma-font-sans:   "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
@@ -86,17 +86,18 @@
     --luma-border-mid:  rgba(255, 255, 255, 0.18);
     --luma-border-strong: rgba(255, 255, 255, 0.28);
 
+    /* ★ダークテーマの影もマイルドに調整 */
     --luma-neu-convex:
-      4px 4px 10px rgba(0, 0, 0, 0.50),
-      -4px -4px 10px rgba(255, 255, 255, 0.05);
+      4px 4px 10px rgba(0, 0, 0, 0.35),
+      -4px -4px 10px rgba(255, 255, 255, 0.04);
 
     --luma-neu-inset:
-      inset 3px 3px 8px rgba(0, 0, 0, 0.55),
-      inset -3px -3px 8px rgba(255, 255, 255, 0.04);
+      inset 3px 3px 8px rgba(0, 0, 0, 0.40),
+      inset -3px -3px 8px rgba(255, 255, 255, 0.03);
 
     --luma-card-shadow:
-      2px 2px 6px rgba(0, 0, 0, 0.45),
-      -2px -2px 6px rgba(255, 255, 255, 0.04);
+      2px 2px 6px rgba(0, 0, 0, 0.30),
+      -2px -2px 6px rgba(255, 255, 255, 0.03);
   }
 }
 
@@ -116,14 +117,14 @@
   --luma-border-mid:  rgba(0, 0, 0, 0.20);
   --luma-border-strong: rgba(0, 0, 0, 0.32);
   --luma-neu-convex:
-    4px 4px 10px rgba(0, 0, 0, 0.18),
-    -4px -4px 10px rgba(255, 255, 255, 0.80);
+    4px 4px 10px rgba(0, 0, 0, 0.12),
+    -4px -4px 10px rgba(255, 255, 255, 0.85);
   --luma-neu-inset:
-    inset 3px 3px 7px rgba(0, 0, 0, 0.16),
-    inset -3px -3px 7px rgba(255, 255, 255, 0.75);
+    inset 3px 3px 7px rgba(0, 0, 0, 0.10),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.80);
   --luma-card-shadow:
-    2px 2px 6px rgba(0, 0, 0, 0.10),
-    -2px -2px 6px rgba(255, 255, 255, 0.70);
+    2px 2px 6px rgba(0, 0, 0, 0.06),
+    -2px -2px 6px rgba(255, 255, 255, 0.75);
 }
 
 [data-theme="dark"] {
@@ -141,14 +142,14 @@
   --luma-border-mid:  rgba(255, 255, 255, 0.18);
   --luma-border-strong: rgba(255, 255, 255, 0.28);
   --luma-neu-convex:
-    4px 4px 10px rgba(0, 0, 0, 0.50),
-    -4px -4px 10px rgba(255, 255, 255, 0.05);
+    4px 4px 10px rgba(0, 0, 0, 0.35),
+    -4px -4px 10px rgba(255, 255, 255, 0.04);
   --luma-neu-inset:
-    inset 3px 3px 8px rgba(0, 0, 0, 0.55),
-    inset -3px -3px 8px rgba(255, 255, 255, 0.04);
+    inset 3px 3px 8px rgba(0, 0, 0, 0.40),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.03);
   --luma-card-shadow:
-    2px 2px 6px rgba(0, 0, 0, 0.45),
-    -2px -2px 6px rgba(255, 255, 255, 0.04);
+    2px 2px 6px rgba(0, 0, 0, 0.30),
+    -2px -2px 6px rgba(255, 255, 255, 0.03);
 }
 
 
@@ -323,18 +324,25 @@ a:hover {
     border-color var(--luma-trans-fast);
 }
 
-/* ホバー: 影が少し強くなる */
+/* ホバー: 影が少し強くなる （★ほんの少し薄く調整） */
 .luma-btn:hover:not(:disabled) {
   box-shadow:
-    5px 5px 12px rgba(0, 0, 0, 0.22),
-    -5px -5px 12px rgba(255, 255, 255, 0.82);
+    5px 5px 12px rgba(0, 0, 0, 0.15),
+    -5px -5px 12px rgba(255, 255, 255, 0.88);
 }
-[data-theme="dark"] .luma-btn:hover:not(:disabled),
+
+/* 【✅修正箇所】構文エラーだったメディアクエリとの直接結合を解消 */
+[data-theme="dark"] .luma-btn:hover:not(:disabled) {
+  box-shadow:
+    5px 5px 12px rgba(0, 0, 0, 0.45),
+    -5px -5px 12px rgba(255, 255, 255, 0.05);
+}
+
 @media (prefers-color-scheme: dark) {
   .luma-btn:hover:not(:disabled) {
     box-shadow:
-      5px 5px 12px rgba(0, 0, 0, 0.60),
-      -5px -5px 12px rgba(255, 255, 255, 0.06);
+      5px 5px 12px rgba(0, 0, 0, 0.45),
+      -5px -5px 12px rgba(255, 255, 255, 0.05);
   }
 }
 
@@ -816,11 +824,28 @@ a:hover {
     box-shadow var(--luma-trans-base),
     background var(--luma-trans-fast);
 }
+
+/* ★ホバー時の影をマイルドに調整（ライト・ダークを分離） */
 .luma-theme-toggle:hover {
   box-shadow:
-    5px 5px 12px rgba(0, 0, 0, 0.22),
-    -5px -5px 12px rgba(255, 255, 255, 0.82);
+    5px 5px 12px rgba(0, 0, 0, 0.15),
+    -5px -5px 12px rgba(255, 255, 255, 0.88);
 }
+
+[data-theme="dark"] .luma-theme-toggle:hover {
+  box-shadow:
+    5px 5px 12px rgba(0, 0, 0, 0.45),
+    -5px -5px 12px rgba(255, 255, 255, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  .luma-theme-toggle:hover {
+    box-shadow:
+      5px 5px 12px rgba(0, 0, 0, 0.45),
+      -5px -5px 12px rgba(255, 255, 255, 0.05);
+  }
+}
+
 .luma-theme-toggle:active {
   box-shadow: var(--luma-neu-inset);
 }
@@ -1095,3 +1120,5 @@ a:hover {
 
 /* 表示制御 */
 .luma-hidden { display: none !important; }
+
+/* 【✅修正箇所】末尾にあった余分な閉じ括弧「}」を削除 */
