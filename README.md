@@ -1,6 +1,6 @@
-# LumaUI (Ver. 1.1.0)
+# LumaUI (Ver. 1.2.0)
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/oSsmXun256/lumaui/releases)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/oSsmXun256/lumaui/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
@@ -13,6 +13,3 @@ LumaUIは、シンプルさと実用性を重視したCSS + JSベースのUIシ�
 - Neumorphismを控えめに取り入れたデザイン
 
 フレームワークに依存せず、直感的に使えることを目的としています。
-
-## 今後の予定
-- [ ] スマホ対応
