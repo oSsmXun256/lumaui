@@ -1,13 +1,13 @@
 /* ============================================================
-   LumaUI Design System — v1.0
+   LumaUI Design System — v1.2
    フラット × 部分的Neumorphism
-   ライト / ダーク テーマ対応
+   ライト / ダーク テーマ対応 & スマホ・タブレット完全対応
    ============================================================ */
 
 /* ------------------------------------------------------------
    1. CSS カスタムプロパティ（テーマトークン）
    ------------------------------------------------------------ */
-
+   
 :root {
   /* ── カラーパレット（ライト） ── */
   --luma-bg:          #f0f0f0;   /* ページ背景（Neumorphism用）*/
@@ -29,17 +29,14 @@
   --luma-border-strong: rgba(0, 0, 0, 0.32);  /* 最強境界 */
 
   /* ── Neumorphism シャドウ（ライト） ── */
-  /* 凸（押し出し）: 明 + 暗 （★ほんの少し薄く調整） */
   --luma-neu-convex:
     4px 4px 10px rgba(0, 0, 0, 0.12),
     -4px -4px 10px rgba(255, 255, 255, 0.85);
 
-  /* 凹（押し込み）: 内側シャドウ （★ほんの少し薄く調整） */
   --luma-neu-inset:
     inset 3px 3px 7px rgba(0, 0, 0, 0.10),
     inset -3px -3px 7px rgba(255, 255, 255, 0.80);
 
-  /* カード用: 弱い凸（ほぼフラット）（★ほんの少し薄く調整） */
   --luma-card-shadow:
     2px 2px 6px rgba(0, 0, 0, 0.06),
     -2px -2px 6px rgba(255, 255, 255, 0.75);
@@ -86,7 +83,6 @@
     --luma-border-mid:  rgba(255, 255, 255, 0.18);
     --luma-border-strong: rgba(255, 255, 255, 0.28);
 
-    /* ★ダークテーマの影もマイルドに調整 */
     --luma-neu-convex:
       4px 4px 10px rgba(0, 0, 0, 0.35),
       -4px -4px 10px rgba(255, 255, 255, 0.04);
@@ -188,7 +184,6 @@ a:hover {
   border-color: var(--luma-border-mid);
 }
 
-/* フォーカスリング（アクセシビリティ） */
 :focus-visible {
   outline: 2px solid var(--luma-on);
   outline-offset: 2px;
@@ -197,7 +192,7 @@ a:hover {
 
 
 /* ------------------------------------------------------------
-   3. タイポグラフィ
+   3. タイポグラフィ（レスポンシブ最適化）
    ------------------------------------------------------------ */
 
 .luma-h1 { font-size: 2rem;    font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--luma-fg); }
@@ -211,9 +206,16 @@ a:hover {
 .luma-label   { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; color: var(--luma-fg-muted); }
 .luma-mono    { font-family: var(--luma-font-mono); font-size: 0.875rem; }
 
+/* スマホ環境でのフォントサイズ調整 */
+@media (max-width: 768px) {
+  .luma-h1 { font-size: 1.6rem; }
+  .luma-h2 { font-size: 1.3rem; }
+  .luma-h3 { font-size: 1.1rem; }
+}
+
 
 /* ------------------------------------------------------------
-   4. レイアウト
+   4. レイアウト & グリッドシステム（レスポンシブ強化）
    ------------------------------------------------------------ */
 
 /* ページラッパー */
@@ -223,7 +225,7 @@ a:hover {
   padding: var(--luma-space-lg) var(--luma-space-md);
 }
 
-/* グリッドシステム */
+/* グリッド基盤 */
 .luma-grid {
   display: grid;
   gap: var(--luma-space-md);
@@ -233,22 +235,42 @@ a:hover {
 .luma-grid-4 { grid-template-columns: repeat(4, 1fr); }
 .luma-grid-auto { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 
+/* タブレットサイズ (1024px以下) の挙動 */
+@media (max-width: 1024px) {
+  .luma-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .luma-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* スマートフォンサイズ (768px以下) の挙動 */
 @media (max-width: 768px) {
+  .luma-page {
+    padding: var(--luma-space-md) var(--luma-space-sm);
+  }
   .luma-grid-2,
   .luma-grid-3,
-  .luma-grid-4 { grid-template-columns: 1fr; }
+  .luma-grid-4 { 
+    grid-template-columns: 1fr; 
+  }
 }
 
 /* フレックスユーティリティ */
-.luma-flex       { display: flex; }
-.luma-flex-center { display: flex; align-items: center; justify-content: center; }
+.luma-flex         { display: flex; }
+.luma-flex-center  { display: flex; align-items: center; justify-content: center; }
 .luma-flex-between { display: flex; align-items: center; justify-content: space-between; }
 .luma-gap-xs { gap: var(--luma-space-xs); }
 .luma-gap-sm { gap: var(--luma-space-sm); }
 .luma-gap-md { gap: var(--luma-space-md); }
 .luma-gap-lg { gap: var(--luma-space-lg); }
 
-/* スタック（縦並びFlexショートカット） */
+/* モバイル対応フレックス（スマホ時は縦並びにするオプション） */
+@media (max-width: 768px) {
+  .luma-flex-responsive {
+    flex-direction: column;
+    gap: var(--luma-space-md);
+  }
+}
+
+/* スタック */
 .luma-stack {
   display: flex;
   flex-direction: column;
@@ -259,7 +281,6 @@ a:hover {
 
 /* ------------------------------------------------------------
    5. カード（コンテナ）
-   フラットベース + ごく弱いNeumorphism
    ------------------------------------------------------------ */
 
 .luma-card {
@@ -267,7 +288,6 @@ a:hover {
   border-radius: var(--luma-radius-lg);
   border: 1px solid var(--luma-border);
   padding: var(--luma-space-lg);
-  /* カードは「ごく弱く適用」 */
   box-shadow: var(--luma-card-shadow);
 }
 
@@ -276,14 +296,18 @@ a:hover {
   border-radius: var(--luma-radius-md);
 }
 
-/* カードヘッダー区切り */
+@media (max-width: 768px) {
+  .luma-card {
+    padding: var(--luma-space-md);
+  }
+}
+
 .luma-card__header {
   padding-bottom: var(--luma-space-md);
   margin-bottom: var(--luma-space-md);
   border-bottom: 1px solid var(--luma-border);
 }
 
-/* インナーカード（入れ子コンテナ）*/
 .luma-inset {
   background: var(--luma-surface-alt);
   border-radius: var(--luma-radius-md);
@@ -294,7 +318,6 @@ a:hover {
 
 /* ------------------------------------------------------------
    6. ボタン
-   Neumorphism適用 + 状態変化オプション
    ------------------------------------------------------------ */
 
 .luma-btn {
@@ -314,8 +337,6 @@ a:hover {
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-
-  /* Neumorphism: 凸状態 */
   box-shadow: var(--luma-neu-convex);
   transition:
     box-shadow var(--luma-trans-base),
@@ -324,14 +345,12 @@ a:hover {
     border-color var(--luma-trans-fast);
 }
 
-/* ホバー: 影が少し強くなる （★ほんの少し薄く調整） */
 .luma-btn:hover:not(:disabled) {
   box-shadow:
     5px 5px 12px rgba(0, 0, 0, 0.15),
     -5px -5px 12px rgba(255, 255, 255, 0.88);
 }
 
-/* 【✅修正箇所】構文エラーだったメディアクエリとの直接結合を解消 */
 [data-theme="dark"] .luma-btn:hover:not(:disabled) {
   box-shadow:
     5px 5px 12px rgba(0, 0, 0, 0.45),
@@ -346,13 +365,11 @@ a:hover {
   }
 }
 
-/* アクティブ: 凹状態（押し込み） */
 .luma-btn:active:not(:disabled) {
   box-shadow: var(--luma-neu-inset);
   border-color: var(--luma-border-strong);
 }
 
-/* プライマリボタン（色変化オプション） */
 .luma-btn--primary {
   background: var(--luma-on);
   color: #fff;
@@ -371,7 +388,6 @@ a:hover {
   box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20);
 }
 
-/* デストラクティブボタン */
 .luma-btn--danger {
   background: var(--luma-error);
   color: #fff;
@@ -387,7 +403,6 @@ a:hover {
   box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20);
 }
 
-/* アイコンボタン（正方形） */
 .luma-btn--icon {
   width: 40px;
   height: 40px;
@@ -395,7 +410,6 @@ a:hover {
   border-radius: var(--luma-radius-md);
 }
 
-/* 無効状態 */
 .luma-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
@@ -405,7 +419,6 @@ a:hover {
 
 /* ------------------------------------------------------------
    7. トグル（ON/OFF）
-   Neumorphism適用 + ONのみ強調（緑）
    ------------------------------------------------------------ */
 
 .luma-toggle {
@@ -429,7 +442,6 @@ a:hover {
   border-radius: var(--luma-radius-pill);
   background: var(--luma-surface-alt);
   border: 1px solid var(--luma-border-mid);
-  /* OFF: Neumorphism 凹 */
   box-shadow: var(--luma-neu-inset);
   transition:
     background var(--luma-trans-base),
@@ -447,7 +459,6 @@ a:hover {
   border-radius: 50%;
   background: var(--luma-fg-hint);
   border: 1px solid var(--luma-border-mid);
-  /* サム自体は小さな凸Neumorphism */
   box-shadow:
     2px 2px 5px rgba(0, 0, 0, 0.20),
     -1px -1px 3px rgba(255, 255, 255, 0.60);
@@ -459,7 +470,6 @@ a:hover {
   pointer-events: none;
 }
 
-/* ON状態: 緑強調 */
 .luma-toggle input:checked ~ .luma-toggle__track {
   background: var(--luma-on);
   border-color: var(--luma-on);
@@ -477,13 +487,11 @@ a:hover {
     -1px -1px 3px rgba(255, 255, 255, 0.90);
 }
 
-/* フォーカス表示 */
 .luma-toggle input:focus-visible ~ .luma-toggle__track {
   outline: 2px solid var(--luma-on);
   outline-offset: 2px;
 }
 
-/* ラベル付きトグルラッパー */
 .luma-toggle-row {
   display: flex;
   align-items: center;
@@ -499,7 +507,6 @@ a:hover {
 
 /* ------------------------------------------------------------
    8. スライダー
-   Neumorphism適用
    ------------------------------------------------------------ */
 
 .luma-slider-wrap {
@@ -527,7 +534,6 @@ a:hover {
   cursor: pointer;
 }
 
-/* サムネイル: Neumorphism 凸 */
 .luma-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -558,7 +564,6 @@ a:hover {
   cursor: grab;
 }
 
-/* アクセントカラー進行を擬似的に（Chromiumのみ） */
 .luma-slider--accent {
   background: linear-gradient(
     to right,
@@ -589,7 +594,6 @@ a:hover {
   background: var(--luma-surface);
   border: 1px solid var(--luma-border-mid);
   border-radius: var(--luma-radius-md);
-  /* インプットは凹Neumorphism */
   box-shadow: var(--luma-neu-inset);
   outline: none;
   transition:
@@ -612,13 +616,11 @@ a:hover {
     0 0 0 2px rgba(46, 158, 91, 0.18);
 }
 
-/* 数値入力（ダッシュボード） */
 .luma-input--number {
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
 
-/* エラー状態 */
 .luma-input--error {
   border-color: var(--luma-error);
   box-shadow:
@@ -626,7 +628,6 @@ a:hover {
     0 0 0 2px rgba(214, 48, 49, 0.15);
 }
 
-/* 入力グループ（プレフィックス/サフィックス付き） */
 .luma-input-group {
   display: flex;
   align-items: stretch;
@@ -684,12 +685,10 @@ a:hover {
   transition: width 0.4s ease;
 }
 
-/* エラー状態 */
 .luma-progress-bar--error {
   background: var(--luma-error);
 }
 
-/* 細めバリアント */
 .luma-progress-track--sm {
   height: 6px;
 }
@@ -725,7 +724,6 @@ a:hover {
   border-color: rgba(214, 48, 49, 0.30);
 }
 
-/* ステータスドット */
 .luma-badge::before {
   content: '';
   display: inline-block;
@@ -770,6 +768,12 @@ a:hover {
   font-variant-numeric: tabular-nums;
 }
 
+@media (max-width: 768px) {
+  .luma-metric__value {
+    font-size: 1.6rem;
+  }
+}
+
 .luma-metric__sub {
   font-size: 0.75rem;
   color: var(--luma-fg-muted);
@@ -781,7 +785,7 @@ a:hover {
 
 
 /* ------------------------------------------------------------
-   13. グラフコンテナ（詳細は別途実装）
+   13. グラフコンテナ（修正：不足していた棒グラフのスタイルを追加）
    ------------------------------------------------------------ */
 
 .luma-chart-area {
@@ -797,6 +801,22 @@ a:hover {
 .luma-chart-area__canvas {
   width: 100%;
   height: 100%;
+}
+
+.demo-chart-placeholder {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 140px;
+  padding-top: var(--luma-space-md);
+}
+
+.demo-bar {
+  width: 24px;
+  background: var(--luma-on);
+  border-radius: var(--luma-radius-sm) var(--luma-radius-sm) 0 0;
+  transition: height var(--luma-trans-base);
+  box-shadow: var(--luma-card-shadow);
 }
 
 
@@ -825,7 +845,6 @@ a:hover {
     background var(--luma-trans-fast);
 }
 
-/* ★ホバー時の影をマイルドに調整（ライト・ダークを分離） */
 .luma-theme-toggle:hover {
   box-shadow:
     5px 5px 12px rgba(0, 0, 0, 0.15),
@@ -852,7 +871,7 @@ a:hover {
 
 
 /* ------------------------------------------------------------
-   15. ナビゲーション（サイドバー / トップバー共通基盤）
+   15. ナビゲーション（修正：モバイル用スライドドロワーのスタイルを新規設計）
    ------------------------------------------------------------ */
 
 .luma-nav {
@@ -860,7 +879,7 @@ a:hover {
   border: 1px solid var(--luma-border);
 }
 
-/* サイドバー */
+/* サイドバー（PC用基本型） */
 .luma-nav--side {
   width: 240px;
   height: 100vh;
@@ -875,21 +894,90 @@ a:hover {
   flex-direction: column;
   padding: var(--luma-space-lg) 0;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+  z-index: 150;
 }
 
-/* トップバー */
+/* トップバー（PC時はデフォルト非表示） */
 .luma-nav--top {
+  display: none;
+}
+
+/* モバイル用インラインヘッダーの構造化 */
+.luma-mobile-bar {
   height: 60px;
   position: sticky;
   top: 0;
-  display: flex;
+  display: none;
   align-items: center;
   padding: 0 var(--luma-space-lg);
-  border-right: none;
-  border-left: none;
-  border-top: none;
-  box-shadow: 0 1px 0 var(--luma-border);
+  border-bottom: 1px solid var(--luma-border);
+  background: var(--luma-surface);
   z-index: 50;
+}
+
+/* モバイル用クローズボタン（デフォルト非表示） */
+#menuCloseBtn {
+  display: none;
+}
+
+/* 【重要】レスポンシブメディアクエリの再構築 */
+@media (max-width: 768px) {
+  .luma-mobile-bar {
+    display: flex; /* スマホ時のみ上部バーを表示 */
+  }
+
+  /* サイドバーを画面外（左側）に隠し、ドロワーメニューに変形 */
+  .luma-nav--side {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform var(--luma-trans-base);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+  }
+
+  /* JavaScriptでクラスが付与されたら画面内にスライドイン */
+  .luma-nav--side.is-open {
+    transform: translateX(0);
+  }
+
+  /* モバイル展開時は閉じる(✕)ボタンを表示 */
+  #menuCloseBtn {
+    display: inline-flex;
+  }
+
+  .luma-nav__brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 var(--luma-space-md) var(--luma-space-sm);
+    border-bottom: 1px solid var(--luma-border);
+    margin-bottom: var(--luma-space-sm);
+  }
+}
+
+/* サイドバー固定時に右側メインコンテンツに持たせる左余白 */
+.luma-main-with-sidebar {
+  margin-left: 240px;
+}
+@media (max-width: 768px) {
+  .luma-main-with-sidebar {
+    margin-left: 0; /* スマホ時はドロワー化するため余白をリセット */
+  }
+}
+
+/* ドロワー背面用の暗幕（オーバーレイ） */
+.luma-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--luma-trans-base);
+  z-index: 140;
+}
+.luma-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ナビリンク */
@@ -921,6 +1009,12 @@ a:hover {
   background: var(--luma-on-bg);
   border-right: 2px solid var(--luma-on);
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .luma-nav__link {
+    padding: var(--luma-space-sm) var(--luma-space-md);
+  }
 }
 
 /* ロゴ */
@@ -977,7 +1071,6 @@ a:hover {
   outline: none;
   appearance: none;
   -webkit-appearance: none;
-  /* 矢印アイコン */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -1027,14 +1120,15 @@ a:hover {
 
 
 /* ------------------------------------------------------------
-   19. テーブル
+   19. テーブル（レスポンシブスクロール対応）
    ------------------------------------------------------------ */
 
 .luma-table-wrap {
-  overflow-x: auto;
+  overflow-x: auto; /* テーブルがはみ出す場合に横スクロールを発生させる */
   border: 1px solid var(--luma-border);
   border-radius: var(--luma-radius-lg);
   box-shadow: var(--luma-card-shadow);
+  -webkit-overflow-scrolling: touch;
 }
 
 .luma-table {
@@ -1081,7 +1175,7 @@ a:hover {
 
 
 /* ------------------------------------------------------------
-   20. ユーティリティ
+   20. ユーティリティ（レスポンシブ追加）
    ------------------------------------------------------------ */
 
 /* 視認性補助 */
@@ -1097,7 +1191,7 @@ a:hover {
   border: 0;
 }
 
-/* テキスト */
+/* テキストカラー */
 .luma-text-on    { color: var(--luma-on); }
 .luma-text-error { color: var(--luma-error); }
 .luma-text-muted { color: var(--luma-fg-muted); }
@@ -1118,7 +1212,12 @@ a:hover {
 /* 幅 */
 .luma-w-full { width: 100%; }
 
-/* 表示制御 */
+/* 表示・非表示（レスポンシブ制御用） */
 .luma-hidden { display: none !important; }
 
-/* 【✅修正箇所】末尾にあった余分な閉じ括弧「}」を削除 */
+@media (max-width: 768px) {
+  .luma-hidden-mobile { display: none !important; }
+}
+@media (min-width: 769px) {
+  .luma-hidden-desktop { display: none !important; }
+}
