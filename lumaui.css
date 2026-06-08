@@ -1,5 +1,5 @@
 /* ============================================================
-   LumaUI Design System — v1.2
+   LumaUI Design System — v1.3
    フラット × 部分的Neumorphism
    ライト / ダーク テーマ対応 & スマホ・タブレット完全対応
    ============================================================ */
@@ -244,7 +244,8 @@ a:hover {
 /* スマートフォンサイズ (768px以下) の挙動 */
 @media (max-width: 768px) {
   .luma-page {
-    padding: var(--luma-space-md) var(--luma-space-sm);
+    /* 左右を統一。モバイルトップバー(60px)分の上余白を追加 */
+    padding: calc(60px + var(--luma-space-md)) var(--luma-space-md) var(--luma-space-md);
   }
   .luma-grid-2,
   .luma-grid-3,
@@ -746,7 +747,7 @@ a:hover {
   background: var(--luma-surface);
   border: 1px solid var(--luma-border);
   border-radius: var(--luma-radius-lg);
-  padding: var(--luma-space-md) var(--luma-space-lg);
+  padding: var(--luma-space-md) var(--luma-space-md);
   box-shadow: var(--luma-card-shadow);
 }
 
@@ -869,6 +870,13 @@ a:hover {
   box-shadow: var(--luma-neu-inset);
 }
 
+/* モバイル: トップバー内に収める */
+@media (max-width: 768px) {
+  .luma-theme-toggle {
+    top: 10px;
+    right: var(--luma-space-md);
+  }
+}
 
 /* ------------------------------------------------------------
    15. ナビゲーション（修正：モバイル用スライドドロワーのスタイルを新規設計）
@@ -909,7 +917,8 @@ a:hover {
   top: 0;
   display: none;
   align-items: center;
-  padding: 0 var(--luma-space-lg);
+  justify-content: space-between;
+  padding: 0 var(--luma-space-md);
   border-bottom: 1px solid var(--luma-border);
   background: var(--luma-surface);
   z-index: 50;
@@ -1016,8 +1025,6 @@ a:hover {
     padding: var(--luma-space-sm) var(--luma-space-md);
   }
 }
-
-/* ロゴ */
 .luma-nav__brand {
   font-size: 1.25rem;
   font-weight: 700;
@@ -1220,4 +1227,166 @@ a:hover {
 }
 @media (min-width: 769px) {
   .luma-hidden-desktop { display: none !important; }
+}
+
+/* ------------------------------------------------------------
+   21. カスタムドロップダウン（luma-dropdown）
+   ネイティブ select を使わず完全独自実装
+   ------------------------------------------------------------ */
+
+.luma-dropdown {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+.luma-dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--luma-font-sans);
+  font-size: 0.9375rem;
+  color: var(--luma-fg);
+  background: var(--luma-surface);
+  border: 1px solid var(--luma-border-mid);
+  border-radius: var(--luma-radius-md);
+  box-shadow: var(--luma-neu-inset);
+  cursor: pointer;
+  transition:
+    border-color var(--luma-trans-fast),
+    box-shadow var(--luma-trans-fast),
+    border-radius var(--luma-trans-fast);
+  outline: none;
+}
+
+.luma-dropdown__trigger:hover {
+  border-color: var(--luma-border-strong);
+}
+
+.luma-dropdown__trigger:focus-visible {
+  border-color: var(--luma-on);
+  box-shadow:
+    var(--luma-neu-inset),
+    0 0 0 2px rgba(46, 158, 91, 0.18);
+}
+
+.luma-dropdown.is-open .luma-dropdown__trigger {
+  border-bottom-color: transparent;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+}
+
+.luma-dropdown__chevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--luma-fg-hint);
+  transition: transform var(--luma-trans-base);
+}
+
+.luma-dropdown.is-open .luma-dropdown__chevron {
+  transform: rotate(180deg);
+}
+
+.luma-dropdown__list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--luma-surface);
+  border: 1px solid var(--luma-border-mid);
+  border-top: none;
+  border-bottom-left-radius: var(--luma-radius-md);
+  border-bottom-right-radius: var(--luma-radius-md);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-height 0.22s ease,
+    opacity 0.15s ease;
+}
+
+[data-theme="dark"] .luma-dropdown__list {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.40),
+    0 2px 6px rgba(0, 0, 0, 0.20);
+}
+
+@media (prefers-color-scheme: dark) {
+  .luma-dropdown__list {
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.40),
+      0 2px 6px rgba(0, 0, 0, 0.20);
+  }
+}
+
+.luma-dropdown.is-open .luma-dropdown__list {
+  max-height: 320px;
+  opacity: 1;
+  pointer-events: auto;
+  overflow-y: auto;
+}
+
+.luma-dropdown__list::-webkit-scrollbar { width: 4px; }
+.luma-dropdown__list::-webkit-scrollbar-track { background: var(--luma-surface-alt); }
+.luma-dropdown__list::-webkit-scrollbar-thumb {
+  background: var(--luma-border-mid);
+  border-radius: var(--luma-radius-pill);
+}
+
+.luma-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--luma-space-sm);
+  padding: 10px 14px;
+  font-size: 0.9375rem;
+  color: var(--luma-fg);
+  cursor: pointer;
+  transition:
+    background var(--luma-trans-fast),
+    color var(--luma-trans-fast);
+  border-bottom: 1px solid var(--luma-border);
+}
+
+.luma-dropdown__item:last-child {
+  border-bottom: none;
+}
+
+.luma-dropdown__item:hover {
+  background: var(--luma-surface-alt);
+}
+
+.luma-dropdown__item--selected {
+  color: var(--luma-on);
+  font-weight: 600;
+  background: var(--luma-on-bg);
+}
+
+.luma-dropdown__item--selected::after {
+  content: '✓';
+  margin-left: auto;
+  font-size: 0.875rem;
+}
+
+.luma-dropdown__group-label {
+  padding: 8px 14px 4px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--luma-fg-hint);
+  background: var(--luma-surface-alt);
+  border-bottom: 1px solid var(--luma-border);
+}
+
+.luma-dropdown__trigger[data-placeholder="true"] .luma-dropdown__value {
+  color: var(--luma-fg-hint);
 }

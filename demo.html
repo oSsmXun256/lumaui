@@ -3,102 +3,327 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LumaUI Design System v1.2 - デモダッシュボード</title>
-
+  <title>LumaUI Design System v1.3 - 完全デモ</title>
   <link rel="stylesheet" href="lumaui.css">
 </head>
 <body>
 
+  <!-- モバイルトップバー -->
   <header class="luma-nav luma-nav--top luma-mobile-bar">
-    <button class="luma-btn luma-btn--icon" id="menuOpenBtn" aria-label="メニューを開く" style="box-shadow: none; border-color: transparent; font-size: 1.25rem;">☰</button>
-    <div class="luma-nav__brand" style="margin: 0; padding: 0; border: none; font-size: 1.125rem;">LumaUI Demo</div>
-    <div style="width: 40px;"></div>
+    <button class="luma-btn luma-btn--icon" id="menuOpenBtn" aria-label="メニューを開く" style="box-shadow:none;border-color:transparent;font-size:1.25rem;flex-shrink:0;">☰</button>
+    <div style="font-size:1.125rem;font-weight:700;letter-spacing:-0.02em;color:var(--luma-fg);">LumaUI Demo</div>
+    <button class="luma-btn luma-btn--icon" id="themeToggleBtnMobile" aria-label="テーマ切り替え" style="box-shadow:none;border-color:transparent;flex-shrink:0;">💡</button>
   </header>
 
   <div class="luma-overlay" id="drawerOverlay"></div>
+  <button class="luma-theme-toggle luma-hidden-mobile" id="themeToggleBtn" aria-label="テーマ切り替え">💡</button>
 
-  <button class="luma-theme-toggle" id="themeToggleBtn" aria-label="テーマ切り替え">💡</button>
-
+  <!-- サイドナビ -->
   <nav class="luma-nav luma-nav--side" id="sideNavigation">
     <div class="luma-nav__brand">
       <span>LumaUI Demo</span>
-      <button class="luma-btn luma-btn--icon" id="menuCloseBtn" aria-label="メニューを閉じる" style="box-shadow:none; border:none; background:transparent;">✕</button>
+      <button class="luma-btn luma-btn--icon" id="menuCloseBtn" aria-label="閉じる" style="box-shadow:none;border:none;background:transparent;">✕</button>
     </div>
     <div class="luma-nav__section">メイン</div>
-    <a href="#" class="luma-nav__link luma-nav__link--active">
-      <span>📊</span> ダッシュボード
-    </a>
-    <a href="#" class="luma-nav__link">
-      <span>⚙️</span> システム設定
-    </a>
-    <a href="#" class="luma-nav__link">
-      <span>👤</span> アカウント
-    </a>
-    <div class="luma-nav__section">サブドキュメント</div>
-    <a href="#" class="luma-nav__link">
-      <span>📄</span> ログ解析
-    </a>
+    <a href="#section-overview" class="luma-nav__link luma-nav__link--active"><span>📊</span> 概要</a>
+    <a href="#section-typography" class="luma-nav__link"><span>🔤</span> タイポグラフィ</a>
+    <a href="#section-buttons" class="luma-nav__link"><span>🔘</span> ボタン</a>
+    <a href="#section-forms" class="luma-nav__link"><span>📝</span> フォーム</a>
+    <a href="#section-feedback" class="luma-nav__link"><span>💬</span> フィードバック</a>
+    <div class="luma-nav__section">データ</div>
+    <a href="#section-table" class="luma-nav__link"><span>📋</span> テーブル</a>
+    <a href="#section-simulator" class="luma-nav__link"><span>⚙️</span> シミュレーター</a>
+    <a href="#section-layout" class="luma-nav__link"><span>🗂️</span> レイアウト</a>
   </nav>
 
   <main class="luma-main-with-sidebar luma-page luma-stack luma-gap-lg">
-    
-    <div>
-      <h1 class="luma-h1">ダッシュボード</h1>
-      <p class="luma-body-sm">LumaUI Design System v1.0 コンポーネント・デモ</p>
+
+    <!-- ページヘッダー -->
+    <div id="section-overview">
+      <h1 class="luma-h1">LumaUI Design System v1.3</h1>
+      <p class="luma-body-sm">全コンポーネント・デモ — フラット × Neumorphism / ライト・ダーク対応</p>
     </div>
 
-    <section class="luma-grid luma-grid-3">
+    <!-- メトリクス -->
+    <section class="luma-grid luma-grid-4">
       <div class="luma-metric">
-        <div class="luma-metric__label">月間アクティブユーザー</div>
+        <div class="luma-metric__label">月間ユーザー</div>
         <div class="luma-metric__value" id="valUsers">12,480</div>
-        <div class="luma-metric__sub luma-metric__sub--on">▲ 先月比 +12.5%</div>
+        <div class="luma-metric__sub luma-metric__sub--on">▲ +12.5%</div>
       </div>
       <div class="luma-metric">
         <div class="luma-metric__label">サーバー負荷率</div>
         <div class="luma-metric__value" id="valCpu">42%</div>
-        <div class="luma-metric__sub luma-text-hint">ステータス: 正常</div>
+        <div class="luma-metric__sub luma-text-hint">正常稼働</div>
       </div>
       <div class="luma-metric">
         <div class="luma-metric__label">システムエラー</div>
         <div class="luma-metric__value luma-text-error" id="valErrors">0</div>
-        <div class="luma-metric__sub luma-metric__sub--error">過去24時間検出なし</div>
+        <div class="luma-metric__sub luma-metric__sub--error">過去24時間なし</div>
+      </div>
+      <div class="luma-metric">
+        <div class="luma-metric__label">稼働時間</div>
+        <div class="luma-metric__value luma-text-on">99.9%</div>
+        <div class="luma-metric__sub luma-metric__sub--on">SLA達成</div>
       </div>
     </section>
 
-    <section class="luma-grid luma-grid-2">
-      
+    <hr class="luma-divider luma-divider--strong">
+
+    <!-- タイポグラフィ -->
+    <section class="luma-card" id="section-typography">
+      <div class="luma-card__header">
+        <h2 class="luma-h2">タイポグラフィ</h2>
+      </div>
+      <div class="luma-stack">
+        <div>
+          <p class="luma-caption luma-mb-sm">見出し</p>
+          <p class="luma-h1">Heading 1 — luma-h1</p>
+          <p class="luma-h2">Heading 2 — luma-h2</p>
+          <p class="luma-h3">Heading 3 — luma-h3</p>
+          <p class="luma-h4">Heading 4 — luma-h4</p>
+        </div>
+        <hr class="luma-divider">
+        <div class="luma-grid luma-grid-2">
+          <div class="luma-stack">
+            <p class="luma-caption">本文・ラベル</p>
+            <p class="luma-body">luma-body — 通常テキスト。読みやすさを重視した行間設定。</p>
+            <p class="luma-body-sm">luma-body-sm — 補足説明テキスト。セカンダリカラーで表示。</p>
+            <p class="luma-caption">luma-caption — キャプション、注釈、タイムスタンプなど。</p>
+            <p class="luma-label">luma-label — フォームラベル・セクション見出しに使用</p>
+            <p class="luma-mono">luma-mono — 192.168.11.4 / node-asia-01</p>
+          </div>
+          <div class="luma-stack">
+            <p class="luma-caption">テキストカラーユーティリティ</p>
+            <p class="luma-text-on">luma-text-on — 成功・ONカラー</p>
+            <p class="luma-text-error">luma-text-error — エラーカラー</p>
+            <p class="luma-text-muted">luma-text-muted — ミュートカラー</p>
+            <p class="luma-text-hint">luma-text-hint — ヒントカラー</p>
+            <p class="luma-text-center luma-body-sm">luma-text-center</p>
+            <p class="luma-text-right luma-body-sm">luma-text-right</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ボタン -->
+    <section class="luma-card" id="section-buttons">
+      <div class="luma-card__header">
+        <h2 class="luma-h2">ボタン</h2>
+      </div>
+      <div class="luma-stack">
+        <div>
+          <p class="luma-label luma-mb-sm">バリアント</p>
+          <div class="luma-flex luma-gap-sm" style="flex-wrap:wrap;">
+            <button class="luma-btn luma-btn--primary">Primary</button>
+            <button class="luma-btn">Default</button>
+            <button class="luma-btn luma-btn--danger">Danger</button>
+            <button class="luma-btn" disabled>Disabled</button>
+          </div>
+        </div>
+        <div>
+          <p class="luma-label luma-mb-sm">アイコンボタン</p>
+          <div class="luma-flex luma-gap-sm">
+            <button class="luma-btn luma-btn--icon" title="設定">⚙️</button>
+            <button class="luma-btn luma-btn--icon luma-btn--primary" title="追加">＋</button>
+            <button class="luma-btn luma-btn--icon luma-btn--danger" title="削除">🗑</button>
+          </div>
+        </div>
+        <div>
+          <p class="luma-label luma-mb-sm">バッジ / チップ</p>
+          <div class="luma-flex luma-gap-sm" style="flex-wrap:wrap;">
+            <span class="luma-badge luma-badge--on">Online</span>
+            <span class="luma-badge luma-badge--error">Error</span>
+            <span class="luma-badge">Default</span>
+            <span class="luma-badge luma-badge--no-dot">v1.3.0</span>
+            <span class="luma-badge luma-badge--on luma-badge--no-dot">稼働中</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- フォーム -->
+    <section class="luma-card" id="section-forms">
+      <div class="luma-card__header">
+        <h2 class="luma-h2">フォームコンポーネント</h2>
+      </div>
+      <div class="luma-grid luma-grid-2">
+
+        <!-- 左カラム -->
+        <div class="luma-stack">
+          <p class="luma-label">テキスト入力</p>
+
+          <div class="luma-field">
+            <label class="luma-field__label" for="inp1">ユーザー名</label>
+            <input class="luma-input" id="inp1" type="text" placeholder="例: tanaka_taro">
+            <span class="luma-field__hint">半角英数字・アンダースコアのみ</span>
+          </div>
+
+          <div class="luma-field">
+            <label class="luma-field__label" for="inp2">メールアドレス（エラー状態）</label>
+            <input class="luma-input luma-input--error" id="inp2" type="email" value="invalid-email">
+            <span class="luma-field__error">有効なメールアドレスを入力してください</span>
+          </div>
+
+          <div class="luma-field">
+            <label class="luma-field__label" for="inp3">金額（数値入力）</label>
+            <div class="luma-input-group">
+              <span class="luma-input-addon">¥</span>
+              <input class="luma-input luma-input--number" id="inp3" type="number" value="12800">
+              <span class="luma-input-addon luma-input-addon--right">JPY</span>
+            </div>
+          </div>
+
+          <div class="luma-field">
+            <label class="luma-field__label">リージョン選択</label>
+            <div class="luma-dropdown" id="regionDropdown">
+              <button type="button" class="luma-dropdown__trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="luma-dropdown__value">Asia Pacific (Tokyo)</span>
+                <svg class="luma-dropdown__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <ul class="luma-dropdown__list" role="listbox">
+                <li class="luma-dropdown__group-label">アジア太平洋</li>
+                <li class="luma-dropdown__item luma-dropdown__item--selected" role="option" data-value="ap-northeast-1">🇯🇵 Asia Pacific (Tokyo)</li>
+                <li class="luma-dropdown__item" role="option" data-value="ap-southeast-1">🇸🇬 Asia Pacific (Singapore)</li>
+                <li class="luma-dropdown__item" role="option" data-value="ap-southeast-2">🇦🇺 Asia Pacific (Sydney)</li>
+                <li class="luma-dropdown__group-label">アメリカ</li>
+                <li class="luma-dropdown__item" role="option" data-value="us-east-1">🇺🇸 US East (N. Virginia)</li>
+                <li class="luma-dropdown__item" role="option" data-value="us-west-2">🇺🇸 US West (Oregon)</li>
+                <li class="luma-dropdown__group-label">ヨーロッパ</li>
+                <li class="luma-dropdown__item" role="option" data-value="eu-central-1">🇩🇪 EU (Frankfurt)</li>
+                <li class="luma-dropdown__item" role="option" data-value="eu-west-1">🇮🇪 EU (Ireland)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右カラム -->
+        <div class="luma-stack">
+          <p class="luma-label">コントロール</p>
+
+          <div class="luma-slider-wrap">
+            <div class="luma-slider-header">
+              <label for="demoSlider" class="luma-label">モック負荷率</label>
+              <span class="luma-mono" id="sliderVal">42%</span>
+            </div>
+            <input type="range" id="demoSlider" class="luma-slider luma-slider--accent" min="0" max="100" value="42" style="--luma-progress:42%;">
+          </div>
+
+          <div class="luma-progress-wrap">
+            <div class="luma-flex-between luma-caption">
+              <span>リソース使用率</span>
+              <span id="progressVal">42%</span>
+            </div>
+            <div class="luma-progress-track">
+              <div class="luma-progress-bar" id="progressBar" style="width:42%;"></div>
+            </div>
+          </div>
+
+          <div class="luma-progress-wrap">
+            <div class="luma-flex-between luma-caption">
+              <span>ストレージ (slim)</span>
+              <span>68%</span>
+            </div>
+            <div class="luma-progress-track luma-progress-track--sm">
+              <div class="luma-progress-bar" style="width:68%;"></div>
+            </div>
+          </div>
+
+          <div class="luma-inset">
+            <p class="luma-label luma-mb-sm">トグルスイッチ</p>
+            <div class="luma-stack">
+              <div class="luma-flex-between">
+                <span class="luma-body-sm">ブーストモード（エラー誘発）</span>
+                <label class="luma-toggle-row">
+                  <span class="luma-toggle">
+                    <input type="checkbox" id="boostToggle">
+                    <span class="luma-toggle__track"><span class="luma-toggle__thumb"></span></span>
+                  </span>
+                </label>
+              </div>
+              <div class="luma-flex-between">
+                <span class="luma-body-sm">メンテナンスモード</span>
+                <label class="luma-toggle-row">
+                  <span class="luma-toggle">
+                    <input type="checkbox" checked>
+                    <span class="luma-toggle__track"><span class="luma-toggle__thumb"></span></span>
+                  </span>
+                </label>
+              </div>
+              <div class="luma-flex-between">
+                <span class="luma-body-sm luma-text-hint">無効なトグル</span>
+                <label class="luma-toggle-row">
+                  <span class="luma-toggle" style="opacity:0.4;pointer-events:none;">
+                    <input type="checkbox" disabled>
+                    <span class="luma-toggle__track"><span class="luma-toggle__thumb"></span></span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- フィードバック -->
+    <section class="luma-card" id="section-feedback">
+      <div class="luma-card__header">
+        <h2 class="luma-h2">フィードバック・インセット</h2>
+      </div>
+      <div class="luma-stack">
+        <div class="luma-grid luma-grid-2">
+          <div class="luma-inset" style="border-color:rgba(46,158,91,0.30);background:var(--luma-on-bg);">
+            <div class="luma-flex luma-gap-sm">
+              <span>✅</span>
+              <div>
+                <p class="luma-label luma-text-on">デプロイ完了</p>
+                <p class="luma-body-sm">node-asia-east-01 への反映が正常に完了しました。</p>
+              </div>
+            </div>
+          </div>
+          <div class="luma-inset" style="border-color:rgba(214,48,49,0.30);background:var(--luma-error-bg);">
+            <div class="luma-flex luma-gap-sm">
+              <span>❌</span>
+              <div>
+                <p class="luma-label luma-text-error">接続エラー</p>
+                <p class="luma-body-sm">node-eu-central-01 との通信がタイムアウトしました。</p>
+              </div>
+            </div>
+          </div>
+          <div class="luma-inset">
+            <div class="luma-flex luma-gap-sm">
+              <span>ℹ️</span>
+              <div>
+                <p class="luma-label">情報</p>
+                <p class="luma-body-sm">luma-inset は汎用のインセット（凹み）コンテナです。背景・ボーダーを上書きして用途に応じて活用できます。</p>
+              </div>
+            </div>
+          </div>
+          <div class="luma-inset" style="border-color:rgba(255,180,0,0.35);background:rgba(255,180,0,0.08);">
+            <div class="luma-flex luma-gap-sm">
+              <span>⚠️</span>
+              <div>
+                <p class="luma-label" style="color:#b07800;">警告</p>
+                <p class="luma-body-sm">ディスク使用量が閾値（80%）に近づいています。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- チャート & 制御 -->
+    <section class="luma-grid luma-grid-2" id="section-simulator">
       <div class="luma-card">
         <div class="luma-card__header">
           <h2 class="luma-h2">シミュレーター制御</h2>
         </div>
         <div class="luma-stack">
-          
-          <div class="luma-slider-wrap">
-            <div class="luma-slider-header">
-              <label for="demoSlider" class="luma-label">モック負荷率の調整</label>
-              <span class="luma-mono" id="sliderVal">42%</span>
-            </div>
-            <input type="range" id="demoSlider" class="luma-slider luma-slider--accent" min="0" max="100" value="42" style="--luma-progress: 42%;">
-          </div>
-
-          <div class="luma-inset luma-flex-between">
-            <span class="luma-body-sm">ブーストモード（エラー誘発シミュレート）</span>
-            <label class="luma-toggle-row">
-              <span class="luma-toggle">
-                <input type="checkbox" id="boostToggle">
-                <span class="luma-toggle__track">
-                  <span class="luma-toggle__thumb"></span>
-                </span>
-              </span>
-            </label>
-          </div>
-
-          <div class="luma-flex luma-gap-sm luma-mt-sm">
+          <div class="luma-flex luma-gap-sm luma-mt-sm" style="flex-wrap:wrap;">
             <button class="luma-btn luma-btn--primary" id="btnUpdate">データ更新</button>
             <button class="luma-btn" id="btnReset">標準に戻す</button>
             <button class="luma-btn luma-btn--danger" id="btnAlert">緊急停止</button>
           </div>
-
         </div>
       </div>
 
@@ -110,202 +335,257 @@
             <span class="luma-badge luma-badge--no-dot">v1.0.3</span>
           </div>
         </div>
-        
         <div class="luma-chart-area">
           <div class="demo-chart-placeholder">
-            <div class="demo-bar" id="bar1" style="height: 40%;"></div>
-            <div class="demo-bar" id="bar2" style="height: 65%;"></div>
-            <div class="demo-bar" id="bar3" style="height: 50%;"></div>
-            <div class="demo-bar" id="bar4" style="height: 85%;"></div>
-            <div class="demo-bar" id="bar5" style="height: 42%;"></div>
-          </div>
-        </div>
-
-        <div class="luma-progress-wrap luma-mt-md">
-          <div class="luma-flex-between luma-caption">
-            <span>リソース使用率の閾値</span>
-            <span id="progressVal">42%</span>
-          </div>
-          <div class="luma-progress-track">
-            <div class="luma-progress-bar" id="progressBar" style="width: 42%;"></div>
+            <div class="demo-bar" id="bar1" style="height:40%;"></div>
+            <div class="demo-bar" id="bar2" style="height:65%;"></div>
+            <div class="demo-bar" id="bar3" style="height:50%;"></div>
+            <div class="demo-bar" id="bar4" style="height:85%;"></div>
+            <div class="demo-bar" id="bar5" style="height:42%;"></div>
           </div>
         </div>
       </div>
-
     </section>
 
-    <section class="luma-card">
-      <div class="luma-card__header">
+    <!-- テーブル -->
+    <section class="luma-card" id="section-table">
+      <div class="luma-card__header luma-flex-between">
         <h2 class="luma-h2">接続ノード一覧</h2>
+        <span class="luma-badge luma-badge--no-dot">3 ノード</span>
       </div>
-      
       <div class="luma-table-wrap">
         <table class="luma-table">
           <thead>
             <tr>
               <th>ノード名称</th>
               <th>IPアドレス</th>
+              <th>リージョン</th>
               <th>ステータス</th>
               <th class="luma-text-right">レスポンス</th>
+              <th class="luma-text-right">負荷率</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="luma-mono">node-asia-east-01</td>
               <td class="luma-mono">192.168.11.4</td>
+              <td class="luma-body-sm">Tokyo</td>
               <td><span class="luma-badge luma-badge--on">Online</span></td>
               <td class="luma-text-right luma-mono">12 ms</td>
+              <td class="luma-text-right luma-mono luma-text-on">23%</td>
             </tr>
             <tr>
               <td class="luma-mono">node-us-west-02</td>
               <td class="luma-mono">192.168.11.12</td>
+              <td class="luma-body-sm">N. Virginia</td>
               <td><span class="luma-badge luma-badge--on">Online</span></td>
               <td class="luma-text-right luma-mono">98 ms</td>
+              <td class="luma-text-right luma-mono">61%</td>
             </tr>
             <tr id="errorRow">
               <td class="luma-mono">node-eu-central-01</td>
               <td class="luma-mono">192.168.12.8</td>
+              <td class="luma-body-sm">Frankfurt</td>
               <td><span class="luma-badge" id="rowBadge">Standby</span></td>
               <td class="luma-text-right luma-mono" id="rowResponse">--</td>
+              <td class="luma-text-right luma-mono luma-text-hint">--</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
+    <!-- レイアウトデモ -->
+    <section class="luma-card" id="section-layout">
+      <div class="luma-card__header">
+        <h2 class="luma-h2">グリッド & レイアウト</h2>
+      </div>
+      <div class="luma-stack">
+        <p class="luma-label">luma-grid-4 (タブレット→2列, スマホ→1列)</p>
+        <div class="luma-grid luma-grid-4">
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 1</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 2</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 3</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 4</p></div>
+        </div>
+        <p class="luma-label">luma-grid-3</p>
+        <div class="luma-grid luma-grid-3">
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 1</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 2</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 3</p></div>
+        </div>
+        <p class="luma-label">luma-grid-auto (auto-fit minmax 240px)</p>
+        <div class="luma-grid luma-grid-auto">
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto A</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto B</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto C</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto D</p></div>
+          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto E</p></div>
+        </div>
+        <hr class="luma-divider">
+        <p class="luma-label">Flex ユーティリティ</p>
+        <div class="luma-flex luma-gap-md" style="flex-wrap:wrap;align-items:center;">
+          <span class="luma-badge luma-badge--no-dot">luma-flex</span>
+          <span class="luma-badge luma-badge--no-dot">luma-gap-md</span>
+          <span class="luma-badge luma-badge--no-dot">luma-flex-between</span>
+          <span class="luma-badge luma-badge--no-dot">luma-flex-center</span>
+          <span class="luma-badge luma-badge--no-dot">luma-flex-responsive</span>
+        </div>
+        <p class="luma-label luma-mt-sm">スペーシングユーティリティ: mt/mb sm/md/lg, w-full, hidden, sr-only</p>
+        <p class="luma-label">レスポンシブ表示制御</p>
+        <div class="luma-flex luma-gap-sm">
+          <span class="luma-badge luma-hidden-mobile">PCのみ表示 (luma-hidden-mobile)</span>
+          <span class="luma-badge luma-hidden-desktop">モバイルのみ表示 (luma-hidden-desktop)</span>
+          <span class="luma-badge luma-badge--on">常時表示</span>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script>
-    // 1. テーマの切り替えロジック
+    // テーマ切り替え
     const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
     let currentTheme = localStorage.getItem('luma-theme') || 'auto';
-
     function setTheme(theme) {
       if (theme === 'auto') {
         document.documentElement.removeAttribute('data-theme');
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        themeToggleBtn.textContent = isDark ? '🌙' : '💡';
+        const icon = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙' : '💡';
+        if (themeToggleBtn) themeToggleBtn.textContent = icon;
+        if (themeToggleBtnMobile) themeToggleBtnMobile.textContent = icon;
       } else {
         document.documentElement.setAttribute('data-theme', theme);
-        themeToggleBtn.textContent = theme === 'dark' ? '🌙' : '💡';
+        const icon = theme === 'dark' ? '🌙' : '💡';
+        if (themeToggleBtn) themeToggleBtn.textContent = icon;
+        if (themeToggleBtnMobile) themeToggleBtnMobile.textContent = icon;
       }
       localStorage.setItem('luma-theme', theme);
     }
-
-    // 初期テーマ反映（修正：条件式を外して常に初期アイコンを同期させる）
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+                     (!document.documentElement.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      setTheme(isDark ? 'light' : 'dark');
+    }
     setTheme(currentTheme);
+    if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
+    if (themeToggleBtnMobile) themeToggleBtnMobile.addEventListener('click', toggleTheme);
 
-    themeToggleBtn.addEventListener('click', () => {
-      const isCurrentDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
-                            (!document.documentElement.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      setTheme(isCurrentDark ? 'light' : 'dark');
-    });
-
-    // 2. 📱 モバイル用ドロワーメニューのインタラクション制御
+    // ドロワー
     const menuOpenBtn = document.getElementById('menuOpenBtn');
     const menuCloseBtn = document.getElementById('menuCloseBtn');
     const sideNavigation = document.getElementById('sideNavigation');
     const drawerOverlay = document.getElementById('drawerOverlay');
-
-    function openDrawer() {
-      sideNavigation.classList.add('is-open');
-      drawerOverlay.classList.add('is-visible');
-    }
-
-    function closeDrawer() {
-      sideNavigation.classList.remove('is-open');
-      drawerOverlay.classList.remove('is-visible');
-    }
-
+    function openDrawer() { sideNavigation.classList.add('is-open'); drawerOverlay.classList.add('is-visible'); }
+    function closeDrawer() { sideNavigation.classList.remove('is-open'); drawerOverlay.classList.remove('is-visible'); }
     menuOpenBtn.addEventListener('click', openDrawer);
     menuCloseBtn.addEventListener('click', closeDrawer);
     drawerOverlay.addEventListener('click', closeDrawer);
-
     document.querySelectorAll('.luma-nav__link').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-          closeDrawer();
-        }
-      });
+      link.addEventListener('click', () => { if (window.innerWidth <= 768) closeDrawer(); });
     });
 
-    // 3. インタラクティブUI要素のバインド
+    // スライダー連動
     const slider = document.getElementById('demoSlider');
     const sliderVal = document.getElementById('sliderVal');
     const valCpu = document.getElementById('valCpu');
     const progressBar = document.getElementById('progressBar');
     const progressVal = document.getElementById('progressVal');
     const bar5 = document.getElementById('bar5');
-
-    function updateMetrics(value) {
-      sliderVal.textContent = value + '%';
-      valCpu.textContent = value + '%';
-      progressBar.style.width = value + '%';
-      progressVal.textContent = value + '%';
-      bar5.style.height = value + '%';
-      slider.style.setProperty('--luma-progress', value + '%');
-
-      if(value > 80) {
-        progressBar.classList.add('luma-progress-bar--error');
-      } else {
-        progressBar.classList.remove('luma-progress-bar--error');
-      }
+    function updateMetrics(v) {
+      sliderVal.textContent = v + '%';
+      valCpu.textContent = v + '%';
+      progressBar.style.width = v + '%';
+      progressVal.textContent = v + '%';
+      bar5.style.height = v + '%';
+      slider.style.setProperty('--luma-progress', v + '%');
+      progressBar.classList.toggle('luma-progress-bar--error', v > 80);
     }
+    slider.addEventListener('input', e => updateMetrics(e.target.value));
 
-    slider.addEventListener('input', (e) => updateMetrics(e.target.value));
-
-    // ブーストモードトグル
+    // ブーストトグル
     const boostToggle = document.getElementById('boostToggle');
     const valErrors = document.getElementById('valErrors');
     const statusBadge = document.getElementById('statusBadge');
     const rowBadge = document.getElementById('rowBadge');
     const rowResponse = document.getElementById('rowResponse');
-
-    boostToggle.addEventListener('change', (e) => {
-      if(e.target.checked) {
-        valErrors.textContent = '3';
-        valErrors.classList.add('luma-text-error');
-        statusBadge.textContent = '警告';
-        statusBadge.className = 'luma-badge luma-badge--error';
-        
-        rowBadge.textContent = 'Error';
-        rowBadge.className = 'luma-badge luma-badge--error';
-        rowResponse.textContent = 'Timeout';
-        rowResponse.classList.add('luma-text-error');
-      } else {
-        valErrors.textContent = '0';
-        valErrors.classList.remove('luma-text-error');
-        statusBadge.textContent = '稼働中';
-        statusBadge.className = 'luma-badge luma-badge--on';
-
-        rowBadge.textContent = 'Standby';
-        rowBadge.className = 'luma-badge';
-        rowResponse.textContent = '--';
-        rowResponse.classList.remove('luma-text-error');
-      }
+    boostToggle.addEventListener('change', e => {
+      const on = e.target.checked;
+      valErrors.textContent = on ? '3' : '0';
+      valErrors.classList.toggle('luma-text-error', on);
+      statusBadge.textContent = on ? '警告' : '稼働中';
+      statusBadge.className = on ? 'luma-badge luma-badge--error' : 'luma-badge luma-badge--on';
+      rowBadge.textContent = on ? 'Error' : 'Standby';
+      rowBadge.className = on ? 'luma-badge luma-badge--error' : 'luma-badge';
+      rowResponse.textContent = on ? 'Timeout' : '--';
+      rowResponse.classList.toggle('luma-text-error', on);
     });
 
-    // 各種アクションボタン
+    // ボタンアクション
     document.getElementById('btnUpdate').addEventListener('click', () => {
-      for(let i=1; i<=4; i++) {
-        const randHeight = Math.floor(Math.random() * 80) + 15;
-        document.getElementById(`bar${i}`).style.height = randHeight + '%';
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById('bar' + i).style.height = (Math.floor(Math.random() * 80) + 15) + '%';
       }
-      const currentUsers = parseInt(document.getElementById('valUsers').textContent.replace(',',''));
-      document.getElementById('valUsers').textContent = (currentUsers + Math.floor(Math.random() * 20) - 5).toLocaleString();
+      const u = parseInt(document.getElementById('valUsers').textContent.replace(',', ''));
+      document.getElementById('valUsers').textContent = (u + Math.floor(Math.random() * 20) - 5).toLocaleString();
     });
-
     document.getElementById('btnReset').addEventListener('click', () => {
       slider.value = 42;
       updateMetrics(42);
-      if(boostToggle.checked) {
-        boostToggle.checked = false;
-        boostToggle.dispatchEvent(new Event('change'));
-      }
+      if (boostToggle.checked) { boostToggle.checked = false; boostToggle.dispatchEvent(new Event('change')); }
     });
-
     document.getElementById('btnAlert').addEventListener('click', () => {
       alert('システム緊急停止プロトコルがシミュレートされました。');
+    });
+
+    // カスタムドロップダウン
+    document.querySelectorAll('.luma-dropdown').forEach(dropdown => {
+      const trigger = dropdown.querySelector('.luma-dropdown__trigger');
+      const list = dropdown.querySelector('.luma-dropdown__list');
+      const valueEl = dropdown.querySelector('.luma-dropdown__value');
+      const items = dropdown.querySelectorAll('.luma-dropdown__item');
+
+      function openDropdown() {
+        dropdown.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+      function closeDropdown() {
+        dropdown.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+
+      trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        dropdown.classList.contains('is-open') ? closeDropdown() : openDropdown();
+      });
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          items.forEach(i => i.classList.remove('luma-dropdown__item--selected'));
+          item.classList.add('luma-dropdown__item--selected');
+          valueEl.textContent = item.textContent.trim().replace('✓', '').trim();
+          trigger.removeAttribute('data-placeholder');
+          closeDropdown();
+        });
+      });
+
+      document.addEventListener('click', e => {
+        if (!dropdown.contains(e.target)) closeDropdown();
+      });
+
+      trigger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropdown.classList.contains('is-open') ? closeDropdown() : openDropdown(); }
+        if (e.key === 'Escape') closeDropdown();
+      });
+    });
+
+    // ナビリンクのアクティブ切り替え
+    const navLinks = document.querySelectorAll('.luma-nav__link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.forEach(l => l.classList.remove('luma-nav__link--active'));
+        link.classList.add('luma-nav__link--active');
+      });
     });
   </script>
 </body>
