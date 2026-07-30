@@ -1,0 +1,161 @@
+/* ============================================================
+   LumaUI v1.4 — form.css
+   ============================================================ */
+
+/* ── テキスト入力 ── */
+.luma-input-wrap { display: flex; flex-direction: column; gap: var(--luma-space-xs); }
+
+.luma-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--luma-font-sans);
+  font-size: 0.9375rem;
+  color: var(--luma-fg);
+  background: var(--luma-surface);
+  border: 1px solid var(--luma-border-mid);
+  border-radius: var(--luma-radius-md);
+  box-shadow: var(--luma-neu-inset);
+  outline: none;
+  transition: border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
+}
+.luma-input::placeholder { color: var(--luma-fg-hint); }
+.luma-input:hover { border-color: var(--luma-border-strong); }
+.luma-input:focus {
+  border-color: var(--luma-on);
+  box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18);
+}
+.luma-input--number { font-variant-numeric: tabular-nums; text-align: right; }
+.luma-input--error { border-color: var(--luma-error); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(214, 48, 49, 0.15); }
+.luma-input--sm { padding: 6px 10px; font-size: 0.8125rem; }
+.luma-input--lg { padding: 13px 16px; font-size: 1rem; }
+
+.luma-input-group { display: flex; align-items: stretch; border: 1px solid var(--luma-border-mid); border-radius: var(--luma-radius-md); box-shadow: var(--luma-neu-inset); overflow: hidden; }
+.luma-input-group .luma-input { border: none; box-shadow: none; border-radius: 0; flex: 1; }
+.luma-input-group__addon { display: flex; align-items: center; padding: 0 12px; background: var(--luma-surface-alt); border-right: 1px solid var(--luma-border); color: var(--luma-fg-muted); font-size: 0.875rem; white-space: nowrap; }
+.luma-input-group__addon--right { border-right: none; border-left: 1px solid var(--luma-border); }
+.luma-input-addon { display: flex; align-items: center; padding: 0 12px; background: var(--luma-surface-alt); border-right: 1px solid var(--luma-border); color: var(--luma-fg-muted); font-size: 0.875rem; white-space: nowrap; } /* v1.3互換 */
+.luma-input-addon--right { border-right: none; border-left: 1px solid var(--luma-border); }
+
+/* ── フィールドラッパー ── */
+.luma-field { display: flex; flex-direction: column; gap: 6px; }
+.luma-field__label { font-size: 0.8125rem; font-weight: 600; color: var(--luma-fg-muted); user-select: none; }
+.luma-field__hint  { font-size: 0.75rem; color: var(--luma-fg-hint); }
+.luma-field__error { font-size: 0.75rem; color: var(--luma-error); }
+
+/* ── セレクト（ネイティブ） ── */
+.luma-select {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  font-family: var(--luma-font-sans);
+  font-size: 0.9375rem;
+  color: var(--luma-fg);
+  background: var(--luma-surface);
+  border: 1px solid var(--luma-border-mid);
+  border-radius: var(--luma-radius-md);
+  box-shadow: var(--luma-neu-inset);
+  outline: none;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+  transition: border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
+}
+.luma-select:hover { border-color: var(--luma-border-strong); }
+.luma-select:focus { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18); }
+
+/* ── トグル（ON/OFF） ── */
+.luma-toggle { position: relative; display: inline-block; width: 52px; height: 28px; flex-shrink: 0; }
+.luma-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+.luma-toggle__track {
+  position: absolute; inset: 0; border-radius: var(--luma-radius-pill);
+  background: var(--luma-surface-alt); border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-neu-inset);
+  transition: background var(--luma-trans-base), border-color var(--luma-trans-base), box-shadow var(--luma-trans-base);
+  cursor: pointer;
+}
+.luma-toggle__thumb {
+  position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--luma-fg-hint); border: 1px solid var(--luma-border-mid);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.20), -1px -1px 3px rgba(255, 255, 255, 0.60);
+  transition: transform var(--luma-trans-base), background var(--luma-trans-base), border-color var(--luma-trans-base), box-shadow var(--luma-trans-base);
+  pointer-events: none;
+}
+.luma-toggle input:checked ~ .luma-toggle__track {
+  background: var(--luma-on); border-color: var(--luma-on);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(46, 158, 91, 0.20);
+}
+.luma-toggle input:checked ~ .luma-toggle__track .luma-toggle__thumb {
+  transform: translateX(24px); background: #fff; border-color: rgba(255, 255, 255, 0.80);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.18), -1px -1px 3px rgba(255, 255, 255, 0.90);
+}
+.luma-toggle input:focus-visible ~ .luma-toggle__track { outline: 2px solid var(--luma-on); outline-offset: 2px; }
+
+.luma-toggle-row { display: flex; align-items: center; gap: var(--luma-space-md); cursor: pointer; user-select: none; }
+.luma-toggle-row .luma-toggle-label { font-size: 0.875rem; color: var(--luma-fg); }
+
+/* ── スライダー ── */
+.luma-slider-wrap { display: flex; flex-direction: column; gap: var(--luma-space-xs); }
+.luma-slider-header { display: flex; justify-content: space-between; align-items: baseline; }
+.luma-slider {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
+  border-radius: var(--luma-radius-pill); border: 1px solid var(--luma-border-mid);
+  background: var(--luma-surface-alt); box-shadow: var(--luma-neu-inset); outline: none; cursor: pointer;
+}
+.luma-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-slider-thumb-shadow);
+  transition: box-shadow var(--luma-trans-fast); cursor: grab;
+}
+.luma-slider::-webkit-slider-thumb:active { cursor: grabbing; box-shadow: var(--luma-slider-thumb-shadow-active); }
+.luma-slider::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%; background: #fff;
+  border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-slider-thumb-shadow); cursor: grab;
+}
+.luma-slider::-moz-range-thumb:active { box-shadow: var(--luma-slider-thumb-shadow-active); }
+.luma-slider--accent {
+  background: linear-gradient(to right, var(--luma-on) 0%, var(--luma-on) var(--luma-progress, 50%), var(--luma-surface-alt) var(--luma-progress, 50%), var(--luma-surface-alt) 100%);
+}
+
+/* ── カスタムドロップダウン ── */
+.luma-dropdown { position: relative; width: 100%; user-select: none; }
+.luma-dropdown__trigger {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  padding: 10px 14px; font-family: var(--luma-font-sans); font-size: 0.9375rem; color: var(--luma-fg);
+  background: var(--luma-surface); border: 1px solid var(--luma-border-mid); border-radius: var(--luma-radius-md);
+  box-shadow: var(--luma-neu-inset); cursor: pointer;
+  transition: border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast), border-radius var(--luma-trans-fast);
+  outline: none;
+}
+.luma-dropdown__trigger:hover { border-color: var(--luma-border-strong); }
+.luma-dropdown__trigger:focus-visible { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18); }
+.luma-dropdown.is-open .luma-dropdown__trigger { border-bottom-color: transparent; border-bottom-left-radius: 0; border-bottom-right-radius: 0; box-shadow: none; }
+.luma-dropdown__chevron { width: 16px; height: 16px; flex-shrink: 0; color: var(--luma-fg-hint); transition: transform var(--luma-trans-base); }
+.luma-dropdown.is-open .luma-dropdown__chevron { transform: rotate(180deg); }
+
+.luma-dropdown__list {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: var(--luma-z-dropdown);
+  background: var(--luma-surface); border: 1px solid var(--luma-border-mid); border-top: none;
+  border-bottom-left-radius: var(--luma-radius-md); border-bottom-right-radius: var(--luma-radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  overflow: hidden; max-height: 0; opacity: 0; pointer-events: none;
+  transition: max-height 0.22s ease, opacity 0.15s ease;
+}
+@media (prefers-color-scheme: dark) { .luma-dropdown__list { box-shadow: 0 8px 24px rgba(0,0,0,.40), 0 2px 6px rgba(0,0,0,.20); } }
+[data-theme="dark"] .luma-dropdown__list { box-shadow: 0 8px 24px rgba(0,0,0,.40), 0 2px 6px rgba(0,0,0,.20); }
+
+.luma-dropdown.is-open .luma-dropdown__list { max-height: 320px; opacity: 1; pointer-events: auto; overflow-y: auto; }
+.luma-dropdown__list::-webkit-scrollbar { width: 4px; }
+.luma-dropdown__list::-webkit-scrollbar-track { background: var(--luma-surface-alt); }
+.luma-dropdown__list::-webkit-scrollbar-thumb { background: var(--luma-border-mid); border-radius: var(--luma-radius-pill); }
+
+.luma-dropdown__item { display: flex; align-items: center; gap: var(--luma-space-sm); padding: 10px 14px; font-size: 0.9375rem; color: var(--luma-fg); cursor: pointer; transition: background var(--luma-trans-fast), color var(--luma-trans-fast); border-bottom: 1px solid var(--luma-border); }
+.luma-dropdown__item:last-child { border-bottom: none; }
+.luma-dropdown__item:hover,
+.luma-dropdown__item--active { background: var(--luma-surface-alt); }
+.luma-dropdown__item--selected { color: var(--luma-on); font-weight: 600; background: var(--luma-on-bg); }
+.luma-dropdown__item--selected::after { content: '✓'; margin-left: auto; font-size: 0.875rem; }
+.luma-dropdown__group-label { padding: 8px 14px 4px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--luma-fg-hint); background: var(--luma-surface-alt); border-bottom: 1px solid var(--luma-border); pointer-events: none; user-select: none; }
+.luma-dropdown__trigger[data-placeholder="true"] .luma-dropdown__value { color: var(--luma-fg-hint); }

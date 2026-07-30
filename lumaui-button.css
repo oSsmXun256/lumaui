@@ -1,0 +1,70 @@
+/* ============================================================
+   LumaUI v1.4 — button.css
+   ============================================================ */
+
+.luma-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--luma-space-sm);
+  padding: 10px 20px;
+  font-family: var(--luma-font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--luma-fg);
+  background: var(--luma-surface);
+  border: 1px solid var(--luma-border-mid);
+  border-radius: var(--luma-radius-md);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  box-shadow: var(--luma-neu-convex);
+  transition: box-shadow var(--luma-trans-base), color var(--luma-trans-fast),
+    background var(--luma-trans-fast), border-color var(--luma-trans-fast);
+}
+
+.luma-btn:hover:not(:disabled) {
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.15), -5px -5px 12px rgba(255, 255, 255, 0.88);
+}
+@media (prefers-color-scheme: dark) {
+  .luma-btn:hover:not(:disabled) {
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05);
+  }
+}
+[data-theme="dark"] .luma-btn:hover:not(:disabled) {
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05);
+}
+[data-style="flat"] .luma-btn:hover:not(:disabled) { box-shadow: none; background: var(--luma-surface-alt); }
+
+.luma-btn:active:not(:disabled) { box-shadow: var(--luma-neu-inset); border-color: var(--luma-border-strong); }
+.luma-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+/* サイズバリエーション（指摘#6） */
+.luma-btn--sm { padding: 6px 14px; font-size: 0.8125rem; border-radius: var(--luma-radius-sm); }
+.luma-btn--lg { padding: 13px 26px; font-size: 0.9375rem; border-radius: var(--luma-radius-lg); }
+
+/* カラーバリエーション */
+.luma-btn--primary {
+  background: var(--luma-on); color: #fff; border-color: transparent;
+  box-shadow: 4px 4px 10px rgba(46, 158, 91, 0.35), -2px -2px 6px rgba(255, 255, 255, 0.20);
+}
+.luma-btn--primary:hover:not(:disabled) {
+  background: #27885a;
+  box-shadow: 5px 5px 12px rgba(46, 158, 91, 0.45), -3px -3px 8px rgba(255, 255, 255, 0.25);
+}
+.luma-btn--primary:active:not(:disabled) { box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20); }
+
+.luma-btn--danger {
+  background: var(--luma-error); color: #fff; border-color: transparent;
+  box-shadow: 4px 4px 10px rgba(214, 48, 49, 0.30), -2px -2px 6px rgba(255, 255, 255, 0.15);
+}
+.luma-btn--danger:hover:not(:disabled) { background: #b52828; }
+.luma-btn--danger:active:not(:disabled) { box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20); }
+
+.luma-btn--ghost { background: transparent; box-shadow: none; border-color: transparent; }
+.luma-btn--ghost:hover:not(:disabled) { background: var(--luma-surface-alt); box-shadow: none; }
+
+.luma-btn--icon { width: 40px; height: 40px; padding: 0; border-radius: var(--luma-radius-md); }
+.luma-btn--icon.luma-btn--sm { width: 32px; height: 32px; }
+.luma-btn--icon.luma-btn--lg { width: 48px; height: 48px; }

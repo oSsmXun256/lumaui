@@ -1,0 +1,76 @@
+/* ============================================================
+   LumaUI v1.4 — components.css
+   ============================================================ */
+
+/* ── カード ── */
+.luma-card { background: var(--luma-surface); border-radius: var(--luma-radius-lg); border: 1px solid var(--luma-border); padding: var(--luma-space-lg); box-shadow: var(--luma-card-shadow); }
+.luma-card--sm { padding: var(--luma-space-md); border-radius: var(--luma-radius-md); }
+.luma-card--lg { padding: var(--luma-space-xl); }
+.luma-card-sm { padding: var(--luma-space-md); border-radius: var(--luma-radius-md); } /* v1.3互換 */
+@media (max-width: 768px) { .luma-card { padding: var(--luma-space-md); } }
+.luma-card__header { padding-bottom: var(--luma-space-md); margin-bottom: var(--luma-space-md); border-bottom: 1px solid var(--luma-border); }
+.luma-inset { background: var(--luma-surface-alt); border-radius: var(--luma-radius-md); border: 1px solid var(--luma-border); padding: var(--luma-space-md); }
+
+/* ── バッジ / チップ ── */
+.luma-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; font-size: 0.75rem; font-weight: 600; border-radius: var(--luma-radius-pill); border: 1px solid var(--luma-border); background: var(--luma-surface-alt); color: var(--luma-fg-muted); white-space: nowrap; }
+.luma-badge--on { background: var(--luma-on-bg); color: var(--luma-on); border-color: rgba(46, 158, 91, 0.30); }
+.luma-badge--error { background: var(--luma-error-bg); color: var(--luma-error); border-color: rgba(214, 48, 49, 0.30); }
+.luma-badge::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.luma-badge--no-dot::before { display: none; }
+
+/* ── アバター（指摘#3） ── */
+.luma-avatar { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--luma-surface-alt); color: var(--luma-fg-muted); font-weight: 600; font-size: 0.875rem; overflow: hidden; flex-shrink: 0; }
+.luma-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.luma-avatar--sm { width: 28px; height: 28px; font-size: 0.75rem; }
+.luma-avatar--lg { width: 56px; height: 56px; font-size: 1.125rem; }
+.luma-avatar-group { display: flex; }
+.luma-avatar-group .luma-avatar { margin-left: -8px; border: 2px solid var(--luma-surface); }
+.luma-avatar-group .luma-avatar:first-child { margin-left: 0; }
+
+/* ── スケルトン / スピナー（指摘#3・#7） ── */
+.luma-skeleton { background: linear-gradient(90deg, var(--luma-surface-alt) 25%, var(--luma-border) 50%, var(--luma-surface-alt) 75%); background-size: 200% 100%; border-radius: var(--luma-radius-sm); animation: luma-skeleton 1.4s ease infinite; }
+@keyframes luma-skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.luma-skeleton--text { height: 0.9em; width: 100%; }
+.luma-skeleton--circle { border-radius: 50%; }
+
+.luma-spinner { width: 20px; height: 20px; border: 2px solid var(--luma-border-mid); border-top-color: var(--luma-on); border-radius: 50%; animation: luma-spin 0.7s linear infinite; }
+.luma-spinner--lg { width: 32px; height: 32px; border-width: 3px; }
+
+/* ── メトリクスカード ── */
+.luma-metric { background: var(--luma-surface); border: 1px solid var(--luma-border); border-radius: var(--luma-radius-lg); padding: var(--luma-space-md); box-shadow: var(--luma-card-shadow); }
+.luma-metric__label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--luma-fg-hint); margin-bottom: var(--luma-space-xs); }
+.luma-metric__value { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--luma-fg); line-height: 1.1; font-variant-numeric: tabular-nums; }
+@media (max-width: 768px) { .luma-metric__value { font-size: 1.6rem; } }
+.luma-metric__sub { font-size: 0.75rem; color: var(--luma-fg-muted); margin-top: var(--luma-space-xs); }
+.luma-metric__sub--on { color: var(--luma-on); }
+.luma-metric__sub--error { color: var(--luma-error); }
+
+/* ── 進捗バー ── */
+.luma-progress-wrap { display: flex; flex-direction: column; gap: var(--luma-space-xs); }
+.luma-progress-track { width: 100%; height: 10px; background: var(--luma-surface-alt); border-radius: var(--luma-radius-pill); border: 1px solid var(--luma-border); box-shadow: var(--luma-neu-inset); overflow: hidden; }
+.luma-progress-bar { height: 100%; border-radius: var(--luma-radius-pill); background: var(--luma-on); transition: width 0.4s ease; }
+.luma-progress-bar--error { background: var(--luma-error); }
+.luma-progress-track--sm { height: 6px; }
+
+/* ── グラフコンテナ ── */
+.luma-chart-area { background: var(--luma-surface); border: 1px solid var(--luma-border); border-radius: var(--luma-radius-lg); padding: var(--luma-space-lg); box-shadow: var(--luma-card-shadow); min-height: 200px; position: relative; }
+.luma-chart-area__canvas { width: 100%; height: 100%; }
+.demo-chart-placeholder { display: flex; justify-content: space-around; align-items: flex-end; height: 140px; padding-top: var(--luma-space-md); }
+.demo-bar { width: 24px; background: var(--luma-on); border-radius: var(--luma-radius-sm) var(--luma-radius-sm) 0 0; transition: height var(--luma-trans-base); box-shadow: var(--luma-card-shadow); }
+
+/* ── テーマトグルボタン ── */
+.luma-theme-toggle {
+  position: fixed; top: var(--luma-space-md); right: var(--luma-space-md); z-index: 100;
+  width: 44px; height: 44px; border-radius: 50%; background: var(--luma-surface); border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-neu-convex); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; transition: box-shadow var(--luma-trans-base), background var(--luma-trans-fast);
+}
+.luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.15), -5px -5px 12px rgba(255, 255, 255, 0.88); }
+@media (prefers-color-scheme: dark) { .luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05); } }
+[data-theme="dark"] .luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05); }
+.luma-theme-toggle:active { box-shadow: var(--luma-neu-inset); }
+@media (max-width: 768px) { .luma-theme-toggle { top: 10px; right: var(--luma-space-md); } }
+
+/* ── 区切り線 ── */
+.luma-divider { border: none; border-top: 1px solid var(--luma-border); margin: var(--luma-space-md) 0; }
+.luma-divider--strong { border-top-color: var(--luma-border-mid); }

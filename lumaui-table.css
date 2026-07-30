@@ -1,0 +1,40 @@
+/* ============================================================
+   LumaUI v1.4 — table.css
+   ============================================================ */
+
+.luma-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--luma-border);
+  border-radius: var(--luma-radius-lg);
+  box-shadow: var(--luma-card-shadow);
+  -webkit-overflow-scrolling: touch;
+}
+.luma-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.luma-table thead { background: var(--luma-surface-alt); border-bottom: 1px solid var(--luma-border-mid); }
+.luma-table th {
+  padding: 12px 16px; text-align: left; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--luma-fg-hint); white-space: nowrap;
+}
+.luma-table td { padding: 12px 16px; color: var(--luma-fg); border-bottom: 1px solid var(--luma-border); }
+.luma-table tbody tr:last-child td { border-bottom: none; }
+.luma-table tbody tr:hover td { background: var(--luma-surface-alt); }
+.luma-table--numeric td, .luma-table--numeric th { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ページネーション（指摘#3への対応） */
+.luma-pagination { display: flex; align-items: center; gap: var(--luma-space-xs); }
+.luma-pagination__item {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; height: 32px; padding: 0 8px; border-radius: var(--luma-radius-sm);
+  font-size: 0.8125rem; color: var(--luma-fg-muted); cursor: pointer; border: 1px solid transparent;
+  transition: background var(--luma-trans-fast), color var(--luma-trans-fast);
+}
+.luma-pagination__item:hover { background: var(--luma-surface-alt); color: var(--luma-fg); }
+.luma-pagination__item--active { background: var(--luma-on); color: #fff; font-weight: 600; }
+.luma-pagination__item--disabled { opacity: 0.4; pointer-events: none; }
+
+/* パンくずリスト */
+.luma-breadcrumb { display: flex; align-items: center; gap: var(--luma-space-xs); font-size: 0.8125rem; color: var(--luma-fg-muted); flex-wrap: wrap; }
+.luma-breadcrumb__link { color: var(--luma-fg-muted); border-bottom: none; }
+.luma-breadcrumb__link:hover { color: var(--luma-on); }
+.luma-breadcrumb__sep { color: var(--luma-fg-hint); }
+.luma-breadcrumb__current { color: var(--luma-fg); font-weight: 600; }

@@ -1,0 +1,66 @@
+/* ============================================================
+   LumaUI v1.4 — navigation.css
+   ============================================================ */
+
+.luma-nav { background: var(--luma-surface); border: 1px solid var(--luma-border); }
+
+.luma-nav--side {
+  width: 240px; height: 100vh; position: fixed; top: 0; left: 0;
+  border-right: 1px solid var(--luma-border); border-top: none; border-bottom: none; border-left: none;
+  display: flex; flex-direction: column; padding: var(--luma-space-lg) 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08); z-index: var(--luma-z-drawer);
+}
+.luma-nav--top { display: none; }
+
+.luma-mobile-bar {
+  height: 60px; position: sticky; top: 0; display: none; align-items: center; justify-content: space-between;
+  padding: 0 var(--luma-space-md); border-bottom: 1px solid var(--luma-border); background: var(--luma-surface); z-index: 50;
+}
+#menuCloseBtn { display: none; }
+
+@media (max-width: 768px) {
+  .luma-mobile-bar { display: flex; }
+  .luma-nav--side { width: 260px; transform: translateX(-100%); transition: transform var(--luma-trans-base); box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15); }
+  .luma-nav--side.is-open { transform: translateX(0); }
+  #menuCloseBtn { display: inline-flex; }
+  .luma-nav__brand { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 var(--luma-space-md) var(--luma-space-sm); border-bottom: 1px solid var(--luma-border); margin-bottom: var(--luma-space-sm); }
+}
+
+.luma-main-with-sidebar { margin-left: 240px; }
+@media (max-width: 768px) { .luma-main-with-sidebar { margin-left: 0; } }
+
+.luma-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); opacity: 0; pointer-events: none; transition: opacity var(--luma-trans-base); z-index: var(--luma-z-overlay); }
+.luma-overlay.is-visible { opacity: 1; pointer-events: auto; }
+
+.luma-nav__link {
+  display: flex; align-items: center; gap: var(--luma-space-sm); padding: 10px var(--luma-space-lg);
+  font-size: 0.875rem; font-weight: 500; color: var(--luma-fg-muted); border: 1px solid transparent; border-radius: 0;
+  transition: color var(--luma-trans-fast), background var(--luma-trans-fast), border-color var(--luma-trans-fast);
+  text-decoration: none;
+}
+.luma-nav__link:hover { color: var(--luma-fg); background: var(--luma-surface-alt); border-color: transparent; }
+.luma-nav__link--active { color: var(--luma-on); background: var(--luma-on-bg); border-right: 2px solid var(--luma-on); font-weight: 600; }
+@media (max-width: 768px) { .luma-nav__link { padding: var(--luma-space-sm) var(--luma-space-md); } }
+
+.luma-nav__brand { font-size: 1.25rem; font-weight: 700; color: var(--luma-fg); letter-spacing: -0.02em; padding: 0 var(--luma-space-lg) var(--luma-space-md); border-bottom: 1px solid var(--luma-border); margin-bottom: var(--luma-space-sm); }
+.luma-nav__section { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--luma-fg-hint); padding: var(--luma-space-md) var(--luma-space-lg) var(--luma-space-xs); }
+
+/* タブ（指摘#3への対応） */
+.luma-tabs {
+  display: flex; gap: 4px; padding: 4px; overflow-x: auto; overflow-y: hidden;
+  background: var(--luma-surface-alt); border: 1px solid var(--luma-border-mid);
+  border-radius: var(--luma-radius-pill); box-shadow: var(--luma-neu-inset);
+  touch-action: pan-y; user-select: none; -webkit-user-select: none;
+}
+.luma-tabs__item {
+  padding: 8px var(--luma-space-md); font-size: 0.875rem; font-weight: 600; color: var(--luma-fg-muted);
+  border: 1px solid transparent; border-radius: var(--luma-radius-pill); cursor: pointer; white-space: nowrap; background: none;
+  transition: color var(--luma-trans-fast), background var(--luma-trans-fast), border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
+}
+.luma-tabs__item:hover { color: var(--luma-fg); }
+.luma-tabs__item[aria-selected="true"] {
+  color: var(--luma-on); font-weight: 700; background: var(--luma-on-bg);
+  border-color: rgba(46, 158, 91, 0.30); box-shadow: var(--luma-neu-convex);
+}
+.luma-tabs__panel { padding-top: var(--luma-space-md); }
+.luma-tabs__panel[hidden] { display: none; }

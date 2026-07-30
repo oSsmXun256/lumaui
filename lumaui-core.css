@@ -1,0 +1,294 @@
+/* ============================================================
+   LumaUI Design System — v1.4 — core.css
+   トークン / リセット / タイポグラフィ / レイアウト / ユーティリティ
+   ============================================================ */
+
+:root {
+  --luma-bg:          #f0f0f0;
+  --luma-surface:     #f0f0f0;
+  --luma-surface-alt: #e8e8e8;
+  --luma-fg:          #0d0d0d;
+  --luma-fg-muted:    #5a5a5a;
+  --luma-fg-hint:     #9a9a9a;
+
+  --luma-on:          #2e9e5b;
+  --luma-on-bg:       #e6f7ed;
+  --luma-error:       #d63031;
+  --luma-error-bg:    #fce8e8;
+
+  --luma-border:        rgba(0, 0, 0, 0.12);
+  --luma-border-mid:    rgba(0, 0, 0, 0.20);
+  --luma-border-strong: rgba(0, 0, 0, 0.32);
+
+  --luma-neu-convex:
+    4px 4px 10px rgba(0, 0, 0, 0.12),
+    -4px -4px 10px rgba(255, 255, 255, 0.85);
+  --luma-neu-inset:
+    inset 3px 3px 7px rgba(0, 0, 0, 0.10),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.80);
+  --luma-card-shadow:
+    2px 2px 6px rgba(0, 0, 0, 0.06),
+    -2px -2px 6px rgba(255, 255, 255, 0.75);
+
+  --luma-slider-thumb-shadow:        0 2px 5px rgba(0, 0, 0, 0.22), 0 1px 2px rgba(0, 0, 0, 0.15);
+  --luma-slider-thumb-shadow-active: 0 1px 2px rgba(0, 0, 0, 0.25);
+
+  --luma-font-sans: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+  --luma-font-mono: "JetBrains Mono", "Consolas", monospace;
+
+  --luma-space-xs: 4px;
+  --luma-space-sm: 8px;
+  --luma-space-md: 16px;
+  --luma-space-lg: 24px;
+  --luma-space-xl: 40px;
+
+  --luma-radius-sm:   6px;
+  --luma-radius-md:   10px;
+  --luma-radius-lg:   16px;
+  --luma-radius-xl:   24px;
+  --luma-radius-pill: 9999px;
+
+  --luma-trans-fast: 0.15s ease;
+  --luma-trans-base: 0.22s ease;
+
+  /* z-index スケール */
+  --luma-z-drawer:  150;
+  --luma-z-overlay: 140;
+  --luma-z-dropdown: 200;
+  --luma-z-modal:   500;
+  --luma-z-toast:   600;
+  --luma-z-tooltip: 700;
+}
+
+/* ── style スイッチ: flat / neumorphism ──
+   デフォルトは v1.3 互換の neumorphism。
+   <html data-style="flat"> を付けるとフラット表示に切替。   */
+[data-style="flat"] {
+  --luma-neu-convex: none;
+  --luma-neu-inset: none;
+  --luma-card-shadow: none;
+}
+[data-style="flat"] .luma-card,
+[data-style="flat"] .luma-metric,
+[data-style="flat"] .luma-chart-area,
+[data-style="flat"] .luma-table-wrap {
+  border: 1px solid var(--luma-border-mid);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --luma-bg:          #1a1a1a;
+    --luma-surface:     #1a1a1a;
+    --luma-surface-alt: #242424;
+    --luma-fg:          #f0f0f0;
+    --luma-fg-muted:    #a0a0a0;
+    --luma-fg-hint:     #606060;
+
+    --luma-on:          #3dbb6c;
+    --luma-on-bg:       #122b1d;
+    --luma-error:       #e05555;
+    --luma-error-bg:    #2b1111;
+
+    --luma-border:        rgba(255, 255, 255, 0.10);
+    --luma-border-mid:    rgba(255, 255, 255, 0.18);
+    --luma-border-strong: rgba(255, 255, 255, 0.28);
+
+    --luma-neu-convex:
+      4px 4px 10px rgba(0, 0, 0, 0.35),
+      -4px -4px 10px rgba(255, 255, 255, 0.04);
+    --luma-neu-inset:
+      inset 3px 3px 8px rgba(0, 0, 0, 0.40),
+      inset -3px -3px 8px rgba(255, 255, 255, 0.03);
+    --luma-card-shadow:
+      2px 2px 6px rgba(0, 0, 0, 0.30),
+      -2px -2px 6px rgba(255, 255, 255, 0.03);
+
+    --luma-slider-thumb-shadow:        0 2px 6px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --luma-slider-thumb-shadow-active: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+[data-theme="light"] {
+  --luma-bg: #f0f0f0; --luma-surface: #f0f0f0; --luma-surface-alt: #e8e8e8;
+  --luma-fg: #0d0d0d; --luma-fg-muted: #5a5a5a; --luma-fg-hint: #9a9a9a;
+  --luma-on: #2e9e5b; --luma-on-bg: #e6f7ed; --luma-error: #d63031; --luma-error-bg: #fce8e8;
+  --luma-border: rgba(0,0,0,.12); --luma-border-mid: rgba(0,0,0,.20); --luma-border-strong: rgba(0,0,0,.32);
+  --luma-neu-convex: 4px 4px 10px rgba(0,0,0,.12), -4px -4px 10px rgba(255,255,255,.85);
+  --luma-neu-inset: inset 3px 3px 7px rgba(0,0,0,.10), inset -3px -3px 7px rgba(255,255,255,.80);
+  --luma-card-shadow: 2px 2px 6px rgba(0,0,0,.06), -2px -2px 6px rgba(255,255,255,.75);
+  --luma-slider-thumb-shadow: 0 2px 5px rgba(0,0,0,.22), 0 1px 2px rgba(0,0,0,.15);
+  --luma-slider-thumb-shadow-active: 0 1px 2px rgba(0,0,0,.25);
+}
+
+[data-theme="dark"] {
+  --luma-bg: #1a1a1a; --luma-surface: #1a1a1a; --luma-surface-alt: #242424;
+  --luma-fg: #f0f0f0; --luma-fg-muted: #a0a0a0; --luma-fg-hint: #606060;
+  --luma-on: #3dbb6c; --luma-on-bg: #122b1d; --luma-error: #e05555; --luma-error-bg: #2b1111;
+  --luma-border: rgba(255,255,255,.10); --luma-border-mid: rgba(255,255,255,.18); --luma-border-strong: rgba(255,255,255,.28);
+  --luma-neu-convex: 4px 4px 10px rgba(0,0,0,.35), -4px -4px 10px rgba(255,255,255,.04);
+  --luma-neu-inset: inset 3px 3px 8px rgba(0,0,0,.40), inset -3px -3px 8px rgba(255,255,255,.03);
+  --luma-card-shadow: 2px 2px 6px rgba(0,0,0,.30), -2px -2px 6px rgba(255,255,255,.03);
+  --luma-slider-thumb-shadow: 0 2px 6px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.05);
+  --luma-slider-thumb-shadow-active: 0 1px 3px rgba(0,0,0,.5);
+}
+
+
+/* ------------------------------------------------------------
+   リセット & ベース
+   ------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { font-family: var(--luma-font-sans); background-color: var(--luma-bg); color: var(--luma-fg); line-height: 1.6; min-height: 100vh; }
+a { color: var(--luma-on); text-decoration: none; border-bottom: 1px solid var(--luma-border); transition: color var(--luma-trans-fast), border-color var(--luma-trans-fast); }
+a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
+:focus-visible { outline: 2px solid var(--luma-on); outline-offset: 2px; border-radius: var(--luma-radius-sm); }
+
+
+/* ------------------------------------------------------------
+   タイポグラフィ
+   ------------------------------------------------------------ */
+.luma-h1 { font-size: 2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--luma-fg); }
+.luma-h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; color: var(--luma-fg); }
+.luma-h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; color: var(--luma-fg); }
+.luma-h4 { font-size: 0.9375rem; font-weight: 600; line-height: 1.5; color: var(--luma-fg); }
+.luma-body { font-size: 1rem; line-height: 1.7; color: var(--luma-fg); }
+.luma-body-sm { font-size: 0.875rem; line-height: 1.6; color: var(--luma-fg-muted); }
+.luma-caption { font-size: 0.75rem; line-height: 1.5; color: var(--luma-fg-hint); }
+.luma-label { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; color: var(--luma-fg-muted); }
+.luma-mono { font-family: var(--luma-font-mono); font-size: 0.875rem; }
+
+@media (max-width: 768px) {
+  .luma-h1 { font-size: 1.6rem; }
+  .luma-h2 { font-size: 1.3rem; }
+  .luma-h3 { font-size: 1.1rem; }
+}
+
+
+/* ------------------------------------------------------------
+   レイアウト & グリッド
+   ------------------------------------------------------------ */
+.luma-page { max-width: 1280px; margin: 0 auto; padding: var(--luma-space-lg) var(--luma-space-md); }
+
+.luma-grid { display: grid; gap: var(--luma-space-md); }
+.luma-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.luma-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.luma-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.luma-grid-auto { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+@media (max-width: 1024px) {
+  .luma-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .luma-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .luma-page { padding: calc(60px + var(--luma-space-md)) var(--luma-space-md) var(--luma-space-md); }
+  .luma-grid-2, .luma-grid-3, .luma-grid-4 { grid-template-columns: 1fr; }
+}
+
+.luma-flex { display: flex; }
+.luma-flex-center { display: flex; align-items: center; justify-content: center; }
+.luma-flex-between { display: flex; align-items: center; justify-content: space-between; }
+.luma-flex-wrap { flex-wrap: wrap; }
+.luma-flex-col { flex-direction: column; }
+.luma-items-center { align-items: center; }
+.luma-items-start { align-items: flex-start; }
+.luma-items-end { align-items: flex-end; }
+.luma-justify-center { justify-content: center; }
+.luma-justify-between { justify-content: space-between; }
+.luma-justify-end { justify-content: flex-end; }
+
+.luma-gap-xs { gap: var(--luma-space-xs); }
+.luma-gap-sm { gap: var(--luma-space-sm); }
+.luma-gap-md { gap: var(--luma-space-md); }
+.luma-gap-lg { gap: var(--luma-space-lg); }
+
+@media (max-width: 768px) {
+  .luma-flex-responsive { flex-direction: column; gap: var(--luma-space-md); }
+}
+
+.luma-stack { display: flex; flex-direction: column; gap: var(--luma-space-md); }
+.luma-stack--sm { gap: var(--luma-space-sm); }
+.luma-stack-sm { gap: var(--luma-space-sm); } /* v1.3 互換エイリアス */
+
+
+/* ------------------------------------------------------------
+   ユーティリティ（拡充: 指摘#5への対応）
+   ------------------------------------------------------------ */
+.luma-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* テキストカラー */
+.luma-text-on    { color: var(--luma-on); }
+.luma-text-error { color: var(--luma-error); }
+.luma-text-muted { color: var(--luma-fg-muted); }
+.luma-text-hint  { color: var(--luma-fg-hint); }
+
+/* 整列 */
+.luma-text-left   { text-align: left; }
+.luma-text-center { text-align: center; }
+.luma-text-right  { text-align: right; }
+
+/* マージン（4方向 × xs〜lg） */
+.luma-mt-0  { margin-top: 0; }
+.luma-mt-xs { margin-top: var(--luma-space-xs); }
+.luma-mt-sm { margin-top: var(--luma-space-sm); }
+.luma-mt-md { margin-top: var(--luma-space-md); }
+.luma-mt-lg { margin-top: var(--luma-space-lg); }
+.luma-mb-0  { margin-bottom: 0; }
+.luma-mb-xs { margin-bottom: var(--luma-space-xs); }
+.luma-mb-sm { margin-bottom: var(--luma-space-sm); }
+.luma-mb-md { margin-bottom: var(--luma-space-md); }
+.luma-mb-lg { margin-bottom: var(--luma-space-lg); }
+.luma-ml-sm { margin-left: var(--luma-space-sm); }
+.luma-ml-md { margin-left: var(--luma-space-md); }
+.luma-mr-sm { margin-right: var(--luma-space-sm); }
+.luma-mr-md { margin-right: var(--luma-space-md); }
+.luma-mx-auto { margin-left: auto; margin-right: auto; }
+
+/* パディング */
+.luma-p-0  { padding: 0; }
+.luma-p-sm { padding: var(--luma-space-sm); }
+.luma-p-md { padding: var(--luma-space-md); }
+.luma-p-lg { padding: var(--luma-space-lg); }
+
+/* 幅・高さ */
+.luma-w-full  { width: 100%; }
+.luma-w-auto  { width: auto; }
+.luma-w-25    { width: 25%; }
+.luma-w-50    { width: 50%; }
+.luma-w-75    { width: 75%; }
+.luma-h-full  { height: 100%; }
+.luma-max-w-sm { max-width: 320px; }
+.luma-max-w-md { max-width: 560px; }
+.luma-max-w-lg { max-width: 840px; }
+
+/* 表示制御 */
+.luma-hidden  { display: none !important; }
+.luma-block   { display: block; }
+.luma-inline-block { display: inline-block; }
+
+@media (max-width: 768px) {
+  .luma-hidden-mobile { display: none !important; }
+}
+@media (min-width: 769px) {
+  .luma-hidden-desktop { display: none !important; }
+}
+
+/* シャドウ / 境界の打消し（インラインstyle撤廃用） */
+.luma-shadow-none  { box-shadow: none !important; }
+.luma-border-none  { border: none !important; }
+.luma-radius-none  { border-radius: 0 !important; }
+.luma-overflow-hidden { overflow: hidden; }
+
+/* アニメーション（指摘#7への対応） */
+@keyframes luma-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes luma-slide-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes luma-spin { to { transform: rotate(360deg); } }
+
+.luma-anim-fade  { animation: luma-fade-in var(--luma-trans-base) both; }
+.luma-anim-slide { animation: luma-slide-up var(--luma-trans-base) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .luma-anim-fade, .luma-anim-slide { animation: none; }
+}

@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LumaUI Design System v1.3 - 完全デモ</title>
+  <title>LumaUI Design System v1.4 - 完全デモ</title>
   <link rel="stylesheet" href="lumaui.css">
 </head>
 <body>
 
   <!-- モバイルトップバー -->
   <header class="luma-nav luma-nav--top luma-mobile-bar">
-    <button class="luma-btn luma-btn--icon" id="menuOpenBtn" aria-label="メニューを開く" style="box-shadow:none;border-color:transparent;font-size:1.25rem;flex-shrink:0;">☰</button>
-    <div style="font-size:1.125rem;font-weight:700;letter-spacing:-0.02em;color:var(--luma-fg);">LumaUI Demo</div>
-    <button class="luma-btn luma-btn--icon" id="themeToggleBtnMobile" aria-label="テーマ切り替え" style="box-shadow:none;border-color:transparent;flex-shrink:0;">💡</button>
+    <button class="luma-btn luma-btn--icon luma-btn--ghost" data-luma-drawer-open aria-label="メニューを開く">☰</button>
+    <div class="luma-h4">LumaUI Demo</div>
+    <button class="luma-btn luma-btn--icon luma-btn--ghost" data-luma-theme-toggle aria-label="テーマ切り替え">💡</button>
   </header>
 
-  <div class="luma-overlay" id="drawerOverlay"></div>
-  <button class="luma-theme-toggle luma-hidden-mobile" id="themeToggleBtn" aria-label="テーマ切り替え">💡</button>
+  <div class="luma-overlay"></div>
+  <button class="luma-theme-toggle luma-hidden-mobile" data-luma-theme-toggle aria-label="テーマ切り替え">💡</button>
 
   <!-- サイドナビ -->
   <nav class="luma-nav luma-nav--side" id="sideNavigation">
     <div class="luma-nav__brand">
       <span>LumaUI Demo</span>
-      <button class="luma-btn luma-btn--icon" id="menuCloseBtn" aria-label="閉じる" style="box-shadow:none;border:none;background:transparent;">✕</button>
+      <button class="luma-btn luma-btn--icon luma-btn--ghost" id="menuCloseBtn" aria-label="閉じる">✕</button>
     </div>
     <div class="luma-nav__section">メイン</div>
     <a href="#section-overview" class="luma-nav__link luma-nav__link--active"><span>📊</span> 概要</a>
@@ -30,18 +30,30 @@
     <a href="#section-buttons" class="luma-nav__link"><span>🔘</span> ボタン</a>
     <a href="#section-forms" class="luma-nav__link"><span>📝</span> フォーム</a>
     <a href="#section-feedback" class="luma-nav__link"><span>💬</span> フィードバック</a>
+    <div class="luma-nav__section">新規コンポーネント (v1.4)</div>
+    <a href="#section-overlay" class="luma-nav__link"><span>🪟</span> モーダル・トースト</a>
+    <a href="#section-tabs" class="luma-nav__link"><span>🗂️</span> タブ・アコーディオン</a>
+    <a href="#section-misc" class="luma-nav__link"><span>🧩</span> アバター・スケルトン等</a>
     <div class="luma-nav__section">データ</div>
     <a href="#section-table" class="luma-nav__link"><span>📋</span> テーブル</a>
     <a href="#section-simulator" class="luma-nav__link"><span>⚙️</span> シミュレーター</a>
-    <a href="#section-layout" class="luma-nav__link"><span>🗂️</span> レイアウト</a>
+    <a href="#section-layout" class="luma-nav__link"><span>🗃️</span> レイアウト</a>
   </nav>
 
   <main class="luma-main-with-sidebar luma-page luma-stack luma-gap-lg">
 
     <!-- ページヘッダー -->
     <div id="section-overview">
-      <h1 class="luma-h1">LumaUI Design System v1.3</h1>
-      <p class="luma-body-sm">全コンポーネント・デモ — フラット × Neumorphism / ライト・ダーク対応</p>
+      <div class="luma-flex-between luma-flex-wrap luma-gap-sm">
+        <div>
+          <h1 class="luma-h1">LumaUI Design System v1.4</h1>
+          <p class="luma-body-sm">全コンポーネント・デモ — Neumorphism / フラット切替対応・ライト/ダーク対応</p>
+        </div>
+        <div class="luma-flex luma-gap-sm luma-items-center">
+          <span class="luma-label">スタイル:</span>
+          <button class="luma-btn luma-btn--sm" id="styleSwitch">Neumorphism</button>
+        </div>
+      </div>
     </div>
 
     <!-- メトリクス -->
@@ -72,9 +84,7 @@
 
     <!-- タイポグラフィ -->
     <section class="luma-card" id="section-typography">
-      <div class="luma-card__header">
-        <h2 class="luma-h2">タイポグラフィ</h2>
-      </div>
+      <div class="luma-card__header"><h2 class="luma-h2">タイポグラフィ</h2></div>
       <div class="luma-stack">
         <div>
           <p class="luma-caption luma-mb-sm">見出し</p>
@@ -108,34 +118,41 @@
 
     <!-- ボタン -->
     <section class="luma-card" id="section-buttons">
-      <div class="luma-card__header">
-        <h2 class="luma-h2">ボタン</h2>
-      </div>
+      <div class="luma-card__header"><h2 class="luma-h2">ボタン</h2></div>
       <div class="luma-stack">
         <div>
           <p class="luma-label luma-mb-sm">バリアント</p>
-          <div class="luma-flex luma-gap-sm" style="flex-wrap:wrap;">
+          <div class="luma-flex luma-gap-sm luma-flex-wrap">
             <button class="luma-btn luma-btn--primary">Primary</button>
             <button class="luma-btn">Default</button>
             <button class="luma-btn luma-btn--danger">Danger</button>
+            <button class="luma-btn luma-btn--ghost">Ghost</button>
             <button class="luma-btn" disabled>Disabled</button>
           </div>
         </div>
         <div>
+          <p class="luma-label luma-mb-sm">サイズ (v1.4新規)</p>
+          <div class="luma-flex luma-gap-sm luma-items-center luma-flex-wrap">
+            <button class="luma-btn luma-btn--primary luma-btn--sm">Small</button>
+            <button class="luma-btn luma-btn--primary">Medium</button>
+            <button class="luma-btn luma-btn--primary luma-btn--lg">Large</button>
+          </div>
+        </div>
+        <div>
           <p class="luma-label luma-mb-sm">アイコンボタン</p>
-          <div class="luma-flex luma-gap-sm">
-            <button class="luma-btn luma-btn--icon" title="設定">⚙️</button>
+          <div class="luma-flex luma-gap-sm luma-items-center">
+            <button class="luma-btn luma-btn--icon luma-btn--sm" title="設定">⚙️</button>
             <button class="luma-btn luma-btn--icon luma-btn--primary" title="追加">＋</button>
-            <button class="luma-btn luma-btn--icon luma-btn--danger" title="削除">🗑</button>
+            <button class="luma-btn luma-btn--icon luma-btn--lg luma-btn--danger" title="削除">🗑</button>
           </div>
         </div>
         <div>
           <p class="luma-label luma-mb-sm">バッジ / チップ</p>
-          <div class="luma-flex luma-gap-sm" style="flex-wrap:wrap;">
+          <div class="luma-flex luma-gap-sm luma-flex-wrap">
             <span class="luma-badge luma-badge--on">Online</span>
             <span class="luma-badge luma-badge--error">Error</span>
             <span class="luma-badge">Default</span>
-            <span class="luma-badge luma-badge--no-dot">v1.3.0</span>
+            <span class="luma-badge luma-badge--no-dot">v1.4.0</span>
             <span class="luma-badge luma-badge--on luma-badge--no-dot">稼働中</span>
           </div>
         </div>
@@ -144,12 +161,9 @@
 
     <!-- フォーム -->
     <section class="luma-card" id="section-forms">
-      <div class="luma-card__header">
-        <h2 class="luma-h2">フォームコンポーネント</h2>
-      </div>
+      <div class="luma-card__header"><h2 class="luma-h2">フォームコンポーネント</h2></div>
       <div class="luma-grid luma-grid-2">
 
-        <!-- 左カラム -->
         <div class="luma-stack">
           <p class="luma-label">テキスト入力</p>
 
@@ -168,36 +182,44 @@
           <div class="luma-field">
             <label class="luma-field__label" for="inp3">金額（数値入力）</label>
             <div class="luma-input-group">
-              <span class="luma-input-addon">¥</span>
+              <span class="luma-input-group__addon">¥</span>
               <input class="luma-input luma-input--number" id="inp3" type="number" value="12800">
-              <span class="luma-input-addon luma-input-addon--right">JPY</span>
+              <span class="luma-input-group__addon luma-input-group__addon--right">JPY</span>
+            </div>
+          </div>
+
+          <div class="luma-field">
+            <label class="luma-field__label">入力サイズ (v1.4新規)</label>
+            <div class="luma-stack luma-stack--sm">
+              <input class="luma-input luma-input--sm" type="text" placeholder="Small">
+              <input class="luma-input" type="text" placeholder="Medium (default)">
+              <input class="luma-input luma-input--lg" type="text" placeholder="Large">
             </div>
           </div>
 
           <div class="luma-field">
             <label class="luma-field__label">リージョン選択</label>
-            <div class="luma-dropdown" id="regionDropdown">
-              <button type="button" class="luma-dropdown__trigger" aria-haspopup="listbox" aria-expanded="false">
+            <div class="luma-dropdown">
+              <button type="button" class="luma-dropdown__trigger">
                 <span class="luma-dropdown__value">Asia Pacific (Tokyo)</span>
                 <svg class="luma-dropdown__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
               <ul class="luma-dropdown__list" role="listbox">
-                <li class="luma-dropdown__group-label">アジア太平洋</li>
-                <li class="luma-dropdown__item luma-dropdown__item--selected" role="option" data-value="ap-northeast-1">🇯🇵 Asia Pacific (Tokyo)</li>
-                <li class="luma-dropdown__item" role="option" data-value="ap-southeast-1">🇸🇬 Asia Pacific (Singapore)</li>
-                <li class="luma-dropdown__item" role="option" data-value="ap-southeast-2">🇦🇺 Asia Pacific (Sydney)</li>
-                <li class="luma-dropdown__group-label">アメリカ</li>
-                <li class="luma-dropdown__item" role="option" data-value="us-east-1">🇺🇸 US East (N. Virginia)</li>
-                <li class="luma-dropdown__item" role="option" data-value="us-west-2">🇺🇸 US West (Oregon)</li>
-                <li class="luma-dropdown__group-label">ヨーロッパ</li>
-                <li class="luma-dropdown__item" role="option" data-value="eu-central-1">🇩🇪 EU (Frankfurt)</li>
-                <li class="luma-dropdown__item" role="option" data-value="eu-west-1">🇮🇪 EU (Ireland)</li>
+                <li class="luma-dropdown__group-label" aria-hidden="true">アジア太平洋</li>
+                <li class="luma-dropdown__item luma-dropdown__item--selected" role="option" data-value="ap-northeast-1" data-label="Asia Pacific (Tokyo)">🇯🇵 Asia Pacific (Tokyo)</li>
+                <li class="luma-dropdown__item" role="option" data-value="ap-southeast-1" data-label="Asia Pacific (Singapore)">🇸🇬 Asia Pacific (Singapore)</li>
+                <li class="luma-dropdown__item" role="option" data-value="ap-southeast-2" data-label="Asia Pacific (Sydney)">🇦🇺 Asia Pacific (Sydney)</li>
+                <li class="luma-dropdown__group-label" aria-hidden="true">アメリカ</li>
+                <li class="luma-dropdown__item" role="option" data-value="us-east-1" data-label="US East (N. Virginia)">🇺🇸 US East (N. Virginia)</li>
+                <li class="luma-dropdown__item" role="option" data-value="us-west-2" data-label="US West (Oregon)">🇺🇸 US West (Oregon)</li>
+                <li class="luma-dropdown__group-label" aria-hidden="true">ヨーロッパ</li>
+                <li class="luma-dropdown__item" role="option" data-value="eu-central-1" data-label="EU (Frankfurt)">🇩🇪 EU (Frankfurt)</li>
+                <li class="luma-dropdown__item" role="option" data-value="eu-west-1" data-label="EU (Ireland)">🇮🇪 EU (Ireland)</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- 右カラム -->
         <div class="luma-stack">
           <p class="luma-label">コントロール</p>
 
@@ -253,7 +275,7 @@
               <div class="luma-flex-between">
                 <span class="luma-body-sm luma-text-hint">無効なトグル</span>
                 <label class="luma-toggle-row">
-                  <span class="luma-toggle" style="opacity:0.4;pointer-events:none;">
+                  <span class="luma-toggle luma-shadow-none" style="opacity:0.4;pointer-events:none;">
                     <input type="checkbox" disabled>
                     <span class="luma-toggle__track"><span class="luma-toggle__thumb"></span></span>
                   </span>
@@ -267,47 +289,164 @@
 
     <!-- フィードバック -->
     <section class="luma-card" id="section-feedback">
-      <div class="luma-card__header">
-        <h2 class="luma-h2">フィードバック・インセット</h2>
-      </div>
+      <div class="luma-card__header"><h2 class="luma-h2">フィードバック・インセット</h2></div>
       <div class="luma-stack">
         <div class="luma-grid luma-grid-2">
           <div class="luma-inset" style="border-color:rgba(46,158,91,0.30);background:var(--luma-on-bg);">
             <div class="luma-flex luma-gap-sm">
               <span>✅</span>
-              <div>
-                <p class="luma-label luma-text-on">デプロイ完了</p>
-                <p class="luma-body-sm">node-asia-east-01 への反映が正常に完了しました。</p>
-              </div>
+              <div><p class="luma-label luma-text-on">デプロイ完了</p><p class="luma-body-sm">node-asia-east-01 への反映が正常に完了しました。</p></div>
             </div>
           </div>
           <div class="luma-inset" style="border-color:rgba(214,48,49,0.30);background:var(--luma-error-bg);">
             <div class="luma-flex luma-gap-sm">
               <span>❌</span>
-              <div>
-                <p class="luma-label luma-text-error">接続エラー</p>
-                <p class="luma-body-sm">node-eu-central-01 との通信がタイムアウトしました。</p>
-              </div>
+              <div><p class="luma-label luma-text-error">接続エラー</p><p class="luma-body-sm">node-eu-central-01 との通信がタイムアウトしました。</p></div>
             </div>
           </div>
           <div class="luma-inset">
             <div class="luma-flex luma-gap-sm">
               <span>ℹ️</span>
-              <div>
-                <p class="luma-label">情報</p>
-                <p class="luma-body-sm">luma-inset は汎用のインセット（凹み）コンテナです。背景・ボーダーを上書きして用途に応じて活用できます。</p>
-              </div>
+              <div><p class="luma-label">情報</p><p class="luma-body-sm">luma-inset は汎用のインセット（凹み）コンテナです。背景・ボーダーを上書きして用途に応じて活用できます。</p></div>
             </div>
           </div>
           <div class="luma-inset" style="border-color:rgba(255,180,0,0.35);background:rgba(255,180,0,0.08);">
             <div class="luma-flex luma-gap-sm">
               <span>⚠️</span>
-              <div>
-                <p class="luma-label" style="color:#b07800;">警告</p>
-                <p class="luma-body-sm">ディスク使用量が閾値（80%）に近づいています。</p>
-              </div>
+              <div><p class="luma-label" style="color:#b07800;">警告</p><p class="luma-body-sm">ディスク使用量が閾値（80%）に近づいています。</p></div>
             </div>
           </div>
+        </div>
+        <hr class="luma-divider">
+        <p class="luma-label">トースト通知 (v1.4新規)</p>
+        <div class="luma-flex luma-gap-sm luma-flex-wrap">
+          <button class="luma-btn" id="btnToastOn">成功トースト</button>
+          <button class="luma-btn" id="btnToastError">エラートースト</button>
+          <button class="luma-btn luma-btn--ghost" id="btnToastStack">大量送信（スタック確認）</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 新規: モーダル・トースト -->
+    <section class="luma-card" id="section-overlay">
+      <div class="luma-card__header"><h2 class="luma-h2">モーダル (v1.4新規)</h2></div>
+      <div class="luma-stack">
+        <div class="luma-flex luma-gap-sm">
+          <button class="luma-btn luma-btn--primary" data-luma-modal-open="demoModal">モーダルを開く</button>
+        </div>
+        <p class="luma-body-sm luma-text-muted">Esc・背景クリック・Tabキートラップは lumaui.js が自動処理します。</p>
+      </div>
+    </section>
+
+    <div class="luma-modal-backdrop" id="demoModal">
+      <div class="luma-modal" role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
+        <div class="luma-modal__header">
+          <h2 class="luma-h3" id="demoModalTitle">サーバー再起動の確認</h2>
+          <button class="luma-modal__close" data-luma-modal-close aria-label="閉じる">✕</button>
+        </div>
+        <div class="luma-modal__body">
+          <p class="luma-body-sm">node-asia-east-01 を再起動します。実行中の接続はすべて切断されます。よろしいですか？</p>
+        </div>
+        <div class="luma-modal__footer">
+          <button class="luma-btn" data-luma-modal-close>キャンセル</button>
+          <button class="luma-btn luma-btn--danger" data-luma-modal-close>再起動する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新規: タブ・アコーディオン -->
+    <section class="luma-card" id="section-tabs">
+      <div class="luma-card__header"><h2 class="luma-h2">タブ (v1.4新規)</h2></div>
+      <div class="luma-tabs" role="tablist">
+        <button class="luma-tabs__item" role="tab" aria-selected="true" aria-controls="panel-overview" tabindex="0">概要</button>
+        <button class="luma-tabs__item" role="tab" aria-selected="false" aria-controls="panel-logs" tabindex="-1">ログ</button>
+        <button class="luma-tabs__item" role="tab" aria-selected="false" aria-controls="panel-settings" tabindex="-1">設定</button>
+      </div>
+      <div class="luma-tabs__panel" id="panel-overview">
+        <p class="luma-body-sm">ノードの稼働状況、CPU負荷、メモリ使用率などのサマリーを表示します。</p>
+      </div>
+      <div class="luma-tabs__panel" id="panel-logs" hidden>
+        <p class="luma-body-sm luma-mono">2026-07-30 09:12:03 INFO  node-asia-east-01 起動完了</p>
+      </div>
+      <div class="luma-tabs__panel" id="panel-settings" hidden>
+        <p class="luma-body-sm">自動スケーリング・アラート閾値などを設定できます。</p>
+      </div>
+
+      <hr class="luma-divider luma-mt-lg">
+
+      <h3 class="luma-h3 luma-mt-md luma-mb-sm">アコーディオン (v1.4新規)</h3>
+      <div class="luma-accordion">
+        <div class="luma-accordion__item">
+          <button class="luma-accordion__trigger">
+            サーバー仕様
+            <svg class="luma-accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="luma-accordion__panel"><div class="luma-accordion__panel-inner">vCPU 4 / メモリ 16GB / SSD 200GB</div></div>
+        </div>
+        <div class="luma-accordion__item">
+          <button class="luma-accordion__trigger">
+            ネットワーク設定
+            <svg class="luma-accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="luma-accordion__panel"><div class="luma-accordion__panel-inner">プライベートVPC内、ロードバランサー経由でアクセス。</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 新規: アバター・スケルトン・ツールチップ -->
+    <section class="luma-card" id="section-misc">
+      <div class="luma-card__header"><h2 class="luma-h2">アバター・スケルトン・ツールチップ (v1.4新規)</h2></div>
+      <div class="luma-stack">
+        <div>
+          <p class="luma-label luma-mb-sm">アバター</p>
+          <div class="luma-flex luma-gap-md luma-items-center">
+            <span class="luma-avatar luma-avatar--sm">A</span>
+            <span class="luma-avatar">田</span>
+            <span class="luma-avatar luma-avatar--lg">S</span>
+            <div class="luma-avatar-group">
+              <span class="luma-avatar luma-avatar--sm">A</span>
+              <span class="luma-avatar luma-avatar--sm">B</span>
+              <span class="luma-avatar luma-avatar--sm">C</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="luma-label luma-mb-sm">スケルトン / スピナー</p>
+          <div class="luma-stack luma-stack--sm luma-max-w-sm">
+            <div class="luma-skeleton luma-skeleton--text" style="width:80%;"></div>
+            <div class="luma-skeleton luma-skeleton--text" style="width:60%;"></div>
+          </div>
+          <div class="luma-flex luma-gap-md luma-items-center luma-mt-sm">
+            <div class="luma-spinner"></div>
+            <div class="luma-spinner luma-spinner--lg"></div>
+          </div>
+        </div>
+        <div>
+          <p class="luma-label luma-mb-sm">ツールチップ</p>
+          <span class="luma-tooltip">
+            <button class="luma-btn luma-btn--icon luma-btn--sm">?</button>
+            <span class="luma-tooltip__bubble">この機能はベータ版です</span>
+          </span>
+        </div>
+        <div>
+          <p class="luma-label luma-mb-sm">パンくずリスト</p>
+          <nav class="luma-breadcrumb" aria-label="パンくずリスト">
+            <a class="luma-breadcrumb__link" href="#">ホーム</a>
+            <span class="luma-breadcrumb__sep">/</span>
+            <a class="luma-breadcrumb__link" href="#">ノード管理</a>
+            <span class="luma-breadcrumb__sep">/</span>
+            <span class="luma-breadcrumb__current">node-asia-east-01</span>
+          </nav>
+        </div>
+        <div>
+          <p class="luma-label luma-mb-sm">ページネーション</p>
+          <nav class="luma-pagination" aria-label="ページ送り">
+            <span class="luma-pagination__item luma-pagination__item--disabled">‹</span>
+            <span class="luma-pagination__item luma-pagination__item--active">1</span>
+            <a class="luma-pagination__item" href="#">2</a>
+            <a class="luma-pagination__item" href="#">3</a>
+            <a class="luma-pagination__item" href="#">›</a>
+          </nav>
         </div>
       </div>
     </section>
@@ -315,11 +454,9 @@
     <!-- チャート & 制御 -->
     <section class="luma-grid luma-grid-2" id="section-simulator">
       <div class="luma-card">
-        <div class="luma-card__header">
-          <h2 class="luma-h2">シミュレーター制御</h2>
-        </div>
+        <div class="luma-card__header"><h2 class="luma-h2">シミュレーター制御</h2></div>
         <div class="luma-stack">
-          <div class="luma-flex luma-gap-sm luma-mt-sm" style="flex-wrap:wrap;">
+          <div class="luma-flex luma-gap-sm luma-mt-sm luma-flex-wrap">
             <button class="luma-btn luma-btn--primary" id="btnUpdate">データ更新</button>
             <button class="luma-btn" id="btnReset">標準に戻す</button>
             <button class="luma-btn luma-btn--danger" id="btnAlert">緊急停止</button>
@@ -332,7 +469,7 @@
           <h2 class="luma-h2">リアルタイム稼働ログ</h2>
           <div class="luma-flex luma-gap-xs">
             <span class="luma-badge luma-badge--on" id="statusBadge">稼働中</span>
-            <span class="luma-badge luma-badge--no-dot">v1.0.3</span>
+            <span class="luma-badge luma-badge--no-dot">v1.4.0</span>
           </div>
         </div>
         <div class="luma-chart-area">
@@ -357,12 +494,8 @@
         <table class="luma-table">
           <thead>
             <tr>
-              <th>ノード名称</th>
-              <th>IPアドレス</th>
-              <th>リージョン</th>
-              <th>ステータス</th>
-              <th class="luma-text-right">レスポンス</th>
-              <th class="luma-text-right">負荷率</th>
+              <th>ノード名称</th><th>IPアドレス</th><th>リージョン</th><th>ステータス</th>
+              <th class="luma-text-right">レスポンス</th><th class="luma-text-right">負荷率</th>
             </tr>
           </thead>
           <tbody>
@@ -397,41 +530,41 @@
 
     <!-- レイアウトデモ -->
     <section class="luma-card" id="section-layout">
-      <div class="luma-card__header">
-        <h2 class="luma-h2">グリッド & レイアウト</h2>
-      </div>
+      <div class="luma-card__header"><h2 class="luma-h2">グリッド & レイアウト & ユーティリティ</h2></div>
       <div class="luma-stack">
         <p class="luma-label">luma-grid-4 (タブレット→2列, スマホ→1列)</p>
         <div class="luma-grid luma-grid-4">
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 1</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 2</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 3</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 4</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Col 1</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Col 2</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Col 3</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Col 4</p></div>
         </div>
         <p class="luma-label">luma-grid-3</p>
         <div class="luma-grid luma-grid-3">
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 1</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 2</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Col 3</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Col 1</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Col 2</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Col 3</p></div>
         </div>
         <p class="luma-label">luma-grid-auto (auto-fit minmax 240px)</p>
         <div class="luma-grid luma-grid-auto">
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto A</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto B</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto C</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto D</p></div>
-          <div class="luma-card luma-card-sm luma-text-center"><p class="luma-caption">Auto E</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Auto A</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Auto B</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Auto C</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Auto D</p></div>
+          <div class="luma-card luma-card--sm luma-text-center"><p class="luma-caption">Auto E</p></div>
         </div>
         <hr class="luma-divider">
         <p class="luma-label">Flex ユーティリティ</p>
-        <div class="luma-flex luma-gap-md" style="flex-wrap:wrap;align-items:center;">
+        <div class="luma-flex luma-gap-md luma-items-center luma-flex-wrap">
           <span class="luma-badge luma-badge--no-dot">luma-flex</span>
-          <span class="luma-badge luma-badge--no-dot">luma-gap-md</span>
+          <span class="luma-badge luma-badge--no-dot">luma-flex-wrap</span>
+          <span class="luma-badge luma-badge--no-dot">luma-flex-col</span>
           <span class="luma-badge luma-badge--no-dot">luma-flex-between</span>
           <span class="luma-badge luma-badge--no-dot">luma-flex-center</span>
           <span class="luma-badge luma-badge--no-dot">luma-flex-responsive</span>
+          <span class="luma-badge luma-badge--no-dot">luma-items-center</span>
         </div>
-        <p class="luma-label luma-mt-sm">スペーシングユーティリティ: mt/mb sm/md/lg, w-full, hidden, sr-only</p>
+        <p class="luma-label luma-mt-sm">スペーシング: mt/mb/ml/mr/p (0/xs/sm/md/lg), w-25/50/75/full, max-w-sm/md/lg</p>
         <p class="luma-label">レスポンシブ表示制御</p>
         <div class="luma-flex luma-gap-sm">
           <span class="luma-badge luma-hidden-mobile">PCのみ表示 (luma-hidden-mobile)</span>
@@ -443,46 +576,30 @@
 
   </main>
 
+  <script src="lumaui.js"></script>
   <script>
-    // テーマ切り替え
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
-    let currentTheme = localStorage.getItem('luma-theme') || 'auto';
-    function setTheme(theme) {
-      if (theme === 'auto') {
-        document.documentElement.removeAttribute('data-theme');
-        const icon = window.matchMedia('(prefers-color-scheme: dark)').matches ? '🌙' : '💡';
-        if (themeToggleBtn) themeToggleBtn.textContent = icon;
-        if (themeToggleBtnMobile) themeToggleBtnMobile.textContent = icon;
-      } else {
-        document.documentElement.setAttribute('data-theme', theme);
-        const icon = theme === 'dark' ? '🌙' : '💡';
-        if (themeToggleBtn) themeToggleBtn.textContent = icon;
-        if (themeToggleBtnMobile) themeToggleBtnMobile.textContent = icon;
-      }
-      localStorage.setItem('luma-theme', theme);
-    }
-    function toggleTheme() {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
-                     (!document.documentElement.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      setTheme(isDark ? 'light' : 'dark');
-    }
-    setTheme(currentTheme);
-    if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
-    if (themeToggleBtnMobile) themeToggleBtnMobile.addEventListener('click', toggleTheme);
+    // lumaui.js が Dropdown / Drawer / ThemeToggle / Modal / Tabs / Accordion / Toast を自動初期化する。
+    // 以下はこのデモ固有のロジックのみ。
 
-    // ドロワー
-    const menuOpenBtn = document.getElementById('menuOpenBtn');
-    const menuCloseBtn = document.getElementById('menuCloseBtn');
-    const sideNavigation = document.getElementById('sideNavigation');
-    const drawerOverlay = document.getElementById('drawerOverlay');
-    function openDrawer() { sideNavigation.classList.add('is-open'); drawerOverlay.classList.add('is-visible'); }
-    function closeDrawer() { sideNavigation.classList.remove('is-open'); drawerOverlay.classList.remove('is-visible'); }
-    menuOpenBtn.addEventListener('click', openDrawer);
-    menuCloseBtn.addEventListener('click', closeDrawer);
-    drawerOverlay.addEventListener('click', closeDrawer);
-    document.querySelectorAll('.luma-nav__link').forEach(link => {
-      link.addEventListener('click', () => { if (window.innerWidth <= 768) closeDrawer(); });
+    // Neumorphism ⇔ Flat 切替 (v1.4新規)
+    const styleSwitch = document.getElementById('styleSwitch');
+    styleSwitch.addEventListener('click', () => {
+      const isFlat = document.documentElement.getAttribute('data-style') === 'flat';
+      document.documentElement.setAttribute('data-style', isFlat ? '' : 'flat');
+      styleSwitch.textContent = isFlat ? 'Neumorphism' : 'Flat';
+    });
+
+    // トースト (v1.4新規)
+    document.getElementById('btnToastOn').addEventListener('click', () => {
+      LumaUI.Toast.show('デプロイが完了しました', { type: 'on' });
+    });
+    document.getElementById('btnToastError').addEventListener('click', () => {
+      LumaUI.Toast.show('接続エラーが発生しました', { type: 'error' });
+    });
+    document.getElementById('btnToastStack').addEventListener('click', () => {
+      for (let i = 1; i <= 8; i++) {
+        LumaUI.Toast.show(`通知 #${i} が届きました`, { type: i % 2 ? 'on' : 'error', duration: 8000 });
+      }
     });
 
     // スライダー連動
@@ -519,6 +636,7 @@
       rowBadge.className = on ? 'luma-badge luma-badge--error' : 'luma-badge';
       rowResponse.textContent = on ? 'Timeout' : '--';
       rowResponse.classList.toggle('luma-text-error', on);
+      if (on) LumaUI.Toast.show('ブーストモードによりエラーが発生しました', { type: 'error' });
     });
 
     // ボタンアクション
@@ -527,7 +645,7 @@
         document.getElementById('bar' + i).style.height = (Math.floor(Math.random() * 80) + 15) + '%';
       }
       const u = parseInt(document.getElementById('valUsers').textContent.replace(',', ''));
-      document.getElementById('valUsers').textContent = (u + Math.floor(Math.random() * 20) - 5).toLocaleString();
+      document.getElementById('valUsers').textContent = Math.max(0, u + Math.floor(Math.random() * 20) - 5).toLocaleString();
     });
     document.getElementById('btnReset').addEventListener('click', () => {
       slider.value = 42;
@@ -535,48 +653,7 @@
       if (boostToggle.checked) { boostToggle.checked = false; boostToggle.dispatchEvent(new Event('change')); }
     });
     document.getElementById('btnAlert').addEventListener('click', () => {
-      alert('システム緊急停止プロトコルがシミュレートされました。');
-    });
-
-    // カスタムドロップダウン
-    document.querySelectorAll('.luma-dropdown').forEach(dropdown => {
-      const trigger = dropdown.querySelector('.luma-dropdown__trigger');
-      const list = dropdown.querySelector('.luma-dropdown__list');
-      const valueEl = dropdown.querySelector('.luma-dropdown__value');
-      const items = dropdown.querySelectorAll('.luma-dropdown__item');
-
-      function openDropdown() {
-        dropdown.classList.add('is-open');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
-      function closeDropdown() {
-        dropdown.classList.remove('is-open');
-        trigger.setAttribute('aria-expanded', 'false');
-      }
-
-      trigger.addEventListener('click', e => {
-        e.stopPropagation();
-        dropdown.classList.contains('is-open') ? closeDropdown() : openDropdown();
-      });
-
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          items.forEach(i => i.classList.remove('luma-dropdown__item--selected'));
-          item.classList.add('luma-dropdown__item--selected');
-          valueEl.textContent = item.textContent.trim().replace('✓', '').trim();
-          trigger.removeAttribute('data-placeholder');
-          closeDropdown();
-        });
-      });
-
-      document.addEventListener('click', e => {
-        if (!dropdown.contains(e.target)) closeDropdown();
-      });
-
-      trigger.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropdown.classList.contains('is-open') ? closeDropdown() : openDropdown(); }
-        if (e.key === 'Escape') closeDropdown();
-      });
+      LumaUI.Toast.show('システム緊急停止プロトコルがシミュレートされました', { type: 'error', duration: 5000 });
     });
 
     // ナビリンクのアクティブ切り替え

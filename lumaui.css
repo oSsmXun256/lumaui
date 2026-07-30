@@ -1,70 +1,80 @@
 /* ============================================================
-   LumaUI Design System — v1.3
-   フラット × 部分的Neumorphism
-   ライト / ダーク テーマ対応 & スマホ・タブレット完全対応
+   LumaUI Design System — v1.4 — core.css
+   トークン / リセット / タイポグラフィ / レイアウト / ユーティリティ
    ============================================================ */
 
-/* ------------------------------------------------------------
-   1. CSS カスタムプロパティ（テーマトークン）
-   ------------------------------------------------------------ */
-   
 :root {
-  /* ── カラーパレット（ライト） ── */
-  --luma-bg:          #f0f0f0;   /* ページ背景（Neumorphism用）*/
-  --luma-surface:     #f0f0f0;   /* カード・コンテナ背景 */
-  --luma-surface-alt: #e8e8e8;   /* 入れ子コンテナ */
-  --luma-fg:          #0d0d0d;   /* プライマリテキスト */
-  --luma-fg-muted:    #5a5a5a;   /* セカンダリテキスト */
-  --luma-fg-hint:     #9a9a9a;   /* ヒント・プレースホルダ */
+  --luma-bg:          #f0f0f0;
+  --luma-surface:     #f0f0f0;
+  --luma-surface-alt: #e8e8e8;
+  --luma-fg:          #0d0d0d;
+  --luma-fg-muted:    #5a5a5a;
+  --luma-fg-hint:     #9a9a9a;
 
-  /* ── ステートカラー ── */
-  --luma-on:          #2e9e5b;   /* ON / 成功 */
-  --luma-on-bg:       #e6f7ed;   /* ON 背景色 */
-  --luma-error:       #d63031;   /* エラー */
-  --luma-error-bg:    #fce8e8;   /* エラー背景色 */
+  --luma-on:          #2e9e5b;
+  --luma-on-bg:       #e6f7ed;
+  --luma-error:       #d63031;
+  --luma-error-bg:    #fce8e8;
 
-  /* ── ボーダー ── */
-  --luma-border:      rgba(0, 0, 0, 0.12);    /* 標準境界 */
-  --luma-border-mid:  rgba(0, 0, 0, 0.20);    /* 強調境界 */
-  --luma-border-strong: rgba(0, 0, 0, 0.32);  /* 最強境界 */
+  --luma-border:        rgba(0, 0, 0, 0.12);
+  --luma-border-mid:    rgba(0, 0, 0, 0.20);
+  --luma-border-strong: rgba(0, 0, 0, 0.32);
 
-  /* ── Neumorphism シャドウ（ライト） ── */
   --luma-neu-convex:
     4px 4px 10px rgba(0, 0, 0, 0.12),
     -4px -4px 10px rgba(255, 255, 255, 0.85);
-
   --luma-neu-inset:
     inset 3px 3px 7px rgba(0, 0, 0, 0.10),
     inset -3px -3px 7px rgba(255, 255, 255, 0.80);
-
   --luma-card-shadow:
     2px 2px 6px rgba(0, 0, 0, 0.06),
     -2px -2px 6px rgba(255, 255, 255, 0.75);
 
-  /* ── タイポグラフィ ── */
-  --luma-font-sans:   "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
-  --luma-font-mono:   "JetBrains Mono", "Consolas", monospace;
+  --luma-slider-thumb-shadow:        0 2px 5px rgba(0, 0, 0, 0.22), 0 1px 2px rgba(0, 0, 0, 0.15);
+  --luma-slider-thumb-shadow-active: 0 1px 2px rgba(0, 0, 0, 0.25);
 
-  /* ── スペーシング ── */
-  --luma-space-xs:    4px;
-  --luma-space-sm:    8px;
-  --luma-space-md:    16px;
-  --luma-space-lg:    24px;
-  --luma-space-xl:    40px;
+  --luma-font-sans: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+  --luma-font-mono: "JetBrains Mono", "Consolas", monospace;
 
-  /* ── 角丸 ── */
+  --luma-space-xs: 4px;
+  --luma-space-sm: 8px;
+  --luma-space-md: 16px;
+  --luma-space-lg: 24px;
+  --luma-space-xl: 40px;
+
   --luma-radius-sm:   6px;
   --luma-radius-md:   10px;
   --luma-radius-lg:   16px;
   --luma-radius-xl:   24px;
   --luma-radius-pill: 9999px;
 
-  /* ── トランジション ── */
-  --luma-trans-fast:  0.15s ease;
-  --luma-trans-base:  0.22s ease;
+  --luma-trans-fast: 0.15s ease;
+  --luma-trans-base: 0.22s ease;
+
+  /* z-index スケール */
+  --luma-z-drawer:  150;
+  --luma-z-overlay: 140;
+  --luma-z-dropdown: 200;
+  --luma-z-modal:   500;
+  --luma-z-toast:   600;
+  --luma-z-tooltip: 700;
 }
 
-/* ダークテーマ：OS設定に準拠 */
+/* ── style スイッチ: flat / neumorphism ──
+   デフォルトは v1.3 互換の neumorphism。
+   <html data-style="flat"> を付けるとフラット表示に切替。   */
+[data-style="flat"] {
+  --luma-neu-convex: none;
+  --luma-neu-inset: none;
+  --luma-card-shadow: none;
+}
+[data-style="flat"] .luma-card,
+[data-style="flat"] .luma-metric,
+[data-style="flat"] .luma-chart-area,
+[data-style="flat"] .luma-table-wrap {
+  border: 1px solid var(--luma-border-mid);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --luma-bg:          #1a1a1a;
@@ -79,134 +89,74 @@
     --luma-error:       #e05555;
     --luma-error-bg:    #2b1111;
 
-    --luma-border:      rgba(255, 255, 255, 0.10);
-    --luma-border-mid:  rgba(255, 255, 255, 0.18);
+    --luma-border:        rgba(255, 255, 255, 0.10);
+    --luma-border-mid:    rgba(255, 255, 255, 0.18);
     --luma-border-strong: rgba(255, 255, 255, 0.28);
 
     --luma-neu-convex:
       4px 4px 10px rgba(0, 0, 0, 0.35),
       -4px -4px 10px rgba(255, 255, 255, 0.04);
-
     --luma-neu-inset:
       inset 3px 3px 8px rgba(0, 0, 0, 0.40),
       inset -3px -3px 8px rgba(255, 255, 255, 0.03);
-
     --luma-card-shadow:
       2px 2px 6px rgba(0, 0, 0, 0.30),
       -2px -2px 6px rgba(255, 255, 255, 0.03);
+
+    --luma-slider-thumb-shadow:        0 2px 6px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --luma-slider-thumb-shadow-active: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
 }
 
-/* 手動テーマ上書き（data-theme属性） */
 [data-theme="light"] {
-  --luma-bg:          #f0f0f0;
-  --luma-surface:     #f0f0f0;
-  --luma-surface-alt: #e8e8e8;
-  --luma-fg:          #0d0d0d;
-  --luma-fg-muted:    #5a5a5a;
-  --luma-fg-hint:     #9a9a9a;
-  --luma-on:          #2e9e5b;
-  --luma-on-bg:       #e6f7ed;
-  --luma-error:       #d63031;
-  --luma-error-bg:    #fce8e8;
-  --luma-border:      rgba(0, 0, 0, 0.12);
-  --luma-border-mid:  rgba(0, 0, 0, 0.20);
-  --luma-border-strong: rgba(0, 0, 0, 0.32);
-  --luma-neu-convex:
-    4px 4px 10px rgba(0, 0, 0, 0.12),
-    -4px -4px 10px rgba(255, 255, 255, 0.85);
-  --luma-neu-inset:
-    inset 3px 3px 7px rgba(0, 0, 0, 0.10),
-    inset -3px -3px 7px rgba(255, 255, 255, 0.80);
-  --luma-card-shadow:
-    2px 2px 6px rgba(0, 0, 0, 0.06),
-    -2px -2px 6px rgba(255, 255, 255, 0.75);
+  --luma-bg: #f0f0f0; --luma-surface: #f0f0f0; --luma-surface-alt: #e8e8e8;
+  --luma-fg: #0d0d0d; --luma-fg-muted: #5a5a5a; --luma-fg-hint: #9a9a9a;
+  --luma-on: #2e9e5b; --luma-on-bg: #e6f7ed; --luma-error: #d63031; --luma-error-bg: #fce8e8;
+  --luma-border: rgba(0,0,0,.12); --luma-border-mid: rgba(0,0,0,.20); --luma-border-strong: rgba(0,0,0,.32);
+  --luma-neu-convex: 4px 4px 10px rgba(0,0,0,.12), -4px -4px 10px rgba(255,255,255,.85);
+  --luma-neu-inset: inset 3px 3px 7px rgba(0,0,0,.10), inset -3px -3px 7px rgba(255,255,255,.80);
+  --luma-card-shadow: 2px 2px 6px rgba(0,0,0,.06), -2px -2px 6px rgba(255,255,255,.75);
+  --luma-slider-thumb-shadow: 0 2px 5px rgba(0,0,0,.22), 0 1px 2px rgba(0,0,0,.15);
+  --luma-slider-thumb-shadow-active: 0 1px 2px rgba(0,0,0,.25);
 }
 
 [data-theme="dark"] {
-  --luma-bg:          #1a1a1a;
-  --luma-surface:     #1a1a1a;
-  --luma-surface-alt: #242424;
-  --luma-fg:          #f0f0f0;
-  --luma-fg-muted:    #a0a0a0;
-  --luma-fg-hint:     #606060;
-  --luma-on:          #3dbb6c;
-  --luma-on-bg:       #122b1d;
-  --luma-error:       #e05555;
-  --luma-error-bg:    #2b1111;
-  --luma-border:      rgba(255, 255, 255, 0.10);
-  --luma-border-mid:  rgba(255, 255, 255, 0.18);
-  --luma-border-strong: rgba(255, 255, 255, 0.28);
-  --luma-neu-convex:
-    4px 4px 10px rgba(0, 0, 0, 0.35),
-    -4px -4px 10px rgba(255, 255, 255, 0.04);
-  --luma-neu-inset:
-    inset 3px 3px 8px rgba(0, 0, 0, 0.40),
-    inset -3px -3px 8px rgba(255, 255, 255, 0.03);
-  --luma-card-shadow:
-    2px 2px 6px rgba(0, 0, 0, 0.30),
-    -2px -2px 6px rgba(255, 255, 255, 0.03);
+  --luma-bg: #1a1a1a; --luma-surface: #1a1a1a; --luma-surface-alt: #242424;
+  --luma-fg: #f0f0f0; --luma-fg-muted: #a0a0a0; --luma-fg-hint: #606060;
+  --luma-on: #3dbb6c; --luma-on-bg: #122b1d; --luma-error: #e05555; --luma-error-bg: #2b1111;
+  --luma-border: rgba(255,255,255,.10); --luma-border-mid: rgba(255,255,255,.18); --luma-border-strong: rgba(255,255,255,.28);
+  --luma-neu-convex: 4px 4px 10px rgba(0,0,0,.35), -4px -4px 10px rgba(255,255,255,.04);
+  --luma-neu-inset: inset 3px 3px 8px rgba(0,0,0,.40), inset -3px -3px 8px rgba(255,255,255,.03);
+  --luma-card-shadow: 2px 2px 6px rgba(0,0,0,.30), -2px -2px 6px rgba(255,255,255,.03);
+  --luma-slider-thumb-shadow: 0 2px 6px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.05);
+  --luma-slider-thumb-shadow-active: 0 1px 3px rgba(0,0,0,.5);
 }
 
 
 /* ------------------------------------------------------------
-   2. リセット & ベーススタイル
+   リセット & ベース
    ------------------------------------------------------------ */
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: var(--luma-font-sans);
-  background-color: var(--luma-bg);
-  color: var(--luma-fg);
-  line-height: 1.6;
-  min-height: 100vh;
-}
-
-a {
-  color: var(--luma-on);
-  text-decoration: none;
-  border-bottom: 1px solid var(--luma-border);
-  transition: color var(--luma-trans-fast), border-color var(--luma-trans-fast);
-}
-a:hover {
-  color: var(--luma-fg);
-  border-color: var(--luma-border-mid);
-}
-
-:focus-visible {
-  outline: 2px solid var(--luma-on);
-  outline-offset: 2px;
-  border-radius: var(--luma-radius-sm);
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { font-family: var(--luma-font-sans); background-color: var(--luma-bg); color: var(--luma-fg); line-height: 1.6; min-height: 100vh; }
+a { color: var(--luma-on); text-decoration: none; border-bottom: 1px solid var(--luma-border); transition: color var(--luma-trans-fast), border-color var(--luma-trans-fast); }
+a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
+:focus-visible { outline: 2px solid var(--luma-on); outline-offset: 2px; border-radius: var(--luma-radius-sm); }
 
 
 /* ------------------------------------------------------------
-   3. タイポグラフィ（レスポンシブ最適化）
+   タイポグラフィ
    ------------------------------------------------------------ */
+.luma-h1 { font-size: 2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--luma-fg); }
+.luma-h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; color: var(--luma-fg); }
+.luma-h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; color: var(--luma-fg); }
+.luma-h4 { font-size: 0.9375rem; font-weight: 600; line-height: 1.5; color: var(--luma-fg); }
+.luma-body { font-size: 1rem; line-height: 1.7; color: var(--luma-fg); }
+.luma-body-sm { font-size: 0.875rem; line-height: 1.6; color: var(--luma-fg-muted); }
+.luma-caption { font-size: 0.75rem; line-height: 1.5; color: var(--luma-fg-hint); }
+.luma-label { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; color: var(--luma-fg-muted); }
+.luma-mono { font-family: var(--luma-font-mono); font-size: 0.875rem; }
 
-.luma-h1 { font-size: 2rem;    font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--luma-fg); }
-.luma-h2 { font-size: 1.5rem;  font-weight: 600; line-height: 1.3; color: var(--luma-fg); }
-.luma-h3 { font-size: 1.125rem;font-weight: 600; line-height: 1.4; color: var(--luma-fg); }
-.luma-h4 { font-size: 0.9375rem;font-weight: 600; line-height: 1.5; color: var(--luma-fg); }
-
-.luma-body    { font-size: 1rem;      line-height: 1.7; color: var(--luma-fg); }
-.luma-body-sm { font-size: 0.875rem;  line-height: 1.6; color: var(--luma-fg-muted); }
-.luma-caption { font-size: 0.75rem;   line-height: 1.5; color: var(--luma-fg-hint); }
-.luma-label   { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.02em; color: var(--luma-fg-muted); }
-.luma-mono    { font-family: var(--luma-font-mono); font-size: 0.875rem; }
-
-/* スマホ環境でのフォントサイズ調整 */
 @media (max-width: 768px) {
   .luma-h1 { font-size: 1.6rem; }
   .luma-h2 { font-size: 1.3rem; }
@@ -215,111 +165,136 @@ a:hover {
 
 
 /* ------------------------------------------------------------
-   4. レイアウト & グリッドシステム（レスポンシブ強化）
+   レイアウト & グリッド
    ------------------------------------------------------------ */
+.luma-page { max-width: 1280px; margin: 0 auto; padding: var(--luma-space-lg) var(--luma-space-md); }
 
-/* ページラッパー */
-.luma-page {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: var(--luma-space-lg) var(--luma-space-md);
-}
-
-/* グリッド基盤 */
-.luma-grid {
-  display: grid;
-  gap: var(--luma-space-md);
-}
+.luma-grid { display: grid; gap: var(--luma-space-md); }
 .luma-grid-2 { grid-template-columns: repeat(2, 1fr); }
 .luma-grid-3 { grid-template-columns: repeat(3, 1fr); }
 .luma-grid-4 { grid-template-columns: repeat(4, 1fr); }
 .luma-grid-auto { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 
-/* タブレットサイズ (1024px以下) の挙動 */
 @media (max-width: 1024px) {
   .luma-grid-4 { grid-template-columns: repeat(2, 1fr); }
   .luma-grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
-
-/* スマートフォンサイズ (768px以下) の挙動 */
 @media (max-width: 768px) {
-  .luma-page {
-    /* 左右を統一。モバイルトップバー(60px)分の上余白を追加 */
-    padding: calc(60px + var(--luma-space-md)) var(--luma-space-md) var(--luma-space-md);
-  }
-  .luma-grid-2,
-  .luma-grid-3,
-  .luma-grid-4 { 
-    grid-template-columns: 1fr; 
-  }
+  .luma-page { padding: calc(60px + var(--luma-space-md)) var(--luma-space-md) var(--luma-space-md); }
+  .luma-grid-2, .luma-grid-3, .luma-grid-4 { grid-template-columns: 1fr; }
 }
 
-/* フレックスユーティリティ */
-.luma-flex         { display: flex; }
-.luma-flex-center  { display: flex; align-items: center; justify-content: center; }
+.luma-flex { display: flex; }
+.luma-flex-center { display: flex; align-items: center; justify-content: center; }
 .luma-flex-between { display: flex; align-items: center; justify-content: space-between; }
+.luma-flex-wrap { flex-wrap: wrap; }
+.luma-flex-col { flex-direction: column; }
+.luma-items-center { align-items: center; }
+.luma-items-start { align-items: flex-start; }
+.luma-items-end { align-items: flex-end; }
+.luma-justify-center { justify-content: center; }
+.luma-justify-between { justify-content: space-between; }
+.luma-justify-end { justify-content: flex-end; }
+
 .luma-gap-xs { gap: var(--luma-space-xs); }
 .luma-gap-sm { gap: var(--luma-space-sm); }
 .luma-gap-md { gap: var(--luma-space-md); }
 .luma-gap-lg { gap: var(--luma-space-lg); }
 
-/* モバイル対応フレックス（スマホ時は縦並びにするオプション） */
 @media (max-width: 768px) {
-  .luma-flex-responsive {
-    flex-direction: column;
-    gap: var(--luma-space-md);
-  }
+  .luma-flex-responsive { flex-direction: column; gap: var(--luma-space-md); }
 }
 
-/* スタック */
-.luma-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--luma-space-md);
-}
-.luma-stack-sm { gap: var(--luma-space-sm); }
+.luma-stack { display: flex; flex-direction: column; gap: var(--luma-space-md); }
+.luma-stack--sm { gap: var(--luma-space-sm); }
+.luma-stack-sm { gap: var(--luma-space-sm); } /* v1.3 互換エイリアス */
 
 
 /* ------------------------------------------------------------
-   5. カード（コンテナ）
+   ユーティリティ（拡充: 指摘#5への対応）
    ------------------------------------------------------------ */
-
-.luma-card {
-  background: var(--luma-surface);
-  border-radius: var(--luma-radius-lg);
-  border: 1px solid var(--luma-border);
-  padding: var(--luma-space-lg);
-  box-shadow: var(--luma-card-shadow);
+.luma-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-.luma-card-sm {
-  padding: var(--luma-space-md);
-  border-radius: var(--luma-radius-md);
-}
+/* テキストカラー */
+.luma-text-on    { color: var(--luma-on); }
+.luma-text-error { color: var(--luma-error); }
+.luma-text-muted { color: var(--luma-fg-muted); }
+.luma-text-hint  { color: var(--luma-fg-hint); }
+
+/* 整列 */
+.luma-text-left   { text-align: left; }
+.luma-text-center { text-align: center; }
+.luma-text-right  { text-align: right; }
+
+/* マージン（4方向 × xs〜lg） */
+.luma-mt-0  { margin-top: 0; }
+.luma-mt-xs { margin-top: var(--luma-space-xs); }
+.luma-mt-sm { margin-top: var(--luma-space-sm); }
+.luma-mt-md { margin-top: var(--luma-space-md); }
+.luma-mt-lg { margin-top: var(--luma-space-lg); }
+.luma-mb-0  { margin-bottom: 0; }
+.luma-mb-xs { margin-bottom: var(--luma-space-xs); }
+.luma-mb-sm { margin-bottom: var(--luma-space-sm); }
+.luma-mb-md { margin-bottom: var(--luma-space-md); }
+.luma-mb-lg { margin-bottom: var(--luma-space-lg); }
+.luma-ml-sm { margin-left: var(--luma-space-sm); }
+.luma-ml-md { margin-left: var(--luma-space-md); }
+.luma-mr-sm { margin-right: var(--luma-space-sm); }
+.luma-mr-md { margin-right: var(--luma-space-md); }
+.luma-mx-auto { margin-left: auto; margin-right: auto; }
+
+/* パディング */
+.luma-p-0  { padding: 0; }
+.luma-p-sm { padding: var(--luma-space-sm); }
+.luma-p-md { padding: var(--luma-space-md); }
+.luma-p-lg { padding: var(--luma-space-lg); }
+
+/* 幅・高さ */
+.luma-w-full  { width: 100%; }
+.luma-w-auto  { width: auto; }
+.luma-w-25    { width: 25%; }
+.luma-w-50    { width: 50%; }
+.luma-w-75    { width: 75%; }
+.luma-h-full  { height: 100%; }
+.luma-max-w-sm { max-width: 320px; }
+.luma-max-w-md { max-width: 560px; }
+.luma-max-w-lg { max-width: 840px; }
+
+/* 表示制御 */
+.luma-hidden  { display: none !important; }
+.luma-block   { display: block; }
+.luma-inline-block { display: inline-block; }
 
 @media (max-width: 768px) {
-  .luma-card {
-    padding: var(--luma-space-md);
-  }
+  .luma-hidden-mobile { display: none !important; }
+}
+@media (min-width: 769px) {
+  .luma-hidden-desktop { display: none !important; }
 }
 
-.luma-card__header {
-  padding-bottom: var(--luma-space-md);
-  margin-bottom: var(--luma-space-md);
-  border-bottom: 1px solid var(--luma-border);
+/* シャドウ / 境界の打消し（インラインstyle撤廃用） */
+.luma-shadow-none  { box-shadow: none !important; }
+.luma-border-none  { border: none !important; }
+.luma-radius-none  { border-radius: 0 !important; }
+.luma-overflow-hidden { overflow: hidden; }
+
+/* アニメーション（指摘#7への対応） */
+@keyframes luma-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes luma-slide-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes luma-spin { to { transform: rotate(360deg); } }
+
+.luma-anim-fade  { animation: luma-fade-in var(--luma-trans-base) both; }
+.luma-anim-slide { animation: luma-slide-up var(--luma-trans-base) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .luma-anim-fade, .luma-anim-slide { animation: none; }
 }
-
-.luma-inset {
-  background: var(--luma-surface-alt);
-  border-radius: var(--luma-radius-md);
-  border: 1px solid var(--luma-border);
-  padding: var(--luma-space-md);
-}
-
-
-/* ------------------------------------------------------------
-   6. ボタン
-   ------------------------------------------------------------ */
+/* ============================================================
+   LumaUI v1.4 — button.css
+   ============================================================ */
 
 .luma-btn {
   display: inline-flex;
@@ -339,252 +314,60 @@ a:hover {
   user-select: none;
   white-space: nowrap;
   box-shadow: var(--luma-neu-convex);
-  transition:
-    box-shadow var(--luma-trans-base),
-    color var(--luma-trans-fast),
-    background var(--luma-trans-fast),
-    border-color var(--luma-trans-fast);
+  transition: box-shadow var(--luma-trans-base), color var(--luma-trans-fast),
+    background var(--luma-trans-fast), border-color var(--luma-trans-fast);
 }
 
 .luma-btn:hover:not(:disabled) {
-  box-shadow:
-    5px 5px 12px rgba(0, 0, 0, 0.15),
-    -5px -5px 12px rgba(255, 255, 255, 0.88);
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.15), -5px -5px 12px rgba(255, 255, 255, 0.88);
 }
-
-[data-theme="dark"] .luma-btn:hover:not(:disabled) {
-  box-shadow:
-    5px 5px 12px rgba(0, 0, 0, 0.45),
-    -5px -5px 12px rgba(255, 255, 255, 0.05);
-}
-
 @media (prefers-color-scheme: dark) {
   .luma-btn:hover:not(:disabled) {
-    box-shadow:
-      5px 5px 12px rgba(0, 0, 0, 0.45),
-      -5px -5px 12px rgba(255, 255, 255, 0.05);
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05);
   }
 }
-
-.luma-btn:active:not(:disabled) {
-  box-shadow: var(--luma-neu-inset);
-  border-color: var(--luma-border-strong);
+[data-theme="dark"] .luma-btn:hover:not(:disabled) {
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05);
 }
+[data-style="flat"] .luma-btn:hover:not(:disabled) { box-shadow: none; background: var(--luma-surface-alt); }
 
+.luma-btn:active:not(:disabled) { box-shadow: var(--luma-neu-inset); border-color: var(--luma-border-strong); }
+.luma-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+/* サイズバリエーション（指摘#6） */
+.luma-btn--sm { padding: 6px 14px; font-size: 0.8125rem; border-radius: var(--luma-radius-sm); }
+.luma-btn--lg { padding: 13px 26px; font-size: 0.9375rem; border-radius: var(--luma-radius-lg); }
+
+/* カラーバリエーション */
 .luma-btn--primary {
-  background: var(--luma-on);
-  color: #fff;
-  border-color: transparent;
-  box-shadow:
-    4px 4px 10px rgba(46, 158, 91, 0.35),
-    -2px -2px 6px rgba(255, 255, 255, 0.20);
+  background: var(--luma-on); color: #fff; border-color: transparent;
+  box-shadow: 4px 4px 10px rgba(46, 158, 91, 0.35), -2px -2px 6px rgba(255, 255, 255, 0.20);
 }
 .luma-btn--primary:hover:not(:disabled) {
   background: #27885a;
-  box-shadow:
-    5px 5px 12px rgba(46, 158, 91, 0.45),
-    -3px -3px 8px rgba(255, 255, 255, 0.25);
+  box-shadow: 5px 5px 12px rgba(46, 158, 91, 0.45), -3px -3px 8px rgba(255, 255, 255, 0.25);
 }
-.luma-btn--primary:active:not(:disabled) {
-  box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20);
-}
+.luma-btn--primary:active:not(:disabled) { box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20); }
 
 .luma-btn--danger {
-  background: var(--luma-error);
-  color: #fff;
-  border-color: transparent;
-  box-shadow:
-    4px 4px 10px rgba(214, 48, 49, 0.30),
-    -2px -2px 6px rgba(255, 255, 255, 0.15);
+  background: var(--luma-error); color: #fff; border-color: transparent;
+  box-shadow: 4px 4px 10px rgba(214, 48, 49, 0.30), -2px -2px 6px rgba(255, 255, 255, 0.15);
 }
-.luma-btn--danger:hover:not(:disabled) {
-  background: #b52828;
-}
-.luma-btn--danger:active:not(:disabled) {
-  box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20);
-}
+.luma-btn--danger:hover:not(:disabled) { background: #b52828; }
+.luma-btn--danger:active:not(:disabled) { box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20); }
 
-.luma-btn--icon {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border-radius: var(--luma-radius-md);
-}
+.luma-btn--ghost { background: transparent; box-shadow: none; border-color: transparent; }
+.luma-btn--ghost:hover:not(:disabled) { background: var(--luma-surface-alt); box-shadow: none; }
 
-.luma-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  box-shadow: none;
-}
+.luma-btn--icon { width: 40px; height: 40px; padding: 0; border-radius: var(--luma-radius-md); }
+.luma-btn--icon.luma-btn--sm { width: 32px; height: 32px; }
+.luma-btn--icon.luma-btn--lg { width: 48px; height: 48px; }
+/* ============================================================
+   LumaUI v1.4 — form.css
+   ============================================================ */
 
-
-/* ------------------------------------------------------------
-   7. トグル（ON/OFF）
-   ------------------------------------------------------------ */
-
-.luma-toggle {
-  position: relative;
-  display: inline-block;
-  width: 52px;
-  height: 28px;
-  flex-shrink: 0;
-}
-
-.luma-toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-
-.luma-toggle__track {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--luma-radius-pill);
-  background: var(--luma-surface-alt);
-  border: 1px solid var(--luma-border-mid);
-  box-shadow: var(--luma-neu-inset);
-  transition:
-    background var(--luma-trans-base),
-    border-color var(--luma-trans-base),
-    box-shadow var(--luma-trans-base);
-  cursor: pointer;
-}
-
-.luma-toggle__thumb {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--luma-fg-hint);
-  border: 1px solid var(--luma-border-mid);
-  box-shadow:
-    2px 2px 5px rgba(0, 0, 0, 0.20),
-    -1px -1px 3px rgba(255, 255, 255, 0.60);
-  transition:
-    transform var(--luma-trans-base),
-    background var(--luma-trans-base),
-    border-color var(--luma-trans-base),
-    box-shadow var(--luma-trans-base);
-  pointer-events: none;
-}
-
-.luma-toggle input:checked ~ .luma-toggle__track {
-  background: var(--luma-on);
-  border-color: var(--luma-on);
-  box-shadow:
-    inset 2px 2px 5px rgba(0, 0, 0, 0.15),
-    0 0 0 2px rgba(46, 158, 91, 0.20);
-}
-
-.luma-toggle input:checked ~ .luma-toggle__track .luma-toggle__thumb {
-  transform: translateX(24px);
-  background: #fff;
-  border-color: rgba(255, 255, 255, 0.80);
-  box-shadow:
-    2px 2px 5px rgba(0, 0, 0, 0.18),
-    -1px -1px 3px rgba(255, 255, 255, 0.90);
-}
-
-.luma-toggle input:focus-visible ~ .luma-toggle__track {
-  outline: 2px solid var(--luma-on);
-  outline-offset: 2px;
-}
-
-.luma-toggle-row {
-  display: flex;
-  align-items: center;
-  gap: var(--luma-space-md);
-  cursor: pointer;
-  user-select: none;
-}
-.luma-toggle-row .luma-toggle-label {
-  font-size: 0.875rem;
-  color: var(--luma-fg);
-}
-
-
-/* ------------------------------------------------------------
-   8. スライダー
-   ------------------------------------------------------------ */
-
-.luma-slider-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: var(--luma-space-xs);
-}
-
-.luma-slider-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.luma-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 8px;
-  border-radius: var(--luma-radius-pill);
-  border: 1px solid var(--luma-border-mid);
-  background: var(--luma-surface-alt);
-  box-shadow: var(--luma-neu-inset);
-  outline: none;
-  cursor: pointer;
-}
-
-.luma-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border-mid);
-  box-shadow:
-    3px 3px 7px rgba(0, 0, 0, 0.20),
-    -2px -2px 5px rgba(255, 255, 255, 0.75);
-  transition: box-shadow var(--luma-trans-fast);
-  cursor: grab;
-}
-.luma-slider::-webkit-slider-thumb:active {
-  cursor: grabbing;
-  box-shadow: var(--luma-neu-inset);
-}
-.luma-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border-mid);
-  box-shadow:
-    3px 3px 7px rgba(0, 0, 0, 0.20),
-    -2px -2px 5px rgba(255, 255, 255, 0.75);
-  cursor: grab;
-}
-
-.luma-slider--accent {
-  background: linear-gradient(
-    to right,
-    var(--luma-on) 0%,
-    var(--luma-on) var(--luma-progress, 50%),
-    var(--luma-surface-alt) var(--luma-progress, 50%),
-    var(--luma-surface-alt) 100%
-  );
-}
-
-
-/* ------------------------------------------------------------
-   9. テキスト入力
-   ------------------------------------------------------------ */
-
-.luma-input-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: var(--luma-space-xs);
-}
+/* ── テキスト入力 ── */
+.luma-input-wrap { display: flex; flex-direction: column; gap: var(--luma-space-xs); }
 
 .luma-input {
   width: 100%;
@@ -597,474 +380,33 @@ a:hover {
   border-radius: var(--luma-radius-md);
   box-shadow: var(--luma-neu-inset);
   outline: none;
-  transition:
-    border-color var(--luma-trans-fast),
-    box-shadow var(--luma-trans-fast);
+  transition: border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
 }
-
-.luma-input::placeholder {
-  color: var(--luma-fg-hint);
-}
-
-.luma-input:hover {
-  border-color: var(--luma-border-strong);
-}
-
+.luma-input::placeholder { color: var(--luma-fg-hint); }
+.luma-input:hover { border-color: var(--luma-border-strong); }
 .luma-input:focus {
   border-color: var(--luma-on);
-  box-shadow:
-    var(--luma-neu-inset),
-    0 0 0 2px rgba(46, 158, 91, 0.18);
+  box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18);
 }
+.luma-input--number { font-variant-numeric: tabular-nums; text-align: right; }
+.luma-input--error { border-color: var(--luma-error); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(214, 48, 49, 0.15); }
+.luma-input--sm { padding: 6px 10px; font-size: 0.8125rem; }
+.luma-input--lg { padding: 13px 16px; font-size: 1rem; }
 
-.luma-input--number {
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
+.luma-input-group { display: flex; align-items: stretch; border: 1px solid var(--luma-border-mid); border-radius: var(--luma-radius-md); box-shadow: var(--luma-neu-inset); overflow: hidden; }
+.luma-input-group .luma-input { border: none; box-shadow: none; border-radius: 0; flex: 1; }
+.luma-input-group__addon { display: flex; align-items: center; padding: 0 12px; background: var(--luma-surface-alt); border-right: 1px solid var(--luma-border); color: var(--luma-fg-muted); font-size: 0.875rem; white-space: nowrap; }
+.luma-input-group__addon--right { border-right: none; border-left: 1px solid var(--luma-border); }
+.luma-input-addon { display: flex; align-items: center; padding: 0 12px; background: var(--luma-surface-alt); border-right: 1px solid var(--luma-border); color: var(--luma-fg-muted); font-size: 0.875rem; white-space: nowrap; } /* v1.3互換 */
+.luma-input-addon--right { border-right: none; border-left: 1px solid var(--luma-border); }
 
-.luma-input--error {
-  border-color: var(--luma-error);
-  box-shadow:
-    var(--luma-neu-inset),
-    0 0 0 2px rgba(214, 48, 49, 0.15);
-}
+/* ── フィールドラッパー ── */
+.luma-field { display: flex; flex-direction: column; gap: 6px; }
+.luma-field__label { font-size: 0.8125rem; font-weight: 600; color: var(--luma-fg-muted); user-select: none; }
+.luma-field__hint  { font-size: 0.75rem; color: var(--luma-fg-hint); }
+.luma-field__error { font-size: 0.75rem; color: var(--luma-error); }
 
-.luma-input-group {
-  display: flex;
-  align-items: stretch;
-  border: 1px solid var(--luma-border-mid);
-  border-radius: var(--luma-radius-md);
-  box-shadow: var(--luma-neu-inset);
-  overflow: hidden;
-}
-.luma-input-group .luma-input {
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  flex: 1;
-}
-.luma-input-group .luma-input-addon {
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  background: var(--luma-surface-alt);
-  border-right: 1px solid var(--luma-border);
-  color: var(--luma-fg-muted);
-  font-size: 0.875rem;
-  white-space: nowrap;
-}
-.luma-input-group .luma-input-addon--right {
-  border-right: none;
-  border-left: 1px solid var(--luma-border);
-}
-
-
-/* ------------------------------------------------------------
-   10. 進捗バー
-   ------------------------------------------------------------ */
-
-.luma-progress-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: var(--luma-space-xs);
-}
-
-.luma-progress-track {
-  width: 100%;
-  height: 10px;
-  background: var(--luma-surface-alt);
-  border-radius: var(--luma-radius-pill);
-  border: 1px solid var(--luma-border);
-  box-shadow: var(--luma-neu-inset);
-  overflow: hidden;
-}
-
-.luma-progress-bar {
-  height: 100%;
-  border-radius: var(--luma-radius-pill);
-  background: var(--luma-on);
-  transition: width 0.4s ease;
-}
-
-.luma-progress-bar--error {
-  background: var(--luma-error);
-}
-
-.luma-progress-track--sm {
-  height: 6px;
-}
-
-
-/* ------------------------------------------------------------
-   11. バッジ / チップ
-   ------------------------------------------------------------ */
-
-.luma-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: var(--luma-radius-pill);
-  border: 1px solid var(--luma-border);
-  background: var(--luma-surface-alt);
-  color: var(--luma-fg-muted);
-  white-space: nowrap;
-}
-
-.luma-badge--on {
-  background: var(--luma-on-bg);
-  color: var(--luma-on);
-  border-color: rgba(46, 158, 91, 0.30);
-}
-
-.luma-badge--error {
-  background: var(--luma-error-bg);
-  color: var(--luma-error);
-  border-color: rgba(214, 48, 49, 0.30);
-}
-
-.luma-badge::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  flex-shrink: 0;
-}
-.luma-badge--no-dot::before {
-  display: none;
-}
-
-
-/* ------------------------------------------------------------
-   12. メトリクスカード（数値サマリー）
-   ------------------------------------------------------------ */
-
-.luma-metric {
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border);
-  border-radius: var(--luma-radius-lg);
-  padding: var(--luma-space-md) var(--luma-space-md);
-  box-shadow: var(--luma-card-shadow);
-}
-
-.luma-metric__label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--luma-fg-hint);
-  margin-bottom: var(--luma-space-xs);
-}
-
-.luma-metric__value {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--luma-fg);
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-}
-
-@media (max-width: 768px) {
-  .luma-metric__value {
-    font-size: 1.6rem;
-  }
-}
-
-.luma-metric__sub {
-  font-size: 0.75rem;
-  color: var(--luma-fg-muted);
-  margin-top: var(--luma-space-xs);
-}
-
-.luma-metric__sub--on    { color: var(--luma-on); }
-.luma-metric__sub--error { color: var(--luma-error); }
-
-
-/* ------------------------------------------------------------
-   13. グラフコンテナ（修正：不足していた棒グラフのスタイルを追加）
-   ------------------------------------------------------------ */
-
-.luma-chart-area {
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border);
-  border-radius: var(--luma-radius-lg);
-  padding: var(--luma-space-lg);
-  box-shadow: var(--luma-card-shadow);
-  min-height: 200px;
-  position: relative;
-}
-
-.luma-chart-area__canvas {
-  width: 100%;
-  height: 100%;
-}
-
-.demo-chart-placeholder {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  height: 140px;
-  padding-top: var(--luma-space-md);
-}
-
-.demo-bar {
-  width: 24px;
-  background: var(--luma-on);
-  border-radius: var(--luma-radius-sm) var(--luma-radius-sm) 0 0;
-  transition: height var(--luma-trans-base);
-  box-shadow: var(--luma-card-shadow);
-}
-
-
-/* ------------------------------------------------------------
-   14. テーマトグルボタン
-   ------------------------------------------------------------ */
-
-.luma-theme-toggle {
-  position: fixed;
-  top: var(--luma-space-md);
-  right: var(--luma-space-md);
-  z-index: 100;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border-mid);
-  box-shadow: var(--luma-neu-convex);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  transition:
-    box-shadow var(--luma-trans-base),
-    background var(--luma-trans-fast);
-}
-
-.luma-theme-toggle:hover {
-  box-shadow:
-    5px 5px 12px rgba(0, 0, 0, 0.15),
-    -5px -5px 12px rgba(255, 255, 255, 0.88);
-}
-
-[data-theme="dark"] .luma-theme-toggle:hover {
-  box-shadow:
-    5px 5px 12px rgba(0, 0, 0, 0.45),
-    -5px -5px 12px rgba(255, 255, 255, 0.05);
-}
-
-@media (prefers-color-scheme: dark) {
-  .luma-theme-toggle:hover {
-    box-shadow:
-      5px 5px 12px rgba(0, 0, 0, 0.45),
-      -5px -5px 12px rgba(255, 255, 255, 0.05);
-  }
-}
-
-.luma-theme-toggle:active {
-  box-shadow: var(--luma-neu-inset);
-}
-
-/* モバイル: トップバー内に収める */
-@media (max-width: 768px) {
-  .luma-theme-toggle {
-    top: 10px;
-    right: var(--luma-space-md);
-  }
-}
-
-/* ------------------------------------------------------------
-   15. ナビゲーション（修正：モバイル用スライドドロワーのスタイルを新規設計）
-   ------------------------------------------------------------ */
-
-.luma-nav {
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border);
-}
-
-/* サイドバー（PC用基本型） */
-.luma-nav--side {
-  width: 240px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  border-right: 1px solid var(--luma-border);
-  border-top: none;
-  border-bottom: none;
-  border-left: none;
-  display: flex;
-  flex-direction: column;
-  padding: var(--luma-space-lg) 0;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
-  z-index: 150;
-}
-
-/* トップバー（PC時はデフォルト非表示） */
-.luma-nav--top {
-  display: none;
-}
-
-/* モバイル用インラインヘッダーの構造化 */
-.luma-mobile-bar {
-  height: 60px;
-  position: sticky;
-  top: 0;
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--luma-space-md);
-  border-bottom: 1px solid var(--luma-border);
-  background: var(--luma-surface);
-  z-index: 50;
-}
-
-/* モバイル用クローズボタン（デフォルト非表示） */
-#menuCloseBtn {
-  display: none;
-}
-
-/* 【重要】レスポンシブメディアクエリの再構築 */
-@media (max-width: 768px) {
-  .luma-mobile-bar {
-    display: flex; /* スマホ時のみ上部バーを表示 */
-  }
-
-  /* サイドバーを画面外（左側）に隠し、ドロワーメニューに変形 */
-  .luma-nav--side {
-    width: 260px;
-    transform: translateX(-100%);
-    transition: transform var(--luma-trans-base);
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
-  }
-
-  /* JavaScriptでクラスが付与されたら画面内にスライドイン */
-  .luma-nav--side.is-open {
-    transform: translateX(0);
-  }
-
-  /* モバイル展開時は閉じる(✕)ボタンを表示 */
-  #menuCloseBtn {
-    display: inline-flex;
-  }
-
-  .luma-nav__brand {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0 var(--luma-space-md) var(--luma-space-sm);
-    border-bottom: 1px solid var(--luma-border);
-    margin-bottom: var(--luma-space-sm);
-  }
-}
-
-/* サイドバー固定時に右側メインコンテンツに持たせる左余白 */
-.luma-main-with-sidebar {
-  margin-left: 240px;
-}
-@media (max-width: 768px) {
-  .luma-main-with-sidebar {
-    margin-left: 0; /* スマホ時はドロワー化するため余白をリセット */
-  }
-}
-
-/* ドロワー背面用の暗幕（オーバーレイ） */
-.luma-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--luma-trans-base);
-  z-index: 140;
-}
-.luma-overlay.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* ナビリンク */
-.luma-nav__link {
-  display: flex;
-  align-items: center;
-  gap: var(--luma-space-sm);
-  padding: 10px var(--luma-space-lg);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--luma-fg-muted);
-  border: 1px solid transparent;
-  border-radius: 0;
-  transition:
-    color var(--luma-trans-fast),
-    background var(--luma-trans-fast),
-    border-color var(--luma-trans-fast);
-  text-decoration: none;
-}
-
-.luma-nav__link:hover {
-  color: var(--luma-fg);
-  background: var(--luma-surface-alt);
-  border-color: transparent;
-}
-
-.luma-nav__link--active {
-  color: var(--luma-on);
-  background: var(--luma-on-bg);
-  border-right: 2px solid var(--luma-on);
-  font-weight: 600;
-}
-
-@media (max-width: 768px) {
-  .luma-nav__link {
-    padding: var(--luma-space-sm) var(--luma-space-md);
-  }
-}
-.luma-nav__brand {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--luma-fg);
-  letter-spacing: -0.02em;
-  padding: 0 var(--luma-space-lg) var(--luma-space-md);
-  border-bottom: 1px solid var(--luma-border);
-  margin-bottom: var(--luma-space-sm);
-}
-
-/* ナビセクション見出し */
-.luma-nav__section {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--luma-fg-hint);
-  padding: var(--luma-space-md) var(--luma-space-lg) var(--luma-space-xs);
-}
-
-
-/* ------------------------------------------------------------
-   16. 区切り線
-   ------------------------------------------------------------ */
-
-.luma-divider {
-  border: none;
-  border-top: 1px solid var(--luma-border);
-  margin: var(--luma-space-md) 0;
-}
-
-.luma-divider--strong {
-  border-top-color: var(--luma-border-mid);
-}
-
-
-/* ------------------------------------------------------------
-   17. セレクトボックス
-   ------------------------------------------------------------ */
-
+/* ── セレクト（ネイティブ） ── */
 .luma-select {
   width: 100%;
   padding: 10px 36px 10px 14px;
@@ -1076,317 +418,393 @@ a:hover {
   border-radius: var(--luma-radius-md);
   box-shadow: var(--luma-neu-inset);
   outline: none;
-  appearance: none;
-  -webkit-appearance: none;
+  appearance: none; -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   cursor: pointer;
-  transition:
-    border-color var(--luma-trans-fast),
-    box-shadow var(--luma-trans-fast);
+  transition: border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
+}
+.luma-select:hover { border-color: var(--luma-border-strong); }
+.luma-select:focus { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18); }
+
+/* ── トグル（ON/OFF） ── */
+.luma-toggle { position: relative; display: inline-block; width: 52px; height: 28px; flex-shrink: 0; }
+.luma-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+.luma-toggle__track {
+  position: absolute; inset: 0; border-radius: var(--luma-radius-pill);
+  background: var(--luma-surface-alt); border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-neu-inset);
+  transition: background var(--luma-trans-base), border-color var(--luma-trans-base), box-shadow var(--luma-trans-base);
+  cursor: pointer;
+}
+.luma-toggle__thumb {
+  position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--luma-fg-hint); border: 1px solid var(--luma-border-mid);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.20), -1px -1px 3px rgba(255, 255, 255, 0.60);
+  transition: transform var(--luma-trans-base), background var(--luma-trans-base), border-color var(--luma-trans-base), box-shadow var(--luma-trans-base);
+  pointer-events: none;
+}
+.luma-toggle input:checked ~ .luma-toggle__track {
+  background: var(--luma-on); border-color: var(--luma-on);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(46, 158, 91, 0.20);
+}
+.luma-toggle input:checked ~ .luma-toggle__track .luma-toggle__thumb {
+  transform: translateX(24px); background: #fff; border-color: rgba(255, 255, 255, 0.80);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.18), -1px -1px 3px rgba(255, 255, 255, 0.90);
+}
+.luma-toggle input:focus-visible ~ .luma-toggle__track { outline: 2px solid var(--luma-on); outline-offset: 2px; }
+
+.luma-toggle-row { display: flex; align-items: center; gap: var(--luma-space-md); cursor: pointer; user-select: none; }
+.luma-toggle-row .luma-toggle-label { font-size: 0.875rem; color: var(--luma-fg); }
+
+/* ── スライダー ── */
+.luma-slider-wrap { display: flex; flex-direction: column; gap: var(--luma-space-xs); }
+.luma-slider-header { display: flex; justify-content: space-between; align-items: baseline; }
+.luma-slider {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
+  border-radius: var(--luma-radius-pill); border: 1px solid var(--luma-border-mid);
+  background: var(--luma-surface-alt); box-shadow: var(--luma-neu-inset); outline: none; cursor: pointer;
+}
+.luma-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-slider-thumb-shadow);
+  transition: box-shadow var(--luma-trans-fast); cursor: grab;
+}
+.luma-slider::-webkit-slider-thumb:active { cursor: grabbing; box-shadow: var(--luma-slider-thumb-shadow-active); }
+.luma-slider::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%; background: #fff;
+  border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-slider-thumb-shadow); cursor: grab;
+}
+.luma-slider::-moz-range-thumb:active { box-shadow: var(--luma-slider-thumb-shadow-active); }
+.luma-slider--accent {
+  background: linear-gradient(to right, var(--luma-on) 0%, var(--luma-on) var(--luma-progress, 50%), var(--luma-surface-alt) var(--luma-progress, 50%), var(--luma-surface-alt) 100%);
 }
 
-.luma-select:hover {
-  border-color: var(--luma-border-strong);
+/* ── カスタムドロップダウン ── */
+.luma-dropdown { position: relative; width: 100%; user-select: none; }
+.luma-dropdown__trigger {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  padding: 10px 14px; font-family: var(--luma-font-sans); font-size: 0.9375rem; color: var(--luma-fg);
+  background: var(--luma-surface); border: 1px solid var(--luma-border-mid); border-radius: var(--luma-radius-md);
+  box-shadow: var(--luma-neu-inset); cursor: pointer;
+  transition: border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast), border-radius var(--luma-trans-fast);
+  outline: none;
 }
-.luma-select:focus {
-  border-color: var(--luma-on);
-  box-shadow:
-    var(--luma-neu-inset),
-    0 0 0 2px rgba(46, 158, 91, 0.18);
+.luma-dropdown__trigger:hover { border-color: var(--luma-border-strong); }
+.luma-dropdown__trigger:focus-visible { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18); }
+.luma-dropdown.is-open .luma-dropdown__trigger { border-bottom-color: transparent; border-bottom-left-radius: 0; border-bottom-right-radius: 0; box-shadow: none; }
+.luma-dropdown__chevron { width: 16px; height: 16px; flex-shrink: 0; color: var(--luma-fg-hint); transition: transform var(--luma-trans-base); }
+.luma-dropdown.is-open .luma-dropdown__chevron { transform: rotate(180deg); }
+
+.luma-dropdown__list {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: var(--luma-z-dropdown);
+  background: var(--luma-surface); border: 1px solid var(--luma-border-mid); border-top: none;
+  border-bottom-left-radius: var(--luma-radius-md); border-bottom-right-radius: var(--luma-radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  overflow: hidden; max-height: 0; opacity: 0; pointer-events: none;
+  transition: max-height 0.22s ease, opacity 0.15s ease;
 }
+@media (prefers-color-scheme: dark) { .luma-dropdown__list { box-shadow: 0 8px 24px rgba(0,0,0,.40), 0 2px 6px rgba(0,0,0,.20); } }
+[data-theme="dark"] .luma-dropdown__list { box-shadow: 0 8px 24px rgba(0,0,0,.40), 0 2px 6px rgba(0,0,0,.20); }
 
+.luma-dropdown.is-open .luma-dropdown__list { max-height: 320px; opacity: 1; pointer-events: auto; overflow-y: auto; }
+.luma-dropdown__list::-webkit-scrollbar { width: 4px; }
+.luma-dropdown__list::-webkit-scrollbar-track { background: var(--luma-surface-alt); }
+.luma-dropdown__list::-webkit-scrollbar-thumb { background: var(--luma-border-mid); border-radius: var(--luma-radius-pill); }
 
-/* ------------------------------------------------------------
-   18. フォームフィールドラッパー
-   ------------------------------------------------------------ */
-
-.luma-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.luma-field__label {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--luma-fg-muted);
-  user-select: none;
-}
-
-.luma-field__hint {
-  font-size: 0.75rem;
-  color: var(--luma-fg-hint);
-}
-
-.luma-field__error {
-  font-size: 0.75rem;
-  color: var(--luma-error);
-}
-
-
-/* ------------------------------------------------------------
-   19. テーブル（レスポンシブスクロール対応）
-   ------------------------------------------------------------ */
+.luma-dropdown__item { display: flex; align-items: center; gap: var(--luma-space-sm); padding: 10px 14px; font-size: 0.9375rem; color: var(--luma-fg); cursor: pointer; transition: background var(--luma-trans-fast), color var(--luma-trans-fast); border-bottom: 1px solid var(--luma-border); }
+.luma-dropdown__item:last-child { border-bottom: none; }
+.luma-dropdown__item:hover,
+.luma-dropdown__item--active { background: var(--luma-surface-alt); }
+.luma-dropdown__item--selected { color: var(--luma-on); font-weight: 600; background: var(--luma-on-bg); }
+.luma-dropdown__item--selected::after { content: '✓'; margin-left: auto; font-size: 0.875rem; }
+.luma-dropdown__group-label { padding: 8px 14px 4px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--luma-fg-hint); background: var(--luma-surface-alt); border-bottom: 1px solid var(--luma-border); pointer-events: none; user-select: none; }
+.luma-dropdown__trigger[data-placeholder="true"] .luma-dropdown__value { color: var(--luma-fg-hint); }
+/* ============================================================
+   LumaUI v1.4 — table.css
+   ============================================================ */
 
 .luma-table-wrap {
-  overflow-x: auto; /* テーブルがはみ出す場合に横スクロールを発生させる */
+  overflow-x: auto;
   border: 1px solid var(--luma-border);
   border-radius: var(--luma-radius-lg);
   box-shadow: var(--luma-card-shadow);
   -webkit-overflow-scrolling: touch;
 }
-
-.luma-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.875rem;
-}
-
-.luma-table thead {
-  background: var(--luma-surface-alt);
-  border-bottom: 1px solid var(--luma-border-mid);
-}
-
+.luma-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.luma-table thead { background: var(--luma-surface-alt); border-bottom: 1px solid var(--luma-border-mid); }
 .luma-table th {
-  padding: 12px 16px;
-  text-align: left;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--luma-fg-hint);
-  white-space: nowrap;
+  padding: 12px 16px; text-align: left; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--luma-fg-hint); white-space: nowrap;
 }
+.luma-table td { padding: 12px 16px; color: var(--luma-fg); border-bottom: 1px solid var(--luma-border); }
+.luma-table tbody tr:last-child td { border-bottom: none; }
+.luma-table tbody tr:hover td { background: var(--luma-surface-alt); }
+.luma-table--numeric td, .luma-table--numeric th { text-align: right; font-variant-numeric: tabular-nums; }
 
-.luma-table td {
-  padding: 12px 16px;
-  color: var(--luma-fg);
-  border-bottom: 1px solid var(--luma-border);
+/* ページネーション（指摘#3への対応） */
+.luma-pagination { display: flex; align-items: center; gap: var(--luma-space-xs); }
+.luma-pagination__item {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; height: 32px; padding: 0 8px; border-radius: var(--luma-radius-sm);
+  font-size: 0.8125rem; color: var(--luma-fg-muted); cursor: pointer; border: 1px solid transparent;
+  transition: background var(--luma-trans-fast), color var(--luma-trans-fast);
 }
+.luma-pagination__item:hover { background: var(--luma-surface-alt); color: var(--luma-fg); }
+.luma-pagination__item--active { background: var(--luma-on); color: #fff; font-weight: 600; }
+.luma-pagination__item--disabled { opacity: 0.4; pointer-events: none; }
 
-.luma-table tbody tr:last-child td {
-  border-bottom: none;
+/* パンくずリスト */
+.luma-breadcrumb { display: flex; align-items: center; gap: var(--luma-space-xs); font-size: 0.8125rem; color: var(--luma-fg-muted); flex-wrap: wrap; }
+.luma-breadcrumb__link { color: var(--luma-fg-muted); border-bottom: none; }
+.luma-breadcrumb__link:hover { color: var(--luma-on); }
+.luma-breadcrumb__sep { color: var(--luma-fg-hint); }
+.luma-breadcrumb__current { color: var(--luma-fg); font-weight: 600; }
+/* ============================================================
+   LumaUI v1.4 — navigation.css
+   ============================================================ */
+
+.luma-nav { background: var(--luma-surface); border: 1px solid var(--luma-border); }
+
+.luma-nav--side {
+  width: 240px; height: 100vh; position: fixed; top: 0; left: 0;
+  border-right: 1px solid var(--luma-border); border-top: none; border-bottom: none; border-left: none;
+  display: flex; flex-direction: column; padding: var(--luma-space-lg) 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08); z-index: var(--luma-z-drawer);
 }
+.luma-nav--top { display: none; }
 
-.luma-table tbody tr:hover td {
-  background: var(--luma-surface-alt);
+.luma-mobile-bar {
+  height: 60px; position: sticky; top: 0; display: none; align-items: center; justify-content: space-between;
+  padding: 0 var(--luma-space-md); border-bottom: 1px solid var(--luma-border); background: var(--luma-surface); z-index: 50;
 }
-
-.luma-table--numeric td,
-.luma-table--numeric th {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-
-/* ------------------------------------------------------------
-   20. ユーティリティ（レスポンシブ追加）
-   ------------------------------------------------------------ */
-
-/* 視認性補助 */
-.luma-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* テキストカラー */
-.luma-text-on    { color: var(--luma-on); }
-.luma-text-error { color: var(--luma-error); }
-.luma-text-muted { color: var(--luma-fg-muted); }
-.luma-text-hint  { color: var(--luma-fg-hint); }
-
-/* 整列 */
-.luma-text-center { text-align: center; }
-.luma-text-right  { text-align: right; }
-
-/* スペーシング */
-.luma-mt-sm { margin-top: var(--luma-space-sm); }
-.luma-mt-md { margin-top: var(--luma-space-md); }
-.luma-mt-lg { margin-top: var(--luma-space-lg); }
-.luma-mb-sm { margin-bottom: var(--luma-space-sm); }
-.luma-mb-md { margin-bottom: var(--luma-space-md); }
-.luma-mb-lg { margin-bottom: var(--luma-space-lg); }
-
-/* 幅 */
-.luma-w-full { width: 100%; }
-
-/* 表示・非表示（レスポンシブ制御用） */
-.luma-hidden { display: none !important; }
+#menuCloseBtn { display: none; }
 
 @media (max-width: 768px) {
-  .luma-hidden-mobile { display: none !important; }
-}
-@media (min-width: 769px) {
-  .luma-hidden-desktop { display: none !important; }
-}
-
-/* ------------------------------------------------------------
-   21. カスタムドロップダウン（luma-dropdown）
-   ネイティブ select を使わず完全独自実装
-   ------------------------------------------------------------ */
-
-.luma-dropdown {
-  position: relative;
-  width: 100%;
-  user-select: none;
+  .luma-mobile-bar { display: flex; }
+  .luma-nav--side { width: 260px; transform: translateX(-100%); transition: transform var(--luma-trans-base); box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15); }
+  .luma-nav--side.is-open { transform: translateX(0); }
+  #menuCloseBtn { display: inline-flex; }
+  .luma-nav__brand { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 var(--luma-space-md) var(--luma-space-sm); border-bottom: 1px solid var(--luma-border); margin-bottom: var(--luma-space-sm); }
 }
 
-.luma-dropdown__trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px 14px;
-  font-family: var(--luma-font-sans);
-  font-size: 0.9375rem;
-  color: var(--luma-fg);
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border-mid);
-  border-radius: var(--luma-radius-md);
-  box-shadow: var(--luma-neu-inset);
-  cursor: pointer;
-  transition:
-    border-color var(--luma-trans-fast),
-    box-shadow var(--luma-trans-fast),
-    border-radius var(--luma-trans-fast);
-  outline: none;
+.luma-main-with-sidebar { margin-left: 240px; }
+@media (max-width: 768px) { .luma-main-with-sidebar { margin-left: 0; } }
+
+.luma-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); opacity: 0; pointer-events: none; transition: opacity var(--luma-trans-base); z-index: var(--luma-z-overlay); }
+.luma-overlay.is-visible { opacity: 1; pointer-events: auto; }
+
+.luma-nav__link {
+  display: flex; align-items: center; gap: var(--luma-space-sm); padding: 10px var(--luma-space-lg);
+  font-size: 0.875rem; font-weight: 500; color: var(--luma-fg-muted); border: 1px solid transparent; border-radius: 0;
+  transition: color var(--luma-trans-fast), background var(--luma-trans-fast), border-color var(--luma-trans-fast);
+  text-decoration: none;
+}
+.luma-nav__link:hover { color: var(--luma-fg); background: var(--luma-surface-alt); border-color: transparent; }
+.luma-nav__link--active { color: var(--luma-on); background: var(--luma-on-bg); border-right: 2px solid var(--luma-on); font-weight: 600; }
+@media (max-width: 768px) { .luma-nav__link { padding: var(--luma-space-sm) var(--luma-space-md); } }
+
+.luma-nav__brand { font-size: 1.25rem; font-weight: 700; color: var(--luma-fg); letter-spacing: -0.02em; padding: 0 var(--luma-space-lg) var(--luma-space-md); border-bottom: 1px solid var(--luma-border); margin-bottom: var(--luma-space-sm); }
+.luma-nav__section { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--luma-fg-hint); padding: var(--luma-space-md) var(--luma-space-lg) var(--luma-space-xs); }
+
+/* タブ（指摘#3への対応） */
+.luma-tabs {
+  display: flex; gap: 4px; padding: 4px; overflow-x: auto; overflow-y: hidden;
+  background: var(--luma-surface-alt); border: 1px solid var(--luma-border-mid);
+  border-radius: var(--luma-radius-pill); box-shadow: var(--luma-neu-inset);
+  touch-action: pan-y; user-select: none; -webkit-user-select: none;
+}
+.luma-tabs__item {
+  padding: 8px var(--luma-space-md); font-size: 0.875rem; font-weight: 600; color: var(--luma-fg-muted);
+  border: 1px solid transparent; border-radius: var(--luma-radius-pill); cursor: pointer; white-space: nowrap; background: none;
+  transition: color var(--luma-trans-fast), background var(--luma-trans-fast), border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
+}
+.luma-tabs__item:hover { color: var(--luma-fg); }
+.luma-tabs__item[aria-selected="true"] {
+  color: var(--luma-on); font-weight: 700; background: var(--luma-on-bg);
+  border-color: rgba(46, 158, 91, 0.30); box-shadow: var(--luma-neu-convex);
+}
+.luma-tabs__panel { padding-top: var(--luma-space-md); }
+.luma-tabs__panel[hidden] { display: none; }
+/* ============================================================
+   LumaUI v1.4 — components.css
+   ============================================================ */
+
+/* ── カード ── */
+.luma-card { background: var(--luma-surface); border-radius: var(--luma-radius-lg); border: 1px solid var(--luma-border); padding: var(--luma-space-lg); box-shadow: var(--luma-card-shadow); }
+.luma-card--sm { padding: var(--luma-space-md); border-radius: var(--luma-radius-md); }
+.luma-card--lg { padding: var(--luma-space-xl); }
+.luma-card-sm { padding: var(--luma-space-md); border-radius: var(--luma-radius-md); } /* v1.3互換 */
+@media (max-width: 768px) { .luma-card { padding: var(--luma-space-md); } }
+.luma-card__header { padding-bottom: var(--luma-space-md); margin-bottom: var(--luma-space-md); border-bottom: 1px solid var(--luma-border); }
+.luma-inset { background: var(--luma-surface-alt); border-radius: var(--luma-radius-md); border: 1px solid var(--luma-border); padding: var(--luma-space-md); }
+
+/* ── バッジ / チップ ── */
+.luma-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; font-size: 0.75rem; font-weight: 600; border-radius: var(--luma-radius-pill); border: 1px solid var(--luma-border); background: var(--luma-surface-alt); color: var(--luma-fg-muted); white-space: nowrap; }
+.luma-badge--on { background: var(--luma-on-bg); color: var(--luma-on); border-color: rgba(46, 158, 91, 0.30); }
+.luma-badge--error { background: var(--luma-error-bg); color: var(--luma-error); border-color: rgba(214, 48, 49, 0.30); }
+.luma-badge::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.luma-badge--no-dot::before { display: none; }
+
+/* ── アバター（指摘#3） ── */
+.luma-avatar { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--luma-surface-alt); color: var(--luma-fg-muted); font-weight: 600; font-size: 0.875rem; overflow: hidden; flex-shrink: 0; }
+.luma-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.luma-avatar--sm { width: 28px; height: 28px; font-size: 0.75rem; }
+.luma-avatar--lg { width: 56px; height: 56px; font-size: 1.125rem; }
+.luma-avatar-group { display: flex; }
+.luma-avatar-group .luma-avatar { margin-left: -8px; border: 2px solid var(--luma-surface); }
+.luma-avatar-group .luma-avatar:first-child { margin-left: 0; }
+
+/* ── スケルトン / スピナー（指摘#3・#7） ── */
+.luma-skeleton { background: linear-gradient(90deg, var(--luma-surface-alt) 25%, var(--luma-border) 50%, var(--luma-surface-alt) 75%); background-size: 200% 100%; border-radius: var(--luma-radius-sm); animation: luma-skeleton 1.4s ease infinite; }
+@keyframes luma-skeleton { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.luma-skeleton--text { height: 0.9em; width: 100%; }
+.luma-skeleton--circle { border-radius: 50%; }
+
+.luma-spinner { width: 20px; height: 20px; border: 2px solid var(--luma-border-mid); border-top-color: var(--luma-on); border-radius: 50%; animation: luma-spin 0.7s linear infinite; }
+.luma-spinner--lg { width: 32px; height: 32px; border-width: 3px; }
+
+/* ── メトリクスカード ── */
+.luma-metric { background: var(--luma-surface); border: 1px solid var(--luma-border); border-radius: var(--luma-radius-lg); padding: var(--luma-space-md); box-shadow: var(--luma-card-shadow); }
+.luma-metric__label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--luma-fg-hint); margin-bottom: var(--luma-space-xs); }
+.luma-metric__value { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--luma-fg); line-height: 1.1; font-variant-numeric: tabular-nums; }
+@media (max-width: 768px) { .luma-metric__value { font-size: 1.6rem; } }
+.luma-metric__sub { font-size: 0.75rem; color: var(--luma-fg-muted); margin-top: var(--luma-space-xs); }
+.luma-metric__sub--on { color: var(--luma-on); }
+.luma-metric__sub--error { color: var(--luma-error); }
+
+/* ── 進捗バー ── */
+.luma-progress-wrap { display: flex; flex-direction: column; gap: var(--luma-space-xs); }
+.luma-progress-track { width: 100%; height: 10px; background: var(--luma-surface-alt); border-radius: var(--luma-radius-pill); border: 1px solid var(--luma-border); box-shadow: var(--luma-neu-inset); overflow: hidden; }
+.luma-progress-bar { height: 100%; border-radius: var(--luma-radius-pill); background: var(--luma-on); transition: width 0.4s ease; }
+.luma-progress-bar--error { background: var(--luma-error); }
+.luma-progress-track--sm { height: 6px; }
+
+/* ── グラフコンテナ ── */
+.luma-chart-area { background: var(--luma-surface); border: 1px solid var(--luma-border); border-radius: var(--luma-radius-lg); padding: var(--luma-space-lg); box-shadow: var(--luma-card-shadow); min-height: 200px; position: relative; }
+.luma-chart-area__canvas { width: 100%; height: 100%; }
+.demo-chart-placeholder { display: flex; justify-content: space-around; align-items: flex-end; height: 140px; padding-top: var(--luma-space-md); }
+.demo-bar { width: 24px; background: var(--luma-on); border-radius: var(--luma-radius-sm) var(--luma-radius-sm) 0 0; transition: height var(--luma-trans-base); box-shadow: var(--luma-card-shadow); }
+
+/* ── テーマトグルボタン ── */
+.luma-theme-toggle {
+  position: fixed; top: var(--luma-space-md); right: var(--luma-space-md); z-index: 100;
+  width: 44px; height: 44px; border-radius: 50%; background: var(--luma-surface); border: 1px solid var(--luma-border-mid);
+  box-shadow: var(--luma-neu-convex); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; transition: box-shadow var(--luma-trans-base), background var(--luma-trans-fast);
+}
+.luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.15), -5px -5px 12px rgba(255, 255, 255, 0.88); }
+@media (prefers-color-scheme: dark) { .luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05); } }
+[data-theme="dark"] .luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05); }
+.luma-theme-toggle:active { box-shadow: var(--luma-neu-inset); }
+@media (max-width: 768px) { .luma-theme-toggle { top: 10px; right: var(--luma-space-md); } }
+
+/* ── 区切り線 ── */
+.luma-divider { border: none; border-top: 1px solid var(--luma-border); margin: var(--luma-space-md) 0; }
+.luma-divider--strong { border-top-color: var(--luma-border-mid); }
+/* ============================================================
+   LumaUI v1.4 — overlay.css (modal / toast / tooltip / accordion)
+   ============================================================ */
+
+/* ── モーダル ── */
+.luma-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45); z-index: var(--luma-z-modal);
+  display: flex; align-items: center; justify-content: center; padding: var(--luma-space-md);
+  opacity: 0; pointer-events: none; transition: opacity var(--luma-trans-base);
+}
+.luma-modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+.luma-modal {
+  background: var(--luma-surface); border-radius: var(--luma-radius-lg); border: 1px solid var(--luma-border);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); width: 100%; max-width: 480px; max-height: 90vh;
+  overflow-y: auto; transform: translateY(12px) scale(0.98); transition: transform var(--luma-trans-base);
+}
+.luma-modal-backdrop.is-open .luma-modal { transform: translateY(0) scale(1); }
+.luma-modal__header { display: flex; align-items: center; justify-content: space-between; padding: var(--luma-space-lg); border-bottom: 1px solid var(--luma-border); }
+.luma-modal__title { font-size: 1.125rem; font-weight: 700; color: var(--luma-fg); }
+.luma-modal__close { width: 32px; height: 32px; border-radius: var(--luma-radius-sm); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--luma-fg-muted); background: none; border: none; }
+.luma-modal__close:hover { background: var(--luma-surface-alt); color: var(--luma-fg); }
+.luma-modal__body { padding: var(--luma-space-lg); }
+.luma-modal__footer { display: flex; justify-content: flex-end; gap: var(--luma-space-sm); padding: var(--luma-space-lg); border-top: 1px solid var(--luma-border); }
+
+/* ── トースト ── */
+.luma-toast-region { position: fixed; bottom: var(--luma-space-lg); right: var(--luma-space-lg); z-index: var(--luma-z-toast); display: flex; flex-direction: column; gap: var(--luma-space-sm); width: 360px; }
+@media (max-width: 768px) { .luma-toast-region { left: var(--luma-space-md); right: var(--luma-space-md); width: auto; } }
+.luma-toast {
+  position: relative; display: flex; align-items: center; gap: var(--luma-space-sm); padding: 14px 10px 14px 16px;
+  min-height: 24px; background: var(--luma-surface); border: 1px solid var(--luma-border-mid); border-radius: var(--luma-radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); font-size: 0.875rem; color: var(--luma-fg);
+  animation: luma-toast-in var(--luma-trans-base) both;
+}
+.luma-toast.is-leaving { animation: luma-toast-out var(--luma-trans-fast) both; pointer-events: none; }
+.luma-toast.is-collapsed { display: none; }
+.luma-toast--on { border-left: 3px solid var(--luma-on); }
+.luma-toast--error { border-left: 3px solid var(--luma-error); }
+.luma-toast > span {
+  flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.luma-toast__close {
+  flex: none; margin-left: auto; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  border-radius: var(--luma-radius-sm); cursor: pointer; color: var(--luma-fg-hint); background: none; border: none;
+  font-size: 1.15rem; line-height: 1; transition: background var(--luma-trans-fast), color var(--luma-trans-fast);
+}
+.luma-toast__close:hover { background: var(--luma-surface-alt); color: var(--luma-fg); }
+
+/* 5件目以降がある場合、表示中4枚目のカードの下端から古いカードの縁がのぞく見た目にし、クリックで展開 */
+.luma-toast.is-stack-lid { cursor: pointer; margin-bottom: 10px; }
+.luma-toast.is-stack-lid::after {
+  content: ''; position: absolute; left: 14px; right: 14px; bottom: -8px; height: 10px;
+  background: var(--luma-surface-alt); border: 1px solid var(--luma-border-mid); border-top: none;
+  border-radius: 0 0 var(--luma-radius-sm) var(--luma-radius-sm);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12); z-index: -1;
+}
+.luma-toast__stack-badge {
+  position: absolute; bottom: -10px; right: 18px; background: var(--luma-fg); color: var(--luma-surface);
+  font-size: 0.6875rem; font-weight: 700; padding: 2px 8px; border-radius: var(--luma-radius-pill);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); z-index: 1;
 }
 
-.luma-dropdown__trigger:hover {
-  border-color: var(--luma-border-strong);
+/* 展開時: たたむバー（先頭に固定）+ スクロール可（スクロールバー非表示） */
+.luma-toast-region__collapse {
+  display: none; position: sticky; top: 0; z-index: 1; margin-bottom: var(--luma-space-xs);
+  padding: 8px 14px; text-align: center; cursor: pointer; font-size: 0.75rem; font-weight: 600;
+  color: var(--luma-fg-muted); background: var(--luma-surface); border: 1px solid var(--luma-border-mid);
+  border-radius: var(--luma-radius-pill); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
+.luma-toast-region.is-stacked.is-expanded .luma-toast-region__collapse { display: block; }
+.luma-toast-region.is-stacked.is-expanded {
+  max-height: 70vh; overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.luma-toast-region.is-stacked.is-expanded::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
-.luma-dropdown__trigger:focus-visible {
-  border-color: var(--luma-on);
-  box-shadow:
-    var(--luma-neu-inset),
-    0 0 0 2px rgba(46, 158, 91, 0.18);
+@keyframes luma-toast-in {
+  0% { opacity: 0; transform: translateX(32px); }
+  60% { opacity: 1; transform: translateX(-4px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
+@keyframes luma-toast-out { from { opacity: 1; transform: translateX(0) scale(1); } to { opacity: 0; transform: translateX(24px) scale(0.96); } }
 
-.luma-dropdown.is-open .luma-dropdown__trigger {
-  border-bottom-color: transparent;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  box-shadow: none;
+/* ── ツールチップ ── */
+.luma-tooltip { position: relative; display: inline-flex; }
+.luma-tooltip__bubble {
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px);
+  background: var(--luma-fg); color: var(--luma-bg); font-size: 0.75rem; padding: 6px 10px;
+  border-radius: var(--luma-radius-sm); white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: opacity var(--luma-trans-fast), transform var(--luma-trans-fast); z-index: var(--luma-z-tooltip);
 }
+.luma-tooltip:hover .luma-tooltip__bubble,
+.luma-tooltip:focus-within .luma-tooltip__bubble { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-.luma-dropdown__chevron {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  color: var(--luma-fg-hint);
-  transition: transform var(--luma-trans-base);
+/* ── アコーディオン ── */
+.luma-accordion__item { border-bottom: 1px solid var(--luma-border); }
+.luma-accordion__trigger {
+  display: flex; align-items: center; justify-content: space-between; width: 100%; padding: var(--luma-space-md) 0;
+  background: none; border: none; font-size: 0.9375rem; font-weight: 600; color: var(--luma-fg); cursor: pointer; text-align: left;
 }
-
-.luma-dropdown.is-open .luma-dropdown__chevron {
-  transform: rotate(180deg);
-}
-
-.luma-dropdown__list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 200;
-  background: var(--luma-surface);
-  border: 1px solid var(--luma-border-mid);
-  border-top: none;
-  border-bottom-left-radius: var(--luma-radius-md);
-  border-bottom-right-radius: var(--luma-radius-md);
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.12),
-    0 2px 6px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    max-height 0.22s ease,
-    opacity 0.15s ease;
-}
-
-[data-theme="dark"] .luma-dropdown__list {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.40),
-    0 2px 6px rgba(0, 0, 0, 0.20);
-}
-
-@media (prefers-color-scheme: dark) {
-  .luma-dropdown__list {
-    box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.40),
-      0 2px 6px rgba(0, 0, 0, 0.20);
-  }
-}
-
-.luma-dropdown.is-open .luma-dropdown__list {
-  max-height: 320px;
-  opacity: 1;
-  pointer-events: auto;
-  overflow-y: auto;
-}
-
-.luma-dropdown__list::-webkit-scrollbar { width: 4px; }
-.luma-dropdown__list::-webkit-scrollbar-track { background: var(--luma-surface-alt); }
-.luma-dropdown__list::-webkit-scrollbar-thumb {
-  background: var(--luma-border-mid);
-  border-radius: var(--luma-radius-pill);
-}
-
-.luma-dropdown__item {
-  display: flex;
-  align-items: center;
-  gap: var(--luma-space-sm);
-  padding: 10px 14px;
-  font-size: 0.9375rem;
-  color: var(--luma-fg);
-  cursor: pointer;
-  transition:
-    background var(--luma-trans-fast),
-    color var(--luma-trans-fast);
-  border-bottom: 1px solid var(--luma-border);
-}
-
-.luma-dropdown__item:last-child {
-  border-bottom: none;
-}
-
-.luma-dropdown__item:hover {
-  background: var(--luma-surface-alt);
-}
-
-.luma-dropdown__item--selected {
-  color: var(--luma-on);
-  font-weight: 600;
-  background: var(--luma-on-bg);
-}
-
-.luma-dropdown__item--selected::after {
-  content: '✓';
-  margin-left: auto;
-  font-size: 0.875rem;
-}
-
-.luma-dropdown__group-label {
-  padding: 8px 14px 4px;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--luma-fg-hint);
-  background: var(--luma-surface-alt);
-  border-bottom: 1px solid var(--luma-border);
-}
-
-.luma-dropdown__trigger[data-placeholder="true"] .luma-dropdown__value {
-  color: var(--luma-fg-hint);
-}
+.luma-accordion__chevron { width: 16px; height: 16px; flex-shrink: 0; color: var(--luma-fg-hint); transition: transform var(--luma-trans-base); }
+.luma-accordion__trigger[aria-expanded="true"] .luma-accordion__chevron { transform: rotate(180deg); }
+.luma-accordion__panel { overflow: hidden; max-height: 0; transition: max-height var(--luma-trans-base); }
+.luma-accordion__panel-inner { padding-bottom: var(--luma-space-md); font-size: 0.875rem; color: var(--luma-fg-muted); }
