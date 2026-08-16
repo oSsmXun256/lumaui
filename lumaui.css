@@ -629,6 +629,20 @@ a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
 }
 .luma-tabs__panel { padding-top: var(--luma-space-md); }
 .luma-tabs__panel[hidden] { display: none; }
+
+/* 検索・チェックボックス付き複数選択Dropdown */
+.luma-multiselect .luma-dropdown__list { max-height: 0; }
+.luma-multiselect.is-open .luma-dropdown__list { max-height: min(420px, 55vh); }
+.luma-multiselect [hidden] { display: none !important; }
+.luma-multiselect__toolbar { position: sticky; top: 0; z-index: 2; display: flex; gap: var(--luma-space-xs); padding: var(--luma-space-sm); background: var(--luma-surface); border-bottom: 1px solid var(--luma-border); }
+.luma-multiselect__search { min-width: 0; flex: 1; }
+.luma-multiselect__check { display: grid; place-items: center; width: 20px; height: 20px; flex: 0 0 20px; border: 2px solid var(--luma-border-strong); border-radius: 6px; background: var(--luma-surface); }
+.luma-multiselect .luma-dropdown__item--selected .luma-multiselect__check { border-color: var(--luma-on); background: var(--luma-on); }
+.luma-multiselect .luma-dropdown__item--selected .luma-multiselect__check::after { content: '✓'; color: #fff; font-size: .75rem; font-weight: 800; }
+.luma-multiselect .luma-dropdown__item--selected::after { content: none; }
+.luma-multiselect__selected { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--luma-space-xs); }
+.luma-multiselect__selected:empty { display: none; }
+.luma-multiselect__chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; padding: 5px 9px; border: 1px solid var(--luma-on); border-radius: var(--luma-radius-pill); color: var(--luma-on); background: var(--luma-on-bg); font: inherit; cursor: pointer; }
 /* ============================================================
    LumaUI v1.4 — components.css
    ============================================================ */

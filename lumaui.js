@@ -19,16 +19,58 @@
   /* ---------- Dropdown ---------- */
   var Dropdown = {
     init: function (root) {
+      if (root.getAttribute('data-luma-dropdown-ready') === 'true') return;
       var trigger = root.querySelector('.luma-dropdown__trigger');
       var list = root.querySelector('.luma-dropdown__list');
       var items = Array.prototype.slice.call(root.querySelectorAll('.luma-dropdown__item'));
       if (!trigger || !list) return;
+      root.setAttribute('data-luma-dropdown-ready', 'true');
+      var multiple = root.getAttribute('data-multiple') === 'true';
+      var search = root.querySelector('.luma-multiselect__search');
+      var clear = root.querySelector('.luma-multiselect__clear');
+      var selectedArea = root.querySelector('.luma-multiselect__selected');
+
+      function selectedItems() {
+        return items.filter(function (item) { return item.classList.contains('luma-dropdown__item--selected'); });
+      }
+      function updateMultiple() {
+        if (!multiple) return;
+        var selected = selectedItems();
+        var valueEl = trigger.querySelector('.luma-dropdown__value');
+        if (valueEl) valueEl.textContent = selected.length ? selected.length + '件選択中' : (root.dataset.placeholder || '選択してください');
+        root.dataset.values = JSON.stringify(selected.map(function (item) { return item.dataset.value; }));
+        if (selectedArea) {
+          selectedArea.replaceChildren();
+          selected.forEach(function (item) {
+            var chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'luma-multiselect__chip';
+            chip.dataset.removeValue = item.dataset.value;
+            var label = document.createElement('span');
+            label.textContent = item.textContent.trim();
+            var close = document.createElement('span');
+            close.textContent = '×';
+            close.setAttribute('aria-hidden', 'true');
+            chip.appendChild(label);
+            chip.appendChild(close);
+            selectedArea.appendChild(chip);
+          });
+        }
+      }
+      function emitMultipleChange() {
+        var selected = selectedItems();
+        updateMultiple();
+        root.dispatchEvent(new CustomEvent('luma:change', { detail: { values: selected.map(function (item) { return item.dataset.value; }), items: selected } }));
+      }
 
       function open() {
         root.classList.add('is-open');
         trigger.setAttribute('aria-expanded', 'true');
-        var active = root.querySelector('.luma-dropdown__item--selected') || items[0];
-        if (active) { active.setAttribute('tabindex', '0'); active.focus(); }
+        if (multiple && search) search.focus();
+        else {
+          var active = root.querySelector('.luma-dropdown__item--selected') || items[0];
+          if (active) { active.setAttribute('tabindex', '0'); active.focus(); }
+        }
       }
       function close(focusTrigger) {
         root.classList.remove('is-open');
@@ -45,6 +87,11 @@
         item.setAttribute('role', 'option');
         item.setAttribute('tabindex', '-1');
         item.addEventListener('click', function () {
+          if (multiple) {
+            item.classList.toggle('luma-dropdown__item--selected');
+            emitMultipleChange();
+            return;
+          }
           items.forEach(function (it) { it.classList.remove('luma-dropdown__item--selected'); });
           item.classList.add('luma-dropdown__item--selected');
           close(true);
@@ -60,6 +107,24 @@
           else if (e.key === 'Escape') { e.preventDefault(); close(true); }
         });
       });
+
+      if (search) search.addEventListener('input', function () {
+        var query = search.value.trim().toLocaleLowerCase('ja');
+        items.forEach(function (item) { item.hidden = !!query && (item.dataset.search || item.textContent.toLocaleLowerCase('ja')).indexOf(query) === -1; });
+      });
+      if (clear) clear.addEventListener('click', function (e) {
+        e.stopPropagation();
+        items.forEach(function (item) { item.classList.remove('luma-dropdown__item--selected'); });
+        emitMultipleChange();
+      });
+      if (selectedArea) selectedArea.addEventListener('click', function (e) {
+        var chip = e.target.closest('[data-remove-value]');
+        if (!chip) return;
+        var item = items.find(function (candidate) { return candidate.dataset.value === chip.dataset.removeValue; });
+        if (item) item.classList.remove('luma-dropdown__item--selected');
+        emitMultipleChange();
+      });
+      updateMultiple();
 
       document.addEventListener('click', function (e) {
         if (!root.contains(e.target)) close();
