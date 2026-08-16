@@ -166,6 +166,9 @@
   /* ---------- Tabs ---------- */
   var Tabs = {
     init: function (root) {
+      // 画面遷移用リンクはタブパネル制御の対象外。クリック直後に先頭へ
+      // リセットされる挙動を防ぎ、ルーターへそのまま委ねる。
+      if (root.hasAttribute('data-route-tabs')) return;
       var tabs = Array.prototype.slice.call(root.querySelectorAll('.luma-tabs__item'));
       var suppressClick = false;
       function select(tab, focus) {
