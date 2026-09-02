@@ -75,6 +75,8 @@
       function close(focusTrigger) {
         root.classList.remove('is-open');
         trigger.setAttribute('aria-expanded', 'false');
+        // 閉じたリスト項目がTabストップとして残らないようにする
+        items.forEach(function (it) { it.setAttribute('tabindex', '-1'); });
         if (focusTrigger) trigger.focus();
       }
       function toggle() { root.classList.contains('is-open') ? close() : open(); }
@@ -176,7 +178,11 @@
     initAll: function () {
       document.querySelectorAll('[data-luma-theme-toggle]').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var current = document.documentElement.getAttribute('data-theme');
+          // data-theme 未指定時はOS設定を実効テーマとして扱う
+          // (OSダーク環境で最初のクリックが無視される問題の回避)
+          var attr = document.documentElement.getAttribute('data-theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var current = attr || (prefersDark ? 'dark' : 'light');
           var next = current === 'dark' ? 'light' : 'dark';
           document.documentElement.setAttribute('data-theme', next);
           try { localStorage.setItem('luma-theme', next); } catch (e) {}
@@ -191,11 +197,20 @@
 
   /* ---------- Modal ---------- */
   var Modal = {
+    _openCount: 0,
+    _savedOverflow: '',
     open: function (id) {
       var backdrop = document.getElementById(id);
-      if (!backdrop) return;
+      if (!backdrop || backdrop.classList.contains('is-open')) return;
       backdrop.classList.add('is-open');
       var modal = backdrop.querySelector('.luma-modal');
+      // 閉じたときに起点へフォーカスを戻せるよう開いた直前の要素を記録する
+      backdrop._opener = document.activeElement && !backdrop.contains(document.activeElement) ? document.activeElement : null;
+      if (Modal._openCount === 0) {
+        Modal._savedOverflow = document.body.style.overflow || '';
+        document.body.style.overflow = 'hidden'; // 背景スクロールの固定
+      }
+      Modal._openCount++;
       document.addEventListener('keydown', onKeydown);
       var first = modal && modal.querySelector('a, button, input, select, textarea');
       if (first) first.focus();
@@ -208,9 +223,14 @@
     },
     close: function (id) {
       var backdrop = document.getElementById(id);
-      if (!backdrop) return;
+      if (!backdrop || !backdrop.classList.contains('is-open')) return;
       backdrop.classList.remove('is-open');
       if (backdrop._onKeydown) document.removeEventListener('keydown', backdrop._onKeydown);
+      Modal._openCount = Math.max(0, Modal._openCount - 1);
+      if (Modal._openCount === 0) document.body.style.overflow = Modal._savedOverflow;
+      var opener = backdrop._opener;
+      backdrop._opener = null;
+      if (opener && typeof opener.focus === 'function') opener.focus();
     },
     initAll: function () {
       document.querySelectorAll('[data-luma-modal-open]').forEach(function (btn) {
@@ -304,7 +324,22 @@
       trigger.addEventListener('click', function () {
         var open = trigger.getAttribute('aria-expanded') === 'true';
         trigger.setAttribute('aria-expanded', open ? 'false' : 'true');
-        panel.style.maxHeight = open ? '0px' : panel.scrollHeight + 'px';
+        if (open) {
+          // maxHeight:none のまま 0 へ遷移させるため一度実高さへ戻す
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          panel.getBoundingClientRect(); // reflow
+          panel.style.maxHeight = '0px';
+          panel.classList.remove('is-open');
+        } else {
+          panel.classList.add('is-open');
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+      });
+      // 展開が完了したら maxHeight を外す。これでウィンドウリサイズ時や
+      // 内部コンテンツの変化でもパネルがクリップされない
+      panel.addEventListener('transitionend', function (e) {
+        if (e.propertyName !== 'max-height') return;
+        if (trigger.getAttribute('aria-expanded') === 'true') panel.style.maxHeight = 'none';
       });
     },
     initAll: function () { document.querySelectorAll('.luma-accordion__item').forEach(Accordion.init); }
@@ -377,7 +412,15 @@
       var region = Toast.ensureRegion();
       var toast = document.createElement('div');
       toast.className = 'luma-toast' + (opts.type ? ' luma-toast--' + opts.type : '');
-      toast.innerHTML = '<span>' + message + '</span><button class="luma-toast__close" aria-label="閉じる">×</button>';
+      // メッセージはテキストとして挿入する（HTML連結による意図しないマークアップ混入を防ぐ）
+      var text = document.createElement('span');
+      text.textContent = message == null ? '' : String(message);
+      var closeBtn = document.createElement('button');
+      closeBtn.className = 'luma-toast__close';
+      closeBtn.setAttribute('aria-label', '閉じる');
+      closeBtn.textContent = '×';
+      toast.appendChild(text);
+      toast.appendChild(closeBtn);
       var firstExisting = region.querySelector('.luma-toast');
       if (firstExisting) region.insertBefore(toast, firstExisting);
       else region.appendChild(toast);
@@ -396,7 +439,7 @@
         }, { once: true });
       };
       var timer = setTimeout(dismiss, opts.duration || 4000);
-      toast.querySelector('.luma-toast__close').addEventListener('click', function (e) {
+      closeBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         dismiss();
       });
