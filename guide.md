@@ -109,6 +109,15 @@ gap: `luma-gap-xs`(4px) / `sm`(8px) / `md`(16px) / `lg`(24px)
 <div class="luma-card luma-card--sm">...</div>   <!-- 小サイズ（旧: luma-card-sm、互換維持） -->
 <div class="luma-card luma-card--lg">...</div>   <!-- 大サイズ（新規） -->
 
+<!-- 情報表示だけのカード -->
+<article class="luma-card luma-card--static">状態を表示するだけ</article>
+
+<!-- 遷移・操作できるカード: a/button/role=link と組み合わせる -->
+<a class="luma-card luma-card--interactive" href="/settings">
+  <h2 class="luma-h3">設定</h2>
+  <span class="luma-card__action">開く →</span>
+</a>
+
 <div class="luma-card__header luma-flex-between">
   <h2 class="luma-h2">タイトル</h2>
   <span class="luma-badge luma-badge--on">稼働中</span>
@@ -380,6 +389,21 @@ slider.addEventListener('input', e => {
 
 `lumaui.js` の `Tabs` が自動処理。左右矢印キー・Home/Endでタブ移動、クリックで切替、`aria-controls` に対応する要素の `hidden` を自動制御する。
 
+縦タブは `luma-tabs--vertical` と `luma-tabs__list` / `luma-tabs__panels` を使います。上下矢印キーで移動し、640px以下では横スクロール可能なタブ列へ切り替わります。
+
+```html
+<div class="luma-tabs luma-tabs--vertical" aria-orientation="vertical">
+  <div class="luma-tabs__list" role="tablist" aria-orientation="vertical">
+    <button class="luma-tabs__item" role="tab" aria-selected="true" aria-controls="panel-general">一般</button>
+    <button class="luma-tabs__item" role="tab" aria-selected="false" aria-controls="panel-access">権限</button>
+  </div>
+  <div class="luma-tabs__panels">
+    <div class="luma-tabs__panel" id="panel-general" role="tabpanel">一般設定</div>
+    <div class="luma-tabs__panel" id="panel-access" role="tabpanel" hidden>権限設定</div>
+  </div>
+</div>
+```
+
 ## アコーディオン（新規）
 
 ```html
@@ -489,6 +513,7 @@ var(--luma-fg) var(--luma-fg-muted) var(--luma-fg-hint)
 var(--luma-on) var(--luma-on-bg) var(--luma-error) var(--luma-error-bg)
 var(--luma-border) var(--luma-border-mid) var(--luma-border-strong)
 var(--luma-neu-convex) var(--luma-neu-inset) var(--luma-card-shadow)
+var(--luma-surface-0/1/2/3) var(--luma-elevation-0/1/2/3/4)
 var(--luma-space-xs/sm/md/lg/xl)
 var(--luma-radius-sm/md/lg/xl/pill)
 var(--luma-z-drawer/overlay/dropdown/modal/toast/tooltip)  /* 新規: z-indexスケール */

@@ -235,6 +235,9 @@
       // リセットされる挙動を防ぎ、ルーターへそのまま委ねる。
       if (root.hasAttribute('data-route-tabs')) return;
       var tabs = Array.prototype.slice.call(root.querySelectorAll('.luma-tabs__item'));
+      if (!tabs.length) return;
+      var vertical = root.classList.contains('luma-tabs--vertical') || root.getAttribute('aria-orientation') === 'vertical';
+      if (vertical) root.setAttribute('aria-orientation', 'vertical');
       var suppressClick = false;
       function select(tab, focus) {
         tabs.forEach(function (t) {
@@ -253,8 +256,8 @@
           select(tab);
         });
         tab.addEventListener('keydown', function (e) {
-          if (e.key === 'ArrowRight') { e.preventDefault(); select(tabs[(i + 1) % tabs.length], true); }
-          else if (e.key === 'ArrowLeft') { e.preventDefault(); select(tabs[(i - 1 + tabs.length) % tabs.length], true); }
+          if ((!vertical && e.key === 'ArrowRight') || (vertical && e.key === 'ArrowDown')) { e.preventDefault(); select(tabs[(i + 1) % tabs.length], true); }
+          else if ((!vertical && e.key === 'ArrowLeft') || (vertical && e.key === 'ArrowUp')) { e.preventDefault(); select(tabs[(i - 1 + tabs.length) % tabs.length], true); }
           else if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
           else if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
         });

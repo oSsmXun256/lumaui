@@ -7,6 +7,19 @@
 .luma-card--sm { padding: var(--luma-space-md); border-radius: var(--luma-radius-md); }
 .luma-card--lg { padding: var(--luma-space-xl); }
 .luma-card-sm { padding: var(--luma-space-md); border-radius: var(--luma-radius-md); } /* v1.3互換 */
+.luma-card--static { border-color: var(--luma-border); cursor: default; }
+.luma-card--interactive {
+  position: relative;
+  cursor: pointer;
+  transition: transform var(--luma-trans-base), border-color var(--luma-trans-base), box-shadow var(--luma-trans-base), background var(--luma-trans-base);
+}
+.luma-card--interactive:hover { border-color: var(--luma-on-border); background: var(--luma-surface-raised); box-shadow: var(--luma-elevation-3); transform: translateY(-2px); }
+.luma-card--interactive:active { box-shadow: var(--luma-elevation-1); transform: translateY(0); }
+.luma-card--interactive:focus-visible { outline: 2px solid var(--luma-on); outline-offset: 3px; box-shadow: var(--luma-elevation-3), var(--luma-focus-ring); }
+a.luma-card--interactive { display: block; color: var(--luma-fg); text-decoration: none; border-bottom: 1px solid var(--luma-border); }
+.luma-card--interactive::after { content: '↗'; position: absolute; top: var(--luma-space-md); right: var(--luma-space-md); color: var(--luma-on); opacity: 0; transform: translate(-3px, 3px); transition: opacity var(--luma-trans-fast), transform var(--luma-trans-fast); }
+.luma-card--interactive:hover::after, .luma-card--interactive:focus-visible::after { opacity: 1; transform: translate(0, 0); }
+.luma-card__action { display: inline-flex; align-items: center; gap: var(--luma-space-xs); color: var(--luma-on); font-size: 0.8125rem; font-weight: 700; }
 @media (max-width: 768px) { .luma-card { padding: var(--luma-space-md); } }
 .luma-card__header { padding-bottom: var(--luma-space-md); margin-bottom: var(--luma-space-md); border-bottom: 1px solid var(--luma-border); }
 .luma-inset { background: var(--luma-surface-alt); border-radius: var(--luma-radius-md); border: 1px solid var(--luma-border); padding: var(--luma-space-md); }

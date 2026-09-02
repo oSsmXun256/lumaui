@@ -82,6 +82,25 @@
 
     <hr class="luma-divider luma-divider--strong">
 
+    <!-- カードの意味を明示: 情報表示用と操作用 -->
+    <section class="luma-stack luma-gap-sm" aria-labelledby="section-card-types">
+      <div>
+        <h2 class="luma-h2" id="section-card-types">カードの使い分け</h2>
+        <p class="luma-body-sm">情報を読むだけのカードは静かに、遷移できるカードはフォーカス・浮き上がり・矢印で操作対象だと伝えます。</p>
+      </div>
+      <div class="luma-grid luma-grid-2">
+        <article class="luma-card luma-card--static">
+          <div class="luma-card__header"><span class="luma-badge luma-badge--no-dot">情報</span><h3 class="luma-h3 luma-mt-sm">稼働状況</h3></div>
+          <p class="luma-body-sm">このカードは状態を表示するだけ。クリック可能な見た目やカーソルを持ちません。</p>
+        </article>
+        <a class="luma-card luma-card--interactive" href="#section-tabs">
+          <div class="luma-card__header"><span class="luma-badge luma-badge--on luma-badge--no-dot">操作</span><h3 class="luma-h3 luma-mt-sm">詳細ログを見る</h3></div>
+          <p class="luma-body-sm">クリック、キーボードフォーカス、ホバーの浮き上がりで操作対象だと分かります。</p>
+          <span class="luma-card__action">タブへ移動 <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </section>
+
     <!-- タイポグラフィ -->
     <section class="luma-card" id="section-typography">
       <div class="luma-card__header"><h2 class="luma-h2">タイポグラフィ</h2></div>
@@ -370,6 +389,26 @@
       </div>
       <div class="luma-tabs__panel" id="panel-settings" hidden>
         <p class="luma-body-sm">自動スケーリング・アラート閾値などを設定できます。</p>
+      </div>
+
+      <h3 class="luma-h3 luma-mt-lg luma-mb-sm">縦タブ</h3>
+      <div class="luma-tabs luma-tabs--vertical" aria-orientation="vertical">
+        <div class="luma-tabs__list" role="tablist" aria-orientation="vertical" aria-label="ノード設定">
+          <button class="luma-tabs__item" id="vertical-summary-tab" role="tab" aria-selected="true" aria-controls="vertical-summary" tabindex="0">概要</button>
+          <button class="luma-tabs__item" id="vertical-alerts-tab" role="tab" aria-selected="false" aria-controls="vertical-alerts" tabindex="-1">アラート</button>
+          <button class="luma-tabs__item" id="vertical-access-tab" role="tab" aria-selected="false" aria-controls="vertical-access" tabindex="-1">アクセス</button>
+        </div>
+        <div class="luma-tabs__panels">
+          <div class="luma-tabs__panel" id="vertical-summary" role="tabpanel" aria-labelledby="vertical-summary-tab">
+            <p class="luma-h4">ノードの概要</p><p class="luma-body-sm luma-mt-sm">縦タブは設定画面や詳細パネルのカテゴリ移動に向いています。</p>
+          </div>
+          <div class="luma-tabs__panel" id="vertical-alerts" role="tabpanel" aria-labelledby="vertical-alerts-tab" hidden>
+            <p class="luma-h4">アラート設定</p><p class="luma-body-sm luma-mt-sm">異常時の通知先としきい値を管理します。</p>
+          </div>
+          <div class="luma-tabs__panel" id="vertical-access" role="tabpanel" aria-labelledby="vertical-access-tab" hidden>
+            <p class="luma-h4">アクセス制御</p><p class="luma-body-sm luma-mt-sm">メンバーごとの閲覧権限を設定します。</p>
+          </div>
+        </div>
       </div>
 
       <hr class="luma-divider luma-mt-lg">

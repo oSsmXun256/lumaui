@@ -64,3 +64,25 @@
 }
 .luma-tabs__panel { padding-top: var(--luma-space-md); }
 .luma-tabs__panel[hidden] { display: none; }
+
+/* 縦タブ: 横タブの軽さを残しつつ、設定画面のナビゲーションにも使える構成 */
+.luma-tabs--vertical {
+  display: grid;
+  grid-template-columns: minmax(9rem, 12rem) minmax(0, 1fr);
+  gap: var(--luma-space-md);
+  align-items: start;
+  padding: var(--luma-space-sm);
+  border-radius: var(--luma-radius-lg);
+  box-shadow: var(--luma-elevation-1);
+}
+.luma-tabs--vertical .luma-tabs__list { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.luma-tabs--vertical .luma-tabs__item { width: 100%; padding: 10px var(--luma-space-md); border-radius: var(--luma-radius-md); text-align: left; }
+.luma-tabs--vertical .luma-tabs__item[aria-selected="true"] { box-shadow: var(--luma-elevation-1); }
+.luma-tabs--vertical .luma-tabs__panel { min-width: 0; padding: var(--luma-space-sm) var(--luma-space-md); }
+.luma-tabs--vertical .luma-tabs__panels { min-width: 0; }
+@media (max-width: 640px) {
+  .luma-tabs--vertical { grid-template-columns: 1fr; }
+  .luma-tabs--vertical .luma-tabs__list { flex-direction: row; overflow-x: auto; }
+  .luma-tabs--vertical .luma-tabs__item { width: auto; flex: 0 0 auto; }
+  .luma-tabs--vertical .luma-tabs__panel { padding-inline: var(--luma-space-sm); }
+}
