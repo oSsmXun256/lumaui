@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LumaUI Design System v1.4 - 完全デモ</title>
   <link rel="stylesheet" href="lumaui.css">
+  <style>
+    /* デモ固有のスタイル。ライブラリCSSには含めない */
+    .demo-chart-placeholder { display: flex; justify-content: space-around; align-items: flex-end; height: 140px; padding-top: var(--luma-space-md); }
+    .demo-bar { width: 24px; background: var(--luma-on); border-radius: var(--luma-radius-sm) var(--luma-radius-sm) 0 0; transition: height var(--luma-trans-base); box-shadow: var(--luma-card-shadow); }
+  </style>
 </head>
 <body>
 
@@ -166,13 +171,21 @@
           </div>
         </div>
         <div>
+          <p class="luma-label luma-mb-sm">処理中状態 (v1.4新規)</p>
+          <div class="luma-flex luma-gap-sm luma-items-center luma-flex-wrap">
+            <button class="luma-btn luma-btn--primary" id="btnLoading">保存する</button>
+            <span class="luma-caption">クリックすると2秒間だけ <code class="luma-mono">luma-btn--loading</code> + <code class="luma-mono">aria-busy</code> になります</span>
+          </div>
+        </div>
+        <div>
           <p class="luma-label luma-mb-sm">バッジ / チップ</p>
           <div class="luma-flex luma-gap-sm luma-flex-wrap">
             <span class="luma-badge luma-badge--on">Online</span>
             <span class="luma-badge luma-badge--error">Error</span>
+            <span class="luma-badge luma-badge--warning">Warning</span>
+            <span class="luma-badge luma-badge--info">Info</span>
             <span class="luma-badge">Default</span>
             <span class="luma-badge luma-badge--no-dot">v1.4.0</span>
-            <span class="luma-badge luma-badge--on luma-badge--no-dot">稼働中</span>
           </div>
         </div>
       </div>
@@ -236,6 +249,28 @@
                 <li class="luma-dropdown__item" role="option" data-value="eu-west-1" data-label="EU (Ireland)">🇮🇪 EU (Ireland)</li>
               </ul>
             </div>
+          </div>
+
+          <div class="luma-field">
+            <label class="luma-field__label" for="msSearch">担当リージョン（複数選択・検索付き）</label>
+            <div class="luma-dropdown luma-multiselect" data-multiple="true" data-placeholder="選択してください">
+              <button type="button" class="luma-dropdown__trigger">
+                <span class="luma-dropdown__value">選択してください</span>
+                <svg class="luma-dropdown__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="luma-dropdown__list">
+                <div class="luma-multiselect__toolbar">
+                  <input type="search" id="msSearch" class="luma-input luma-input--sm luma-multiselect__search" placeholder="絞り込み…" aria-label="選択肢を絞り込み">
+                  <button type="button" class="luma-btn luma-btn--sm luma-btn--ghost luma-multiselect__clear">全解除</button>
+                </div>
+                <div class="luma-dropdown__item" role="option" aria-selected="false" data-value="apne1" data-search="tokyo japan ap-northeast-1"><span class="luma-multiselect__check" aria-hidden="true"></span> Tokyo</div>
+                <div class="luma-dropdown__item" role="option" aria-selected="false" data-value="apse1" data-search="singapore ap-southeast-1"><span class="luma-multiselect__check" aria-hidden="true"></span> Singapore</div>
+                <div class="luma-dropdown__item" role="option" aria-selected="false" data-value="use1" data-search="virginia us-east-1"><span class="luma-multiselect__check" aria-hidden="true"></span> N. Virginia</div>
+                <div class="luma-dropdown__item" role="option" aria-selected="false" data-value="euc1" data-search="frankfurt eu-central-1"><span class="luma-multiselect__check" aria-hidden="true"></span> Frankfurt</div>
+              </div>
+            </div>
+            <div class="luma-multiselect__selected" aria-label="選択中のリージョン"></div>
+            <span class="luma-field__hint">チェックボックス・検索・チップ解除は lumaui.js が処理します。</span>
           </div>
         </div>
 
@@ -311,28 +346,28 @@
       <div class="luma-card__header"><h2 class="luma-h2">フィードバック・インセット</h2></div>
       <div class="luma-stack">
         <div class="luma-grid luma-grid-2">
-          <div class="luma-inset" style="border-color:rgba(46,158,91,0.30);background:var(--luma-on-bg);">
+          <div class="luma-inset luma-inset--on">
             <div class="luma-flex luma-gap-sm">
-              <span>✅</span>
+              <span aria-hidden="true">✅</span>
               <div><p class="luma-label luma-text-on">デプロイ完了</p><p class="luma-body-sm">node-asia-east-01 への反映が正常に完了しました。</p></div>
             </div>
           </div>
-          <div class="luma-inset" style="border-color:rgba(214,48,49,0.30);background:var(--luma-error-bg);">
+          <div class="luma-inset luma-inset--error">
             <div class="luma-flex luma-gap-sm">
-              <span>❌</span>
+              <span aria-hidden="true">❌</span>
               <div><p class="luma-label luma-text-error">接続エラー</p><p class="luma-body-sm">node-eu-central-01 との通信がタイムアウトしました。</p></div>
             </div>
           </div>
-          <div class="luma-inset">
+          <div class="luma-inset luma-inset--info">
             <div class="luma-flex luma-gap-sm">
-              <span>ℹ️</span>
-              <div><p class="luma-label">情報</p><p class="luma-body-sm">luma-inset は汎用のインセット（凹み）コンテナです。背景・ボーダーを上書きして用途に応じて活用できます。</p></div>
+              <span aria-hidden="true">ℹ️</span>
+              <div><p class="luma-label luma-text-info">情報</p><p class="luma-body-sm">luma-inset--on / --error / --warning / --info でインラインstyleなしに色分けできます。</p></div>
             </div>
           </div>
-          <div class="luma-inset" style="border-color:rgba(255,180,0,0.35);background:rgba(255,180,0,0.08);">
+          <div class="luma-inset luma-inset--warning">
             <div class="luma-flex luma-gap-sm">
-              <span>⚠️</span>
-              <div><p class="luma-label" style="color:#b07800;">警告</p><p class="luma-body-sm">ディスク使用量が閾値（80%）に近づいています。</p></div>
+              <span aria-hidden="true">⚠️</span>
+              <div><p class="luma-label luma-text-warning">警告</p><p class="luma-body-sm">ディスク使用量が閾値（80%）に近づいています。</p></div>
             </div>
           </div>
         </div>
@@ -634,6 +669,19 @@
     });
     document.getElementById('btnToastError').addEventListener('click', () => {
       LumaUI.Toast.show('接続エラーが発生しました', { type: 'error' });
+    });
+
+    // ローディング状態のボタン (v1.4新規)
+    const btnLoading = document.getElementById('btnLoading');
+    btnLoading.addEventListener('click', () => {
+      if (btnLoading.classList.contains('luma-btn--loading')) return;
+      btnLoading.classList.add('luma-btn--loading');
+      btnLoading.setAttribute('aria-busy', 'true');
+      setTimeout(() => {
+        btnLoading.classList.remove('luma-btn--loading');
+        btnLoading.removeAttribute('aria-busy');
+        LumaUI.Toast.show('保存が完了しました', { type: 'on' });
+      }, 2000);
     });
     document.getElementById('btnToastStack').addEventListener('click', () => {
       for (let i = 1; i <= 8; i++) {

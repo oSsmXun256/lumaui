@@ -1,0 +1,13 @@
+{
+  "name": "lumaui",
+  "version": "1.4.0",
+  "description": "A lightweight, utility-first CSS + JS UI system with neumorphic accents.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/verify.mjs",
+    "test": "node scripts/verify.mjs"
+  }
+}
