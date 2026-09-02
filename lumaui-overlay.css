@@ -2,16 +2,19 @@
    LumaUI v1.4 — overlay.css (modal / toast / tooltip / accordion)
    ============================================================ */
 
-/* ── モーダル ── */
+/* ── モーダル ──
+   閉じている間は visibility:hidden でTabフォーカス・読み上げの両方から
+   遮断する。opacity遷移の終わりに隠すためアニメーションは保たれる */
 .luma-modal-backdrop {
   position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45); z-index: var(--luma-z-modal);
   display: flex; align-items: center; justify-content: center; padding: var(--luma-space-md);
-  opacity: 0; pointer-events: none; transition: opacity var(--luma-trans-base);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity var(--luma-trans-base), visibility 0s linear var(--luma-trans-base);
 }
-.luma-modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+.luma-modal-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity var(--luma-trans-base); }
 .luma-modal {
-  background: var(--luma-surface); border-radius: var(--luma-radius-lg); border: 1px solid var(--luma-border);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25); width: 100%; max-width: 480px; max-height: 90vh;
+  background: var(--luma-surface-raised); border-radius: var(--luma-radius-lg); border: 1px solid var(--luma-border);
+  box-shadow: var(--luma-elevation-4); width: 100%; max-width: 480px; max-height: 90vh;
   overflow-y: auto; transform: translateY(12px) scale(0.98); transition: transform var(--luma-trans-base);
 }
 .luma-modal-backdrop.is-open .luma-modal { transform: translateY(0) scale(1); }
@@ -27,8 +30,8 @@
 @media (max-width: 768px) { .luma-toast-region { left: var(--luma-space-md); right: var(--luma-space-md); width: auto; } }
 .luma-toast {
   position: relative; display: flex; align-items: center; gap: var(--luma-space-sm); padding: 14px 10px 14px 16px;
-  min-height: 24px; background: var(--luma-surface); border: 1px solid var(--luma-border-mid); border-radius: var(--luma-radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); font-size: 0.875rem; color: var(--luma-fg);
+  min-height: 24px; background: var(--luma-surface-raised); border: 1px solid var(--luma-border-mid); border-radius: var(--luma-radius-md);
+  box-shadow: var(--luma-elevation-3); font-size: 0.875rem; color: var(--luma-fg);
   animation: luma-toast-in var(--luma-trans-base) both;
 }
 .luma-toast.is-leaving { animation: luma-toast-out var(--luma-trans-fast) both; pointer-events: none; }
@@ -99,5 +102,8 @@
 }
 .luma-accordion__chevron { width: 16px; height: 16px; flex-shrink: 0; color: var(--luma-fg-hint); transition: transform var(--luma-trans-base); }
 .luma-accordion__trigger[aria-expanded="true"] .luma-accordion__chevron { transform: rotate(180deg); }
-.luma-accordion__panel { overflow: hidden; max-height: 0; transition: max-height var(--luma-trans-base); }
+/* 閉じているパネルは visibility:hidden でTabフォーカス対象から外す。
+   max-heightアニメーションの終了後に隠すため体感は変わらない */
+.luma-accordion__panel { overflow: hidden; max-height: 0; visibility: hidden; transition: max-height var(--luma-trans-base), visibility 0s linear var(--luma-trans-base); }
+.luma-accordion__panel.is-open { visibility: visible; transition: max-height var(--luma-trans-base); }
 .luma-accordion__panel-inner { padding-bottom: var(--luma-space-md); font-size: 0.875rem; color: var(--luma-fg-muted); }

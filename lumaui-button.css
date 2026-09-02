@@ -25,20 +25,23 @@
 }
 
 .luma-btn:hover:not(:disabled) {
-  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.15), -5px -5px 12px rgba(255, 255, 255, 0.88);
+  box-shadow: var(--luma-neu-convex-hover);
 }
-@media (prefers-color-scheme: dark) {
-  .luma-btn:hover:not(:disabled) {
-    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05);
-  }
-}
-[data-theme="dark"] .luma-btn:hover:not(:disabled) {
-  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05);
-}
-[data-style="flat"] .luma-btn:hover:not(:disabled) { box-shadow: none; background: var(--luma-surface-alt); }
+[data-style="flat"] .luma-btn:hover:not(:disabled) { background: var(--luma-surface-alt); }
 
 .luma-btn:active:not(:disabled) { box-shadow: var(--luma-neu-inset); border-color: var(--luma-border-strong); }
 .luma-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+/* 処理中状態: aria-busy="true" と併用する。ラベルは残したまま
+   スピナーが先頭に付き、二重送信を防ぐためポインタ操作を無効化する */
+.luma-btn--loading { pointer-events: none; opacity: 0.85; }
+.luma-btn--loading::before {
+  content: '';
+  width: 1em; height: 1em; flex: none;
+  border: 2px solid currentColor; border-top-color: transparent;
+  border-radius: 50%;
+  animation: luma-spin 0.7s linear infinite;
+}
 
 /* サイズバリエーション（指摘#6） */
 .luma-btn--sm { padding: 6px 14px; font-size: 0.8125rem; border-radius: var(--luma-radius-sm); }
@@ -61,6 +64,10 @@
 }
 .luma-btn--danger:hover:not(:disabled) { background: #b52828; }
 .luma-btn--danger:active:not(:disabled) { box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.20); }
+
+/* flatスタイルではNeumorphism由来の色付き影も無効化する */
+[data-style="flat"] .luma-btn--primary,
+[data-style="flat"] .luma-btn--danger { box-shadow: none; }
 
 .luma-btn--ghost { background: transparent; box-shadow: none; border-color: transparent; }
 .luma-btn--ghost:hover:not(:disabled) { background: var(--luma-surface-alt); box-shadow: none; }

@@ -22,8 +22,9 @@
 .luma-input:hover { border-color: var(--luma-border-strong); }
 .luma-input:focus {
   border-color: var(--luma-on);
-  box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18);
+  box-shadow: var(--luma-neu-inset), var(--luma-focus-ring);
 }
+.luma-input:disabled, .luma-input[readonly] { opacity: 0.5; cursor: not-allowed; }
 .luma-input--number { font-variant-numeric: tabular-nums; text-align: right; }
 .luma-input--error { border-color: var(--luma-error); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(214, 48, 49, 0.15); }
 .luma-input--sm { padding: 6px 10px; font-size: 0.8125rem; }
@@ -62,7 +63,8 @@
   transition: border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
 }
 .luma-select:hover { border-color: var(--luma-border-strong); }
-.luma-select:focus { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18); }
+.luma-select:focus { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), var(--luma-focus-ring); }
+.luma-select:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ── トグル（ON/OFF） ── */
 .luma-toggle { position: relative; display: inline-block; width: 52px; height: 28px; flex-shrink: 0; }
@@ -130,21 +132,19 @@
   outline: none;
 }
 .luma-dropdown__trigger:hover { border-color: var(--luma-border-strong); }
-.luma-dropdown__trigger:focus-visible { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), 0 0 0 2px rgba(46, 158, 91, 0.18); }
+.luma-dropdown__trigger:focus-visible { border-color: var(--luma-on); box-shadow: var(--luma-neu-inset), var(--luma-focus-ring); }
 .luma-dropdown.is-open .luma-dropdown__trigger { border-bottom-color: transparent; border-bottom-left-radius: 0; border-bottom-right-radius: 0; box-shadow: none; }
 .luma-dropdown__chevron { width: 16px; height: 16px; flex-shrink: 0; color: var(--luma-fg-hint); transition: transform var(--luma-trans-base); }
 .luma-dropdown.is-open .luma-dropdown__chevron { transform: rotate(180deg); }
 
 .luma-dropdown__list {
   position: absolute; top: 100%; left: 0; right: 0; z-index: var(--luma-z-dropdown);
-  background: var(--luma-surface); border: 1px solid var(--luma-border-mid); border-top: none;
+  background: var(--luma-surface-raised); border: 1px solid var(--luma-border-mid); border-top: none;
   border-bottom-left-radius: var(--luma-radius-md); border-bottom-right-radius: var(--luma-radius-md);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--luma-elevation-3);
   overflow: hidden; max-height: 0; opacity: 0; pointer-events: none;
   transition: max-height 0.22s ease, opacity 0.15s ease;
 }
-@media (prefers-color-scheme: dark) { .luma-dropdown__list { box-shadow: 0 8px 24px rgba(0,0,0,.40), 0 2px 6px rgba(0,0,0,.20); } }
-[data-theme="dark"] .luma-dropdown__list { box-shadow: 0 8px 24px rgba(0,0,0,.40), 0 2px 6px rgba(0,0,0,.20); }
 
 .luma-dropdown.is-open .luma-dropdown__list { max-height: 320px; opacity: 1; pointer-events: auto; overflow-y: auto; }
 .luma-dropdown__list::-webkit-scrollbar { width: 4px; }
@@ -159,3 +159,19 @@
 .luma-dropdown__item--selected::after { content: '✓'; margin-left: auto; font-size: 0.875rem; }
 .luma-dropdown__group-label { padding: 8px 14px 4px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--luma-fg-hint); background: var(--luma-surface-alt); border-bottom: 1px solid var(--luma-border); pointer-events: none; user-select: none; }
 .luma-dropdown__trigger[data-placeholder="true"] .luma-dropdown__value { color: var(--luma-fg-hint); }
+
+/* ── 検索・チェックボックス付き複数選択Dropdown ──
+   .luma-dropdown に .luma-multiselect と data-multiple="true" を付けると
+   lumaui.js が検索・全解除・選択チップを有効化する */
+.luma-multiselect .luma-dropdown__list { max-height: 0; }
+.luma-multiselect.is-open .luma-dropdown__list { max-height: min(420px, 55vh); }
+.luma-multiselect [hidden] { display: none !important; }
+.luma-multiselect__toolbar { position: sticky; top: 0; z-index: 2; display: flex; gap: var(--luma-space-xs); padding: var(--luma-space-sm); background: var(--luma-surface); border-bottom: 1px solid var(--luma-border); }
+.luma-multiselect__search { min-width: 0; flex: 1; }
+.luma-multiselect__check { display: grid; place-items: center; width: 20px; height: 20px; flex: 0 0 20px; border: 2px solid var(--luma-border-strong); border-radius: 6px; background: var(--luma-surface); }
+.luma-multiselect .luma-dropdown__item--selected .luma-multiselect__check { border-color: var(--luma-on); background: var(--luma-on); }
+.luma-multiselect .luma-dropdown__item--selected .luma-multiselect__check::after { content: '✓'; color: #fff; font-size: .75rem; font-weight: 800; }
+.luma-multiselect .luma-dropdown__item--selected::after { content: none; }
+.luma-multiselect__selected { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--luma-space-xs); }
+.luma-multiselect__selected:empty { display: none; }
+.luma-multiselect__chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; padding: 5px 9px; border: 1px solid var(--luma-on); border-radius: var(--luma-radius-pill); color: var(--luma-on); background: var(--luma-on-bg); font: inherit; cursor: pointer; }

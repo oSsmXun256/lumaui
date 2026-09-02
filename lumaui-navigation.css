@@ -4,11 +4,14 @@
 
 .luma-nav { background: var(--luma-surface); border: 1px solid var(--luma-border); }
 
+/* サイドバーはページ(.luma-bg)より一段上げた面(--luma-surface-raised)で
+   階層を示す。影は控えめに、境界との二重表現にしない */
 .luma-nav--side {
   width: 240px; height: 100vh; position: fixed; top: 0; left: 0;
+  background: var(--luma-surface-raised);
   border-right: 1px solid var(--luma-border); border-top: none; border-bottom: none; border-left: none;
-  display: flex; flex-direction: column; padding: var(--luma-space-lg) 0;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08); z-index: var(--luma-z-drawer);
+  display: flex; flex-direction: column; padding: var(--luma-space-lg) 0 var(--luma-space-md);
+  box-shadow: var(--luma-elevation-1); z-index: var(--luma-z-drawer);
 }
 .luma-nav--top { display: none; }
 
@@ -20,8 +23,14 @@
 
 @media (max-width: 768px) {
   .luma-mobile-bar { display: flex; }
-  .luma-nav--side { width: 260px; transform: translateX(-100%); transition: transform var(--luma-trans-base); box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15); }
-  .luma-nav--side.is-open { transform: translateX(0); }
+  /* visibility 遅延で閉じきった後にTabフォーカスが届かなくなる。
+     開いている間は通常どおり操作できる */
+  .luma-nav--side {
+    width: 260px; transform: translateX(-100%);
+    transition: transform var(--luma-trans-base), visibility 0s linear var(--luma-trans-base);
+    visibility: hidden; box-shadow: var(--luma-elevation-3);
+  }
+  .luma-nav--side.is-open { transform: translateX(0); visibility: visible; transition: transform var(--luma-trans-base); }
   #menuCloseBtn { display: inline-flex; }
   .luma-nav__brand { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 var(--luma-space-md) var(--luma-space-sm); border-bottom: 1px solid var(--luma-border); margin-bottom: var(--luma-space-sm); }
 }
@@ -32,14 +41,24 @@
 .luma-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); opacity: 0; pointer-events: none; transition: opacity var(--luma-trans-base); z-index: var(--luma-z-overlay); }
 .luma-overlay.is-visible { opacity: 1; pointer-events: auto; }
 
+/* リンクは従来型のフル幅・直角の管理画面風ではなく、余白を持つ
+   角丸の行にする。アクティブは色面 + 左端のアクセントバーで示す */
 .luma-nav__link {
-  display: flex; align-items: center; gap: var(--luma-space-sm); padding: 10px var(--luma-space-lg);
-  font-size: 0.875rem; font-weight: 500; color: var(--luma-fg-muted); border: 1px solid transparent; border-radius: 0;
-  transition: color var(--luma-trans-fast), background var(--luma-trans-fast), border-color var(--luma-trans-fast);
+  position: relative;
+  display: flex; align-items: center; gap: var(--luma-space-sm);
+  margin: 2px var(--luma-space-sm);
+  padding: 9px var(--luma-space-sm) 9px var(--luma-space-md);
+  font-size: 0.875rem; font-weight: 500; color: var(--luma-fg-muted);
+  border-radius: var(--luma-radius-md);
+  transition: color var(--luma-trans-fast), background var(--luma-trans-fast);
   text-decoration: none;
 }
-.luma-nav__link:hover { color: var(--luma-fg); background: var(--luma-surface-alt); border-color: transparent; }
-.luma-nav__link--active { color: var(--luma-on); background: var(--luma-on-bg); border-right: 2px solid var(--luma-on); font-weight: 600; }
+.luma-nav__link:hover { color: var(--luma-fg); background: var(--luma-surface-hover); }
+.luma-nav__link--active { color: var(--luma-on); background: var(--luma-on-bg); font-weight: 600; }
+.luma-nav__link--active::before {
+  content: ''; position: absolute; left: 0; top: 22%; bottom: 22%;
+  width: 3px; border-radius: var(--luma-radius-pill); background: var(--luma-on);
+}
 @media (max-width: 768px) { .luma-nav__link { padding: var(--luma-space-sm) var(--luma-space-md); } }
 
 .luma-nav__brand { font-size: 1.25rem; font-weight: 700; color: var(--luma-fg); letter-spacing: -0.02em; padding: 0 var(--luma-space-lg) var(--luma-space-md); border-bottom: 1px solid var(--luma-border); margin-bottom: var(--luma-space-sm); }

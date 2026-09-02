@@ -24,10 +24,19 @@ a.luma-card--interactive { display: block; color: var(--luma-fg); text-decoratio
 .luma-card__header { padding-bottom: var(--luma-space-md); margin-bottom: var(--luma-space-md); border-bottom: 1px solid var(--luma-border); }
 .luma-inset { background: var(--luma-surface-alt); border-radius: var(--luma-radius-md); border: 1px solid var(--luma-border); padding: var(--luma-space-md); }
 
+/* セマンティックインセット: 成功 / エラー / 警告 / 情報。
+   インラインstyleの背景・ボーダー上書きの代わりにこれらを使う */
+.luma-inset--on      { background: var(--luma-on-bg); border-color: var(--luma-on-border); }
+.luma-inset--error   { background: var(--luma-error-bg); border-color: var(--luma-error-border); }
+.luma-inset--warning { background: var(--luma-warning-bg); border-color: var(--luma-warning-border); }
+.luma-inset--info    { background: var(--luma-info-bg); border-color: var(--luma-info-border); }
+
 /* ── バッジ / チップ ── */
 .luma-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; font-size: 0.75rem; font-weight: 600; border-radius: var(--luma-radius-pill); border: 1px solid var(--luma-border); background: var(--luma-surface-alt); color: var(--luma-fg-muted); white-space: nowrap; }
-.luma-badge--on { background: var(--luma-on-bg); color: var(--luma-on); border-color: rgba(46, 158, 91, 0.30); }
-.luma-badge--error { background: var(--luma-error-bg); color: var(--luma-error); border-color: rgba(214, 48, 49, 0.30); }
+.luma-badge--on { background: var(--luma-on-bg); color: var(--luma-on); border-color: var(--luma-on-border); }
+.luma-badge--error { background: var(--luma-error-bg); color: var(--luma-error); border-color: var(--luma-error-border); }
+.luma-badge--warning { background: var(--luma-warning-bg); color: var(--luma-warning); border-color: var(--luma-warning-border); }
+.luma-badge--info { background: var(--luma-info-bg); color: var(--luma-info); border-color: var(--luma-info-border); }
 .luma-badge::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 .luma-badge--no-dot::before { display: none; }
 
@@ -68,8 +77,6 @@ a.luma-card--interactive { display: block; color: var(--luma-fg); text-decoratio
 /* ── グラフコンテナ ── */
 .luma-chart-area { background: var(--luma-surface); border: 1px solid var(--luma-border); border-radius: var(--luma-radius-lg); padding: var(--luma-space-lg); box-shadow: var(--luma-card-shadow); min-height: 200px; position: relative; }
 .luma-chart-area__canvas { width: 100%; height: 100%; }
-.demo-chart-placeholder { display: flex; justify-content: space-around; align-items: flex-end; height: 140px; padding-top: var(--luma-space-md); }
-.demo-bar { width: 24px; background: var(--luma-on); border-radius: var(--luma-radius-sm) var(--luma-radius-sm) 0 0; transition: height var(--luma-trans-base); box-shadow: var(--luma-card-shadow); }
 
 /* ── テーマトグルボタン ── */
 .luma-theme-toggle {
@@ -78,9 +85,7 @@ a.luma-card--interactive { display: block; color: var(--luma-fg); text-decoratio
   box-shadow: var(--luma-neu-convex); cursor: pointer; display: flex; align-items: center; justify-content: center;
   font-size: 1.2rem; transition: box-shadow var(--luma-trans-base), background var(--luma-trans-fast);
 }
-.luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.15), -5px -5px 12px rgba(255, 255, 255, 0.88); }
-@media (prefers-color-scheme: dark) { .luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05); } }
-[data-theme="dark"] .luma-theme-toggle:hover { box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.45), -5px -5px 12px rgba(255, 255, 255, 0.05); }
+.luma-theme-toggle:hover { box-shadow: var(--luma-neu-convex-hover); }
 .luma-theme-toggle:active { box-shadow: var(--luma-neu-inset); }
 @media (max-width: 768px) { .luma-theme-toggle { top: 10px; right: var(--luma-space-md); } }
 
