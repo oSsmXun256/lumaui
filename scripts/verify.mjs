@@ -67,6 +67,10 @@ if (missingCss.length) throw new Error(`Missing required CSS API: ${missingCss.j
 assert(!/\.luma-modal\s*\{[^}]*box-shadow:\s*0 16px/.test(css), "Modal must use --luma-elevation tokens");
 assert(!/\.demo-bar\s*\{/.test(css), "demo-only classes must live in demo.html, not the library CSS");
 assert(/\.luma-input:disabled/.test(css), "Inputs must expose a disabled state");
+assert(/\.luma-tabs\s*\{[^}]*overflow-x:\s*auto;[^}]*scrollbar-width:\s*none;[^}]*-ms-overflow-style:\s*none;/.test(css), "Horizontal tabs must hide native scrollbars while preserving horizontal overflow");
+assert(css.includes(".luma-tabs::-webkit-scrollbar"), "Chromium tabs must hide native scrollbars");
+assert(/\.luma-tabs--vertical \.luma-tabs__list\s*\{[^}]*overflow-x:\s*auto;[^}]*scrollbar-width:\s*none;[^}]*-ms-overflow-style:\s*none;/.test(css), "Mobile vertical tab lists must hide native scrollbars");
+assert(css.includes(".luma-tabs--vertical .luma-tabs__list::-webkit-scrollbar"), "Chromium mobile vertical tabs must hide native scrollbars");
 
 assert(countBraces(css) === 0, "CSS braces are unbalanced");
 assert(countBraces(js) === 0, "JS braces are unbalanced");

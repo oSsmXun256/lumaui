@@ -1,5 +1,5 @@
 /* ============================================================
-   LumaUI Design System — v1.5 — core.css
+   LumaUI Design System — v1.5.1 — core.css
    トークン / リセット / タイポグラフィ / レイアウト / ユーティリティ
    ============================================================ */
 
@@ -358,7 +358,7 @@ a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
   .luma-anim-fade, .luma-anim-slide { animation: none; }
 }
 /* ============================================================
-   LumaUI v1.5 — button.css
+   LumaUI v1.5.1 — button.css
    ============================================================ */
 
 .luma-btn {
@@ -435,7 +435,7 @@ a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
 .luma-btn--icon.luma-btn--sm { width: 32px; height: 32px; }
 .luma-btn--icon.luma-btn--lg { width: 48px; height: 48px; }
 /* ============================================================
-   LumaUI v1.5 — form.css
+   LumaUI v1.5.1 — form.css
    ============================================================ */
 
 /* ── テキスト入力 ── */
@@ -612,7 +612,7 @@ a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
 .luma-multiselect__selected:empty { display: none; }
 .luma-multiselect__chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; padding: 5px 9px; border: 1px solid var(--luma-on); border-radius: var(--luma-radius-pill); color: var(--luma-on); background: var(--luma-on-bg); font: inherit; cursor: pointer; }
 /* ============================================================
-   LumaUI v1.5 — table.css
+   LumaUI v1.5.1 — table.css
    ============================================================ */
 
 .luma-table-wrap {
@@ -652,7 +652,7 @@ a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
 .luma-breadcrumb__sep { color: var(--luma-fg-hint); }
 .luma-breadcrumb__current { color: var(--luma-fg); font-weight: 600; }
 /* ============================================================
-   LumaUI v1.5 — navigation.css
+   LumaUI v1.5.1 — navigation.css
    ============================================================ */
 
 .luma-nav { background: var(--luma-surface); border: 1px solid var(--luma-border); }
@@ -722,11 +722,15 @@ a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
   display: flex; gap: 4px; padding: 4px; overflow-x: auto; overflow-y: hidden;
   background: var(--luma-surface-alt); border: 1px solid var(--luma-border-mid);
   border-radius: var(--luma-radius-pill); box-shadow: var(--luma-neu-inset);
-  touch-action: pan-y; user-select: none; -webkit-user-select: none;
+  touch-action: pan-x; user-select: none; -webkit-user-select: none;
+  -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+  scrollbar-width: none; -ms-overflow-style: none;
 }
+.luma-tabs::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .luma-tabs__item {
   padding: 8px var(--luma-space-md); font-size: 0.875rem; font-weight: 600; color: var(--luma-fg-muted);
   border: 1px solid transparent; border-radius: var(--luma-radius-pill); cursor: pointer; white-space: nowrap; background: none;
+  flex: 0 0 auto;
   transition: color var(--luma-trans-fast), background var(--luma-trans-fast), border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
 }
 .luma-tabs__item:hover { color: var(--luma-fg); }
@@ -754,12 +758,13 @@ a:hover { color: var(--luma-fg); border-color: var(--luma-border-mid); }
 .luma-tabs--vertical .luma-tabs__panels { min-width: 0; }
 @media (max-width: 640px) {
   .luma-tabs--vertical { grid-template-columns: 1fr; }
-  .luma-tabs--vertical .luma-tabs__list { flex-direction: row; overflow-x: auto; }
+  .luma-tabs--vertical .luma-tabs__list { flex-direction: row; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .luma-tabs--vertical .luma-tabs__list::-webkit-scrollbar { display: none; width: 0; height: 0; }
   .luma-tabs--vertical .luma-tabs__item { width: auto; flex: 0 0 auto; }
   .luma-tabs--vertical .luma-tabs__panel { padding-inline: var(--luma-space-sm); }
 }
 /* ============================================================
-   LumaUI v1.5 — components.css
+   LumaUI v1.5.1 — components.css
    ============================================================ */
 
 /* ── カード ── */
@@ -853,7 +858,7 @@ a.luma-card--interactive { display: block; color: var(--luma-fg); text-decoratio
 .luma-divider { border: none; border-top: 1px solid var(--luma-border); margin: var(--luma-space-md) 0; }
 .luma-divider--strong { border-top-color: var(--luma-border-mid); }
 /* ============================================================
-   LumaUI v1.5 — overlay.css (modal / toast / tooltip / accordion)
+   LumaUI v1.5.1 — overlay.css (modal / toast / tooltip / accordion)
    ============================================================ */
 
 /* ── モーダル ──

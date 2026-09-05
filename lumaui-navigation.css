@@ -1,5 +1,5 @@
 /* ============================================================
-   LumaUI v1.5 — navigation.css
+   LumaUI v1.5.1 — navigation.css
    ============================================================ */
 
 .luma-nav { background: var(--luma-surface); border: 1px solid var(--luma-border); }
@@ -69,11 +69,15 @@
   display: flex; gap: 4px; padding: 4px; overflow-x: auto; overflow-y: hidden;
   background: var(--luma-surface-alt); border: 1px solid var(--luma-border-mid);
   border-radius: var(--luma-radius-pill); box-shadow: var(--luma-neu-inset);
-  touch-action: pan-y; user-select: none; -webkit-user-select: none;
+  touch-action: pan-x; user-select: none; -webkit-user-select: none;
+  -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+  scrollbar-width: none; -ms-overflow-style: none;
 }
+.luma-tabs::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .luma-tabs__item {
   padding: 8px var(--luma-space-md); font-size: 0.875rem; font-weight: 600; color: var(--luma-fg-muted);
   border: 1px solid transparent; border-radius: var(--luma-radius-pill); cursor: pointer; white-space: nowrap; background: none;
+  flex: 0 0 auto;
   transition: color var(--luma-trans-fast), background var(--luma-trans-fast), border-color var(--luma-trans-fast), box-shadow var(--luma-trans-fast);
 }
 .luma-tabs__item:hover { color: var(--luma-fg); }
@@ -101,7 +105,8 @@
 .luma-tabs--vertical .luma-tabs__panels { min-width: 0; }
 @media (max-width: 640px) {
   .luma-tabs--vertical { grid-template-columns: 1fr; }
-  .luma-tabs--vertical .luma-tabs__list { flex-direction: row; overflow-x: auto; }
+  .luma-tabs--vertical .luma-tabs__list { flex-direction: row; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .luma-tabs--vertical .luma-tabs__list::-webkit-scrollbar { display: none; width: 0; height: 0; }
   .luma-tabs--vertical .luma-tabs__item { width: auto; flex: 0 0 auto; }
   .luma-tabs--vertical .luma-tabs__panel { padding-inline: var(--luma-space-sm); }
 }

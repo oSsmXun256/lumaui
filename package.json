@@ -1,6 +1,6 @@
 {
   "name": "lumaui",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A lightweight, utility-first CSS + JS UI system with neumorphic accents.",
   "license": "MIT",
   "private": true,
