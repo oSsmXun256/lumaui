@@ -412,7 +412,7 @@ slider.addEventListener('input', e => {
 <span class="luma-badge luma-badge--warning">Warning</span>
 <span class="luma-badge luma-badge--info">Info</span>
 <span class="luma-badge">Default</span>
-<span class="luma-badge luma-badge--no-dot">v1.5.1</span>
+<span class="luma-badge luma-badge--no-dot">v1.5.2</span>
 
 <!-- アバター（新規） -->
 <span class="luma-avatar luma-avatar--sm">A</span>

@@ -1,5 +1,5 @@
 /* ============================================================
-   LumaUI v1.5.1 — lumaui.js
+   LumaUI v1.5.2 — lumaui.js
    Dropdown / Drawer / ThemeToggle / Modal / Tabs / Accordion / Toast
    キーボード操作: Arrow / Home / End / Esc / Tab Trap
    ============================================================ */

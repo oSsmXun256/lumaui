@@ -1,6 +1,6 @@
-# LumaUI (Ver. 1.5.1)
+# LumaUI (Ver. 1.5.2)
 
-[![Version](https://img.shields.io/badge/version-1.5.1-blue.svg)](https://github.com/oSsmXun256/lumaui/releases)
+[![Version](https://img.shields.io/badge/version-1.5.2-blue.svg)](https://github.com/oSsmXun256/lumaui/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
@@ -20,6 +20,7 @@ LumaUIは、シンプルさと実用性を重視したCSS + JSベースのUIシ�
 
 | バージョン | 変更種別 | 主な内容 |
 | :--- | :--- | :--- |
+| **v1.5.2** | 配布更新 | V1.5.1の横スクロールタブ・モバイル縦タブ修正とアクセシビリティ改善を再検証 |
 | **v1.5.1** | UX / レスポンシブ修正 | 横スクロールタブの標準スクロールバーを非表示化、モバイル縦タブの表示崩れを修正、複数選択Dropdownの検索・アクセシビリティを強化 |
 | **v1.5** | UX / アクセシビリティ改善 | 縦タブを追加<br>Surface / Elevation階層を整理<br>セマンティックカラーを追加<br>カードの操作可否を明示<br>モーダル・ドロップダウン・アコーディオン・トーストの操作を強化 |
 | **v1.4** | メジャーアップデート | CSSモジュールを8つに分割<br>モーダルやトースト用の公式JS導入<br>新規コンポーネント大幅追加<br>ユーティリティクラスの大量追加 |
