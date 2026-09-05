@@ -1,5 +1,5 @@
 /* ============================================================
-   LumaUI v1.4 — lumaui.js
+   LumaUI v1.5 — lumaui.js
    Dropdown / Drawer / ThemeToggle / Modal / Tabs / Accordion / Toast
    キーボード操作: Arrow / Home / End / Esc / Tab Trap
    ============================================================ */
@@ -282,6 +282,10 @@
           else if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
         });
       });
+
+      // 縦タブのモバイル表示はリスト側のネイティブ横スクロールを使う。
+      // ルートでスワイプ判定すると、スクロール中に意図せず項目が切り替わる。
+      if (vertical) return;
 
       /* スワイプ / ドラッグでのタブ切替（オーバーフローしていない場合のみ） */
       var startX = null, startY = null, dragging = false, moved = false;

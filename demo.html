@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LumaUI Design System v1.4 - 完全デモ</title>
+  <title>LumaUI Design System v1.5 - 完全デモ</title>
   <link rel="stylesheet" href="lumaui.css">
   <style>
     /* デモ固有のスタイル。ライブラリCSSには含めない */
@@ -35,7 +35,7 @@
     <a href="#section-buttons" class="luma-nav__link"><span>🔘</span> ボタン</a>
     <a href="#section-forms" class="luma-nav__link"><span>📝</span> フォーム</a>
     <a href="#section-feedback" class="luma-nav__link"><span>💬</span> フィードバック</a>
-    <div class="luma-nav__section">新規コンポーネント (v1.4)</div>
+    <div class="luma-nav__section">新規コンポーネント (v1.5)</div>
     <a href="#section-overlay" class="luma-nav__link"><span>🪟</span> モーダル・トースト</a>
     <a href="#section-tabs" class="luma-nav__link"><span>🗂️</span> タブ・アコーディオン</a>
     <a href="#section-misc" class="luma-nav__link"><span>🧩</span> アバター・スケルトン等</a>
@@ -51,7 +51,7 @@
     <div id="section-overview">
       <div class="luma-flex-between luma-flex-wrap luma-gap-sm">
         <div>
-          <h1 class="luma-h1">LumaUI Design System v1.4</h1>
+          <h1 class="luma-h1">LumaUI Design System v1.5</h1>
           <p class="luma-body-sm">全コンポーネント・デモ — Neumorphism / フラット切替対応・ライト/ダーク対応</p>
         </div>
         <div class="luma-flex luma-gap-sm luma-items-center">
@@ -155,7 +155,7 @@
           </div>
         </div>
         <div>
-          <p class="luma-label luma-mb-sm">サイズ (v1.4新規)</p>
+          <p class="luma-label luma-mb-sm">サイズ (v1.5新規)</p>
           <div class="luma-flex luma-gap-sm luma-items-center luma-flex-wrap">
             <button class="luma-btn luma-btn--primary luma-btn--sm">Small</button>
             <button class="luma-btn luma-btn--primary">Medium</button>
@@ -171,7 +171,7 @@
           </div>
         </div>
         <div>
-          <p class="luma-label luma-mb-sm">処理中状態 (v1.4新規)</p>
+          <p class="luma-label luma-mb-sm">処理中状態 (v1.5新規)</p>
           <div class="luma-flex luma-gap-sm luma-items-center luma-flex-wrap">
             <button class="luma-btn luma-btn--primary" id="btnLoading">保存する</button>
             <span class="luma-caption">クリックすると2秒間だけ <code class="luma-mono">luma-btn--loading</code> + <code class="luma-mono">aria-busy</code> になります</span>
@@ -185,7 +185,7 @@
             <span class="luma-badge luma-badge--warning">Warning</span>
             <span class="luma-badge luma-badge--info">Info</span>
             <span class="luma-badge">Default</span>
-            <span class="luma-badge luma-badge--no-dot">v1.4.0</span>
+            <span class="luma-badge luma-badge--no-dot">v1.5.0</span>
           </div>
         </div>
       </div>
@@ -221,7 +221,7 @@
           </div>
 
           <div class="luma-field">
-            <label class="luma-field__label">入力サイズ (v1.4新規)</label>
+            <label class="luma-field__label">入力サイズ (v1.5新規)</label>
             <div class="luma-stack luma-stack--sm">
               <input class="luma-input luma-input--sm" type="text" placeholder="Small">
               <input class="luma-input" type="text" placeholder="Medium (default)">
@@ -372,7 +372,7 @@
           </div>
         </div>
         <hr class="luma-divider">
-        <p class="luma-label">トースト通知 (v1.4新規)</p>
+        <p class="luma-label">トースト通知 (v1.5新規)</p>
         <div class="luma-flex luma-gap-sm luma-flex-wrap">
           <button class="luma-btn" id="btnToastOn">成功トースト</button>
           <button class="luma-btn" id="btnToastError">エラートースト</button>
@@ -383,7 +383,7 @@
 
     <!-- 新規: モーダル・トースト -->
     <section class="luma-card" id="section-overlay">
-      <div class="luma-card__header"><h2 class="luma-h2">モーダル (v1.4新規)</h2></div>
+      <div class="luma-card__header"><h2 class="luma-h2">モーダル (v1.5新規)</h2></div>
       <div class="luma-stack">
         <div class="luma-flex luma-gap-sm">
           <button class="luma-btn luma-btn--primary" data-luma-modal-open="demoModal">モーダルを開く</button>
@@ -410,7 +410,7 @@
 
     <!-- 新規: タブ・アコーディオン -->
     <section class="luma-card" id="section-tabs">
-      <div class="luma-card__header"><h2 class="luma-h2">タブ (v1.4新規)</h2></div>
+      <div class="luma-card__header"><h2 class="luma-h2">タブ (v1.5新規)</h2></div>
       <div class="luma-tabs" role="tablist">
         <button class="luma-tabs__item" role="tab" aria-selected="true" aria-controls="panel-overview" tabindex="0">概要</button>
         <button class="luma-tabs__item" role="tab" aria-selected="false" aria-controls="panel-logs" tabindex="-1">ログ</button>
@@ -448,7 +448,7 @@
 
       <hr class="luma-divider luma-mt-lg">
 
-      <h3 class="luma-h3 luma-mt-md luma-mb-sm">アコーディオン (v1.4新規)</h3>
+      <h3 class="luma-h3 luma-mt-md luma-mb-sm">アコーディオン (v1.5新規)</h3>
       <div class="luma-accordion">
         <div class="luma-accordion__item">
           <button class="luma-accordion__trigger">
@@ -469,7 +469,7 @@
 
     <!-- 新規: アバター・スケルトン・ツールチップ -->
     <section class="luma-card" id="section-misc">
-      <div class="luma-card__header"><h2 class="luma-h2">アバター・スケルトン・ツールチップ (v1.4新規)</h2></div>
+      <div class="luma-card__header"><h2 class="luma-h2">アバター・スケルトン・ツールチップ (v1.5新規)</h2></div>
       <div class="luma-stack">
         <div>
           <p class="luma-label luma-mb-sm">アバター</p>
@@ -543,7 +543,7 @@
           <h2 class="luma-h2">リアルタイム稼働ログ</h2>
           <div class="luma-flex luma-gap-xs">
             <span class="luma-badge luma-badge--on" id="statusBadge">稼働中</span>
-            <span class="luma-badge luma-badge--no-dot">v1.4.0</span>
+            <span class="luma-badge luma-badge--no-dot">v1.5.0</span>
           </div>
         </div>
         <div class="luma-chart-area">
@@ -655,7 +655,7 @@
     // lumaui.js が Dropdown / Drawer / ThemeToggle / Modal / Tabs / Accordion / Toast を自動初期化する。
     // 以下はこのデモ固有のロジックのみ。
 
-    // Neumorphism ⇔ Flat 切替 (v1.4新規)
+    // Neumorphism ⇔ Flat 切替 (v1.5新規)
     const styleSwitch = document.getElementById('styleSwitch');
     styleSwitch.addEventListener('click', () => {
       const isFlat = document.documentElement.getAttribute('data-style') === 'flat';
@@ -663,7 +663,7 @@
       styleSwitch.textContent = isFlat ? 'Neumorphism' : 'Flat';
     });
 
-    // トースト (v1.4新規)
+    // トースト (v1.5新規)
     document.getElementById('btnToastOn').addEventListener('click', () => {
       LumaUI.Toast.show('デプロイが完了しました', { type: 'on' });
     });
@@ -671,7 +671,7 @@
       LumaUI.Toast.show('接続エラーが発生しました', { type: 'error' });
     });
 
-    // ローディング状態のボタン (v1.4新規)
+    // ローディング状態のボタン (v1.5新規)
     const btnLoading = document.getElementById('btnLoading');
     btnLoading.addEventListener('click', () => {
       if (btnLoading.classList.contains('luma-btn--loading')) return;

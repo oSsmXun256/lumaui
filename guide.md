@@ -1,4 +1,4 @@
-# LumaUI 実装ガイド v1.4
+# LumaUI 実装ガイド v1.5
 
 ## Design Philosophy
 
@@ -9,6 +9,14 @@ LumaUIは「情報を読ませるUI」のためのフレームワークです。
 3. **Neumorphismは補助** — 入力系(インプット・トグル・スライダー・選択中タブ)の凹凸表現に限定。カードやパネルの主階層はborder+surfaceで示す。
 4. **操作可能性を明示** — 読むだけのカードと遷移できるカードをクラスで区別し、操作対象にはhover / focus / 矢印を付ける。
 5. **キーボード・支援技術を前提にする** — Esc / Tab / 矢印 / Home / Endとfocus管理はライブラリが担当。閉じたレイヤーがTabストップとして残らない。
+
+## v1.5 の変更点
+
+- 縦タブ(`luma-tabs--vertical`)を追加。PCでは一覧とパネルを左右に配置し、640px以下では横スクロール可能なタブへ切り替わる
+- Surface / Elevationトークンを全コンポーネントへ適用し、ページ・カード・サイドバー・モーダルの階層を一貫させた
+- セマンティックカラー(success / error / warning / info)と、静的カード / 操作カードのスタイルを追加
+- モーダルのフォーカス復帰とスクロールロック、閉じたドロップダウン項目のTab除外、トーストのテキスト挿入を強化
+- 縦タブは `aria-orientation="vertical"` を設定すると、キーボードの上下矢印で移動できる
 
 ## v1.4 の変更点
 
@@ -404,7 +412,7 @@ slider.addEventListener('input', e => {
 <span class="luma-badge luma-badge--warning">Warning</span>
 <span class="luma-badge luma-badge--info">Info</span>
 <span class="luma-badge">Default</span>
-<span class="luma-badge luma-badge--no-dot">v1.4.0</span>
+<span class="luma-badge luma-badge--no-dot">v1.5.0</span>
 
 <!-- アバター（新規） -->
 <span class="luma-avatar luma-avatar--sm">A</span>
